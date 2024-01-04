@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export async function mongoConnect() {
   try {
-    await mongoose.connect(process.env.DB_CONNECTION_STRING, {
+    await mongoose.connect(process.env.DB_CONNECTION, {
       dbName: "fitfrenzy",
     });
     console.log("Connected to MongoDB");
