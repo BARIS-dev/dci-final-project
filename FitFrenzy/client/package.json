@@ -1,7 +1,11 @@
 {
+<<<<<<<< HEAD:FitFrenzy/client/package.json
   "name": "client",
+========
+  "name": "fitfrenzy",
+>>>>>>>> 4bcccc421ef34e98632ee5a4a5625041f7032941:FitFrenzy/package.json
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,12 +14,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
     "react-router-dom": "^6.21.1"
   },
   "devDependencies": {
+<<<<<<<< HEAD:FitFrenzy/client/package.json
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
@@ -24,5 +31,17 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "vite": "^5.0.8"
+========
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.53.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.4",
+    "nodemon": "^3.0.2",
+    "vite": "^5.0.0"
+>>>>>>>> 4bcccc421ef34e98632ee5a4a5625041f7032941:FitFrenzy/package.json
   }
 }
