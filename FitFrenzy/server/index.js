@@ -19,7 +19,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/user", userRouter);
-app.use("products", productsRouter);
+app.use("/products", productsRouter);
 
 app.all("*", (req, res, next) => {
   res.status(404).json({
