@@ -5,8 +5,9 @@ import {
   mongoConnectListener,
   mongoDisconnectListener,
   mongoErrorListener,
-} from "/config/db.connect.js";
-import userRouter from "./routes/user.route.js";
+} from "./config/db.connect.js";
+import { userRouter } from "./routes/user.route.js";
+import { productsRouter } from "./routes/products.route.js";
 
 config();
 mongoErrorListener();
