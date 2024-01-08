@@ -1,11 +1,10 @@
-import expressvalidator from "express-validator";
+import { check } from 'express-validator';
 
-export const emailValidator = expressvalidator
-  .check("email")
+export const emailValidator = check('email')
   .isEmail()
-  .withMessage("Dies ist keine korrekte Email")
+  .withMessage('Dies ist keine korrekte Email')
   .normalizeEmail()
   .trim()
   .escape()
-  .length({ min: 5, max: 50 })
-  .withMessage("Die Email muss zwischen 5 und 50 Zeichen lang sein");
+  .isLength({ min: 5, max: 50 })
+  .withMessage('Die Email muss zwischen 5 und 50 Zeichen lang sein');
