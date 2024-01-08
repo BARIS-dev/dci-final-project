@@ -11,15 +11,15 @@ import { passwordValidator } from "../middlewares/validators/password.validator.
 const userRouter = Router();
 
 userRouter
-  .get(
-    "/",
+  .post(
+    "/signin",
     emailValidator,
     validationHandler,
     //TODO: Token generator
     userSignInController
   )
   .post(
-    "/",
+    "/signup",
     emailValidator,
     usernameValidator,
     passwordValidator,
