@@ -7,7 +7,7 @@ export async function allProductsController(req, res, next) {
     res.status(200).json({
       answer: {
         code: 200,
-        message: "Show all products",
+        message: `${products.length} Produkte`,
         data: products,
       },
     });
@@ -26,7 +26,7 @@ export async function productsOfOneCategoryController(req, res, next) {
     res.status(200).json({
       answer: {
         code: 200,
-        message: `Show all products from category ${category}`,
+        message: `Alle Produkte der Kategorie ${category}`,
         data: productsOfCategory,
       },
     });
@@ -46,7 +46,7 @@ export async function oneProductController(req, res, next) {
       res.status(404).json({
         answer: {
           code: 404,
-          message: `Product with id ${id} not found`,
+          message: `Produkt mit id ${id} nicht gefunden.`,
         },
       });
     }
@@ -54,7 +54,7 @@ export async function oneProductController(req, res, next) {
     res.status(200).json({
       answer: {
         code: 200,
-        message: "Product's details",
+        message: "Details zum Produkt",
         data: product,
       },
     });
