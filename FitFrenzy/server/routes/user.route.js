@@ -8,7 +8,7 @@ import { validationHandler } from "../middlewares/validators/validation.js";
 import { usernameValidator } from "../middlewares/validators/username.validator.js";
 import { passwordValidator } from "../middlewares/validators/password.validator.js";
 
-const userRouter = Router();
+export const userRouter = Router();
 
 userRouter
   .post(
