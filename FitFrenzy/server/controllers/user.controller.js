@@ -2,47 +2,6 @@ import userModel from '../models/user.model.js';
 import jwt from 'jsonwebtoken';
 import catchAsync from '../utils/catchAsync.js';
 
-// export async function userSignUpController(req, res, next) {
-//   const { firstName, lastName, username, email, password } = req.body;
-
-//   try {
-//     const data = await userModel.create({
-//       firstName: firstName,
-//       lastName: lastName,
-//       username: username,
-//       email: email,
-//       password: password,
-//     });
-
-//     const dataObj = data.toObject();
-//     delete dataObj.password;
-
-//     //* payload, secret, and options
-//     const signToken = function (id) {
-//       return jwt.sign({ id }, process.env.JWT_SECRET, {
-//         expiresIn: process.env.JWT_EXPIRES_IN,
-//       });
-//     };
-
-//     const token = signToken(data._id);
-
-//     res.status(200).json({
-//       answer: {
-//         code: 200,
-//         token,
-//         data: dataObj,
-//       },
-//     });
-//   } catch (error) {
-//     res.status(401).json({
-//       answer: {
-//         code: 401,
-//         data: 'Dieser Benutzer existiert bereits.',
-//       },
-//     });
-//   }
-// }
-
 //* payload, secret, and options
 const signToken = function (id) {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
