@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre&family=Roboto&family=Satisfy&display=swap");
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 100px;
+}
+header .logo {
+  font-family: "Abhaya Libre", serif;
+  color: var(--text);
+  font-size: 32px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+header .nav-item {
+  color: var(--text);
+  text-decoration: none;
+}
+header ul {
+  display: flex;
+  column-gap: 24px;
+}
+header input {
+  padding: 12px 16px;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--input-backgrand);
+  min-width: 610px;
+}
