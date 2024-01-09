@@ -12,21 +12,4 @@ const userRouter = Router();
 
 userRouter.post('/signup', signup);
 
-// userRouter
-//   .get(
-//     '/',
-//     emailValidator,
-//     validationHandler,
-//     //TODO: Token generator
-//     userSignInController
-//   )
-//   .post(
-//     '/',
-//     emailValidator,
-//     usernameValidator,
-//     passwordValidator,
-//     //TODO: Token generator
-//     userSignUpController
-//   );
-
 export default userRouter;
