@@ -1,0 +1,15 @@
+.main-of-section {
+  padding: 93px 100px;
+}
+
+.main-of-section .big-title {
+  font-family: "Abhaya Libre", serif;
+  font-size: 64px;
+}
+.home-first-section {
+  background-color: var(--input-backgrand);
+}
+
+.home-first-section p {
+  max-width: 500px;
+}
