@@ -6,7 +6,7 @@ import AppError from './utils/appError.js';
 import globalErrorHandler from './controllers/errorController.js';
 import userRouter from './routes/user.route.js';
 
-dotenv.config();
+dotenv.config(); // Load env variables
 
 const app = express();
 
