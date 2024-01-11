@@ -12,16 +12,16 @@ const ProductReviewSchema = new mongoose.Schema(
       ref: "Product",
       required: true,
     },
-    rating: {
+    ratingScore: {
       type: Number,
       required: true,
       min: 0,
       max: 5,
     },
-    review: {
+    reviewText: {
       type: String,
       minlength: 5,
-      //required: true
+      required: true,
     },
   },
   { timestamps: true }
