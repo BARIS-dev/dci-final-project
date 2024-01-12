@@ -1,29 +1,19 @@
+import mongoose from 'mongoose';
 import { config } from 'dotenv';
-import {
-  mongoConnect,
-  mongoConnectListener,
-  mongoDisconnectListener,
-  mongoErrorListener,
-} from './config/db.connect.js';
 import app from './app.js';
 
-// handle uncaught exceptions
-process.on('uncaughtException', err => {
-  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
-  console.log(err.name, err.message);
-
-  process.exit(1); // 0 success, 1 uncaught exception
-});
+config();
 
 // connect to DB
-config();
-mongoErrorListener();
-mongoConnectListener();
-mongoDisconnectListener();
-await mongoConnect();
+mongoose
+  .connect(process.env.DB_CONNECTION, {
+    dbName: 'fitfrenzy',
+  })
+  .then(() => console.log('Connected to MongoDB'));
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+const port = process.env.PORT || 8080;
+const server = app.listen(port, () => {
+  console.log(`Server is running on port ${process.env.PORT}...`);
 });
 
 // handle unhandled rejections
@@ -35,4 +25,6 @@ process.on('unhandledRejection', err => {
   server.close(() => {
     process.exit(1); // 0 success, 1 unhandled rejection
   });
+
+  //todo: ideally we should reconnect to the DB
 });
