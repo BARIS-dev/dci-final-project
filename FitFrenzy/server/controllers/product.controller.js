@@ -1,7 +1,7 @@
 import productModel from "../models/product.model.js";
 import productReviewModel from "../models/productReview.model.js";
 
-export async function allProductsController(req, res, next) {
+export async function getAllProductsController(req, res, next) {
   try {
     const products = await productModel.find({});
 
@@ -18,7 +18,7 @@ export async function allProductsController(req, res, next) {
   }
 }
 
-export async function productsOfOneCategoryController(req, res, next) {
+export async function getProductsByCategoryController(req, res, next) {
   const { category } = req.params;
   try {
     const productsOfCategory = await productModel.find({ category: category });
@@ -36,7 +36,7 @@ export async function productsOfOneCategoryController(req, res, next) {
   }
 }
 
-export async function productDetailsController(req, res, next) {
+export async function getProductDetailsController(req, res, next) {
   const { productId } = req.params;
   try {
     const product = await productModel.findById(productId);
@@ -75,7 +75,7 @@ export async function productDetailsController(req, res, next) {
   }
 }
 
-export async function productReviewsController(req, res, next) {
+export async function getProductReviewsController(req, res, next) {
   const { productId } = req.params;
   try {
     const reviews = await productReviewModel.find({ productId: productId });
@@ -86,6 +86,25 @@ export async function productReviewsController(req, res, next) {
         data: reviews,
       },
     });
+  } catch (error) {
+    console.log(error);
+    //next();
+  }
+}
+
+export async function toggleFavoriteController(req, res, next) {
+  const { productId } = req.params;
+  const username = req.user.username;
+
+  try {
+    const userFavorites = await favoriteModel.findOne({ userId: userId });
+    /*  
+
+    if(userFavorites) {
+      const existing
+    }
+ */
+    res.status(200).json({});
   } catch (error) {
     console.log(error);
     //next();
