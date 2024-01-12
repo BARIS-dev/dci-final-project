@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import "./Home.css";
+import versace from "../../../assets/img/Group.svg";
+import zara from "../../../assets/img/zara-logo-1 1.svg";
+import gucci from "../../../assets/img/gucci-logo-1 1.svg";
+import prada from "../../../assets/img/prada-logo-1 1.svg";
+import calvin from "../../../assets/img/calvin.svg";
+import mainimg from "../../../assets/img/mainimg.png";
 
 const Home = () => {
   return (
     <div className="home-first-section">
+      <img className="main-img" src={mainimg} alt="" />
       <div className="main-of-section">
         <div>
           <h1 className="big-title">GET FIT</h1>
@@ -33,11 +40,11 @@ const Home = () => {
         </div>
       </div>
       <ul>
-        <li>VERSACE</li>
-        <li>ZARA</li>
-        <li>GUCCI</li>
-        <li>PRADA</li>
-        <li>Calvin Klein</li>
+        <img src={versace} alt="" />
+        <img src={zara} alt="" />
+        <img src={gucci} alt="" />
+        <img src={prada} alt="" />
+        <img src={calvin} alt="" />
       </ul>
     </div>
   );

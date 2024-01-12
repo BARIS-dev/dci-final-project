@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
+import basket from "../../../assets/img/basket.svg";
+import user from "../../../assets/img/user.svg";
+import searchIcon from "../../../assets/img/search-icon.svg";
 
 const Header = () => {
   return (
@@ -13,10 +16,20 @@ const Header = () => {
         <Link className="nav-item">New Arrivals</Link>
         <Link className="nav-item">Brands</Link>
       </ul>
-      <input type="text" placeholder="Search for products..." />
+      <div className="search-box">
+        <button htmlFor="">
+          <img src={searchIcon} alt="" />
+        </button>
+        <input type="text" placeholder="Search for products..." />
+      </div>
+
       <div className="icons">
-        <Link>a</Link>
-        <Link>b</Link>
+        <Link>
+          <img src={basket} alt="" />
+        </Link>
+        <Link>
+          <img src={user} alt="" />
+        </Link>
       </div>
     </header>
   );
