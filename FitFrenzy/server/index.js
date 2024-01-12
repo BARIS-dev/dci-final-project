@@ -7,7 +7,7 @@ import {
   mongoErrorListener,
 } from "./config/db.connect.js";
 import { userRouter } from "./routes/user.route.js";
-import { productsRouter } from "./routes/products.route.js";
+import { productRouter } from "./routes/product.route.js";
 
 config();
 mongoErrorListener();
@@ -19,7 +19,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/user", userRouter);
-app.use("/", productsRouter);
+app.use("/", productRouter);
 
 app.all("*", (req, res, next) => {
   res.status(404).json({
