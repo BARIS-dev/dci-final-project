@@ -1,6 +1,7 @@
 import userModel from '../models/user.model.js';
 import jwt from 'jsonwebtoken';
 import catchAsync from '../utils/catchAsync.js';
+import AppError from '../utils/appError.js';
 
 //* payload, secret, and options
 const signToken = function (id) {
@@ -36,38 +37,29 @@ const signup = catchAsync(async (req, res, next) => {
   createSendToken(newUser, 201, res);
 });
 
-// todo: sign in
-export async function userSignInController(req, res, next) {
-  try {
-    const { username, email, password } = req.body;
-    const user = await userModel.findOne({ username, email });
+// LOGIN A USER
+const login = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
 
-    if (!user) {
-      res.status(401).json({
-        answer: {
-          code: 401,
-          data: 'Benutzername/Email und Passwort stimmen nicht überein.',
-        },
-      });
-
-      const isValid = await user.auth(password);
-
-      if (isValid) {
-        const dataObj = user.toObject();
-        delete dataObj.password;
-        //TODO: JWT einfügen
-      } else {
-        res.status(401).json({
-          answer: {
-            code: 401,
-            data: 'Benutzername/Email und Passwort stimmen nicht überein.',
-          },
-        });
-      }
-    }
-  } catch (error) {
-    next(error.message);
+  // 1) CHECK IF EMAIL AND PASSWORD EXIST
+  if (!email || !password) {
+    return next(new AppError('Please provide email and password', 400));
   }
-}
 
-export { signup };
+  // 2) CHECK IF USER EXISTS && PASSWORD IS CORRECT
+  // const user = await userModel.findOne({ email }).select('+password'); // select password because it is not selected by default
+
+  // if (!user || !(await user.correctPassword(password, user.password))) {
+  //   return next(new AppError('Incorrect email or password', 401));
+  // }
+
+  // 3) IF EVERYTHING IS OK, SEND TOKEN TO CLIENT
+  // createSendToken(user, 200, res);
+  const token = '';
+  res.status(200).json({
+    status: 'success',
+    token,
+  });
+});
+
+export { signup, login };
