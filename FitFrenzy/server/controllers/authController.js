@@ -47,14 +47,8 @@ const login = catchAsync(async (req, res, next) => {
   }
 
   // 2) CHECK IF USER EXISTS && PASSWORD IS CORRECT
-  // const user = await userModel.findOne({ email }).select('+password'); // select password because it is not selected by default
-
-  // if (!user || !(await user.correctPassword(password, user.password))) {
-  //   return next(new AppError('Incorrect email or password', 401));
-  // }
 
   // 3) IF EVERYTHING IS OK, SEND TOKEN TO CLIENT
-  // createSendToken(user, 200, res);
   const token = '';
   res.status(200).json({
     status: 'success',
