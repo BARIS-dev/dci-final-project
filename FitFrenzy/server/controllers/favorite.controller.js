@@ -71,10 +71,8 @@ export async function removeFromFavoritesController(req, res, next) {
   try {
     //verify product existence? if not exist (anymore) then product could not be found?
 
-    await favoriteModel.updateOne(
-      { username: username, productId: productId },
-      { $pull: { favoriteModel: productId } }
-    ); //remove a product from the favoriteList array
+    await favoriteModel.deleteOne({ username: username, productId: productId });
+    //remove a product from the favoriteList array
 
     res.status(200).json({
       answer: {
