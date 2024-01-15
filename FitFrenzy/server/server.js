@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { config } from 'dotenv';
-import app from './app.js';
+import app from './index.js';
 
 config();
 
