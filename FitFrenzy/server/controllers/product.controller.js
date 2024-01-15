@@ -93,7 +93,7 @@ export async function getProductReviewsController(req, res, next) {
   }
 }
 
-export async function toggleLikeProduct(req, res, next) {
+export async function toggleLikeController(req, res, next) {
   const { productId } = req.params;
   const username = req.user.username;
 

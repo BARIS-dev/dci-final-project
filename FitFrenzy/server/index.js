@@ -9,6 +9,7 @@ import {
 import { userRouter } from "./routes/user.route.js";
 import { productRouter } from "./routes/product.route.js";
 import { favoriteRouter } from "./routes/favorite.route.js";
+import { searchRouter } from "./routes/search.route.js";
 
 config();
 mongoErrorListener();
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/", productRouter);
 app.use("/favorites", favoriteRouter);
+app.use("/search", searchRouter);
 
 app.all("*", (req, res, next) => {
   res.status(404).json({
