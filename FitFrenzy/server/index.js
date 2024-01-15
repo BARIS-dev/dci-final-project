@@ -1,34 +1,16 @@
-<<<<<<< HEAD
 import express from "express";
-import { config } from "dotenv";
-import {
-  mongoConnect,
-  mongoConnectListener,
-  mongoDisconnectListener,
-  mongoErrorListener,
-} from "./config/db.connect.js";
-<<<<<<< HEAD
-import userRouter from "./routes/user.route.js";
-=======
-import { userRouter } from "./routes/user.route.js";
-import { productRouter } from "./routes/product.route.js";
-import { favoriteRouter } from "./routes/favorite.route.js";
->>>>>>> main
-=======
-import express from 'express';
-import morgan from 'morgan';
-import dotenv from 'dotenv';
->>>>>>> main
+import morgan from "morgan";
+import dotenv from "dotenv";
 
-import AppError from './utils/appError.js';
-import globalErrorHandler from './controllers/errorController.js';
-import userRouter from './routes/user.route.js';
+import AppError from "./utils/appError.js";
+import globalErrorHandler from "./controllers/errorController.js";
+import userRouter from "./routes/user.route.js";
 
 dotenv.config(); // Load env variables
 
 const app = express();
 
-if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
+if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 app.use(express.json());
 
@@ -54,9 +36,8 @@ app.use((error, req, res, next) => {
   });
 });
 
-
 // 404 HANDLER
-app.all('*', (req, res, next) => {
+app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
