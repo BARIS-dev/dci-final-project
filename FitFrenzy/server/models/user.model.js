@@ -1,22 +1,22 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
-      required: true,
+      required: [true, 'Please provide your first name'],
       minlength: 3,
       maxlength: 20,
     },
     lastName: {
       type: String,
-      required: true,
+      required: [true, 'Please provide your last name'],
       minlength: 3,
       maxlength: 20,
     },
     username: {
       type: String,
-      required: true,
+      required: [true, 'Please provide a username'],
       unique: true,
       minlength: 3,
       maxlength: 20,
@@ -29,20 +29,21 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: [true, 'Please provide a password'],
+      select: false,
       minlength: 6,
       maxlength: 20,
     },
     isAdmin: {
       type: Boolean,
-      required: true,
+      required: [true, 'Please provide your role'],
       default: false,
     },
     membership: {
       type: String,
-      required: true,
-      default: "free",
-      enum: ["free", "premium"],
+      required: [true, 'Please provide your membership'],
+      default: 'free',
+      enum: ['free', 'premium'],
     },
   },
   {
@@ -50,6 +51,6 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-const userModel = mongoose.model("User", UserSchema);
+const userModel = mongoose.model('User', UserSchema);
 
 export default userModel;
