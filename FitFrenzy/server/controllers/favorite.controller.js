@@ -1,4 +1,4 @@
-import favoriteModel from "../models/Favorite.model.js";
+import favoriteModel from "../models/favorite.model.js";
 import productModel from "../models/product.model.js";
 
 export async function getFavoritesListController(req, res, next) {
