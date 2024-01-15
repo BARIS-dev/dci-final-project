@@ -1,9 +1,25 @@
 import { Router } from "express";
+import stripe from "stripe";
 
-const PaymentRouter = Router();
+const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
 
-PaymentRouter.post("/payments", (req, res) => {
-  const paymentMethod = req.body;
-  console.log(paymentMethod);
-  res.send({ message: "Payment method added" });
+const stripeRouter = Router();
+
+stripeRouter.post("/payment", (req, res) => {
+  stripeInstance.charges.create(
+    {
+      source: req.body.tokenId,
+      amount: req.body.amount,
+      currency: "eur",
+    },
+    (stripeErr, stripeRes) => {
+      if (stripeErr) {
+        res.status(500).json(stripeErr);
+      } else {
+        res.status(200).json(stripeRes);
+      }
+    }
+  );
 });
+
+export default stripeRouter;
