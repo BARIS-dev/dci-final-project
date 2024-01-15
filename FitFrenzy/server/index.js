@@ -5,7 +5,7 @@ import {
   mongoConnectListener,
   mongoDisconnectListener,
   mongoErrorListener,
-} from "/config/db.connect.js";
+} from "./config/db.connect.js";
 import userRouter from "./routes/user.route.js";
 
 config();
