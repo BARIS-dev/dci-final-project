@@ -4,7 +4,7 @@ import {
   getProductsByCategoryController,
   getProductDetailsController,
   getProductReviewsController,
-  toggleLikeProduct,
+  toggleLikeController,
 } from "../controllers/product.controller.js";
 
 export const productRouter = Router();
@@ -16,7 +16,7 @@ productRouter.get("/:productId/reviews", getProductReviewsController);
 productRouter.post(
   "/:productId/toggleLike",
   //Add MIDDLEWARE here to check the cookie/token (jwt-VERIFIER) to identify the user,
-  toggleLikeProduct
+  toggleLikeController
 );
 
 //TODO: Add a product to user's FAVORITE LIST => seperate route? ✅
