@@ -47,6 +47,9 @@ const login = catchAsync(async (req, res, next) => {
   }
 
   // 2) CHECK IF USER EXISTS && PASSWORD IS CORRECT
+  const user = await userModel.findOne({ email }).select('+password'); // select password because it is not selected by default
+
+  console.log(user);
 
   // 3) IF EVERYTHING IS OK, SEND TOKEN TO CLIENT
   const token = '';
