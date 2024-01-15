@@ -21,6 +21,11 @@ const ProductSchema = new mongoose.Schema(
     image: {
       type: String,
       required: true,
+      validate(value) {
+        if (!isImage(value)) {
+          throw new Error("Invalid image URL");
+        }
+      },
     },
     category: {
       type: String,
@@ -32,15 +37,9 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
-    rating: {
+    averageRating: {
       type: Number,
-      required: true,
-      min: 0,
-      max: 5,
-    },
-    numReviews: {
-      type: Number,
-      required: true,
+      //required: true,
       min: 0,
     },
   },
