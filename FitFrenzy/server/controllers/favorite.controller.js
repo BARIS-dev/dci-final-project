@@ -8,18 +8,22 @@ export async function getFavoritesListController(req, res, next) {
   try {
     const usersFavorites = await favoriteModel.find({ username: username });
 
+    const favoriteProducts = [];
+    for (const favorite of usersFavorites) {
+      const product = await productModel.findById(favorite.productId);
+      favoriteProducts.push(product.name);
+    }
+
     res.status(200).json({
       code: 200,
-      message: `Favorite items of user ${username}`,
-      data: usersFavorites,
+      message: `Favorite Artikel von User ${username}`,
+      data: favoriteProducts,
     });
   } catch (error) {
     console.log(error);
     //next();
   }
 }
-
-//Frontend: Add "Add (to Cart)" and "Remove" button appears at each product in favorites list
 
 export async function addFavoriteToCartController(req, res, next) {
   const username = req.user.username;
@@ -38,6 +42,7 @@ export async function addFavoriteToCartController(req, res, next) {
 
     //Add product to cart
     const usersCart = await cartModel.findOne({ username: username });
+
     const productInCart = usersCart.items.find(
       (item) => item.productId === productId
     );
@@ -70,6 +75,13 @@ export async function removeFromFavoritesController(req, res, next) {
 
   try {
     //verify product existence? if not exist (anymore) then product could not be found?
+    const selectedProduct = await productModel.findById(productId);
+    if (!selectedProduct || selectedProduct.countInStock === 0) {
+      res.status(404).json({
+        code: 404,
+        message: "Produkt nicht verfügbar",
+      });
+    }
 
     await favoriteModel.deleteOne({ username: username, productId: productId });
     //remove a product from the favoriteList array
