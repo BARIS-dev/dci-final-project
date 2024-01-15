@@ -1,3 +1,4 @@
+import favoriteModel from "../models/Favorite.model.js";
 import productModel from "../models/product.model.js";
 import productReviewModel from "../models/productReview.model.js";
 
@@ -98,13 +99,54 @@ export async function toggleFavoriteController(req, res, next) {
 
   try {
     const userFavorites = await favoriteModel.findOne({ userId: userId });
-    /*  
 
-    if(userFavorites) {
-      const existing
+    if (!userFavorites) {
+      //if user has no favorites yet => create new favorites list
+      const newFavorites = favoriteModel.create({
+        username: username,
+        productId: productId,
+      });
+      await newFavorites.save();
+
+      res.status(200).json({
+        answer: {
+          code: 200,
+          message: "Produkt wurde zu Favoriten hinzugefügt",
+        },
+      });
+    } else {
+      //if user already has favorites => check if product is already in favorites list
+      const productInFavorites = userFavorites.find(
+        (item) => item.productId === productId
+      );
+
+      if (productInFavorites) {
+        //if product already in favorites => remove product from favorites
+        await userFavorites.deleteOne({ productId: productId });
+        await userFavorites.save();
+
+        res.status(200).json({
+          answer: {
+            code: 200,
+            message: "Produkt wurde aus Favoriten entfernt",
+          },
+        });
+      } else {
+        //if product not in favorites => add product to favorites
+        const newFavorite = favoriteModel.create({
+          username: username,
+          productId: productId,
+        });
+        await newFavorite.save();
+
+        res.status(200).json({
+          answer: {
+            code: 200,
+            message: "Produkt wurde zu Favoriten hinzugefügt",
+          },
+        });
+      }
     }
- */
-    res.status(200).json({});
   } catch (error) {
     console.log(error);
     //next();
