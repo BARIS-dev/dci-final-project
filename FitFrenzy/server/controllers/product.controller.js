@@ -2,7 +2,7 @@ import favoriteModel from "../models/favorite.model.js";
 import productModel from "../models/product.model.js";
 import productReviewModel from "../models/productReview.model.js";
 
-export async function getAllProductsController(req, res, next) {
+export async function getProductsController(req, res, next) {
   try {
     const limitPerPage = 20;
     const page = parseInt(req.query.page) || 1;
@@ -17,62 +17,32 @@ export async function getAllProductsController(req, res, next) {
       });
     }
 
-    const products = await productModel.find({}).skip(skip).limit(limitPerPage);
-    const totalProducts = await productModel.countDocuments();
+    let filterByCategory = {};
+    const { category } = req.params;
+
+    if (category) {
+      filterByCategory = { category: category };
+    } else {
+      filterByCategory = {};
+    }
+    //the category is being selected from a list provided by the application => no possibility of entering an invalid category (so this case is not handled here)
+
+    const setOfProducts = await productModel
+      .find(filterByCategory)
+      .skip(skip)
+      .limit(limitPerPage);
+
+    const totalProducts = await productModel
+      .find(filterByCategory)
+      .countDocuments();
 
     const totalPages = Math.ceil(totalProducts / limitPerPage);
 
     res.status(200).json({
       answer: {
         code: 200,
-        message: `${products.length} Produkte`,
-        data: products,
-        pagination: {
-          totalPages: totalPages,
-          currentPage: page,
-          hasNextPage: page < totalPages,
-          hasPreviousPage: page > 1,
-          nextPage: page < totalPages ? page + 1 : null,
-          previousPage: page > 1 ? page - 1 : null,
-        },
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    //next();
-  }
-}
-
-export async function getProductsByCategoryController(req, res, next) {
-  const { category } = req.params;
-  try {
-    const limitPerPage = 20;
-    const page = parseInt(req.query.page) || 1;
-    const skip = (page - 1) * limitPerPage;
-
-    if (page < 1) {
-      res.status(400).json({
-        answer: {
-          code: 400,
-          message: "Ungültige Seitenzahl",
-        },
-      });
-    }
-
-    const totalProductsOfCategory = await productModel.find({
-      category: category,
-    });
-    const setOfResult = await productModel
-      .find({ category: category })
-      .skip(skip)
-      .limit(limitPerPage);
-    const totalPages = Math.ceil(totalProductsOfCategory.length / limitPerPage);
-
-    res.status(200).json({
-      answer: {
-        code: 200,
-        message: `${totalProductsOfCategory.length} Produkte der Kategorie ${category}`,
-        data: setOfResult,
+        message: `${totalProducts} Produkte`,
+        data: setOfProducts,
         pagination: {
           totalPages: totalPages,
           currentPage: page,
