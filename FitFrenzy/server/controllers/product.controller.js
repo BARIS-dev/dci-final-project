@@ -4,13 +4,37 @@ import productReviewModel from "../models/productReview.model.js";
 
 export async function getAllProductsController(req, res, next) {
   try {
-    const products = await productModel.find({});
+    const limitPerPage = 20;
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * limitPerPage;
+
+    if (page < 1) {
+      res.status(400).json({
+        answer: {
+          code: 400,
+          message: "Ungültige Seitenzahl",
+        },
+      });
+    }
+
+    const products = await productModel.find({}).skip(skip).limit(limitPerPage);
+    const totalProducts = await productModel.countDocuments();
+
+    const totalPages = Math.ceil(totalProducts / limitPerPage);
 
     res.status(200).json({
       answer: {
         code: 200,
         message: `${products.length} Produkte`,
         data: products,
+        pagination: {
+          totalPages: totalPages,
+          currentPage: page,
+          hasNextPage: page < totalPages,
+          hasPreviousPage: page > 1,
+          nextPage: page < totalPages ? page + 1 : null,
+          previousPage: page > 1 ? page - 1 : null,
+        },
       },
     });
   } catch (error) {
