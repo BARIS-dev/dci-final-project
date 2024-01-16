@@ -89,6 +89,57 @@ export async function getProductsByCategoryController(req, res, next) {
   }
 }
 
+export async function getFilteredProductsController(req, res, next) {
+  try {
+    const { category, size, priceRange, color } = req.query;
+    const [minPrice, maxPrice] = priceRange.split("-");
+
+    const filteredProducts = await productModel.find({
+      category: category,
+      size: { $in: size.split(",") },
+      price: { $gte: minPrice, $lte: maxPrice },
+      color: { $in: color.split(",") },
+    });
+
+    res.status(200).json({
+      answer: {
+        code: 200,
+        message: `${filteredProducts.length} Produkte`,
+        data: filteredProducts,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    //next();
+  }
+}
+
+export async function getFilteredProductsByCategoryController(req, res, next) {
+  const { category } = req.params;
+  try {
+    const { size, priceRange, color } = req.query;
+    const [minPrice, maxPrice] = priceRange.split("-");
+
+    const filteredProducts = await productModel.find({
+      category: category,
+      size: { $in: size.split(",") },
+      price: { $gte: minPrice, $lte: maxPrice },
+      color: { $in: color.split(",") },
+    });
+
+    res.status(200).json({
+      answer: {
+        code: 200,
+        message: `${filteredProducts.length} Produkte`,
+        data: filteredProducts,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    //next();
+  }
+}
+
 export async function getProductDetailsController(req, res, next) {
   const { productId } = req.params;
   try {
