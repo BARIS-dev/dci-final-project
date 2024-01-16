@@ -91,34 +91,48 @@ export async function getProductsByCategoryController(req, res, next) {
 
 export async function getFilteredProductsController(req, res, next) {
   try {
-    const { category, size, priceRange, color } = req.query;
-    const [minPrice, maxPrice] = priceRange.split("-");
-
-    const filteredProducts = await productModel.find({
-      category: category,
-      size: { $in: size.split(",") },
-      price: { $gte: minPrice, $lte: maxPrice },
-      color: { $in: color.split(",") },
-    });
-
-    res.status(200).json({
-      answer: {
-        code: 200,
-        message: `${filteredProducts.length} Produkte`,
-        data: filteredProducts,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    //next();
-  }
-}
-
-export async function getFilteredProductsByCategoryController(req, res, next) {
-  const { category } = req.params;
-  try {
+    // Extract category from req.params for the second route and req.query for the first route
+    const category = req.params.category || req.query.category;
     const { size, priceRange, color } = req.query;
-    const [minPrice, maxPrice] = priceRange.split("-");
+
+    //Check if no filter is applied
+    if (!size && !priceRange && !color) {
+      if (!category) {
+        //if also no category given => return all products
+        const allProducts = await productModel.find({});
+        return res.status(200).json({
+          answer: {
+            code: 200,
+            message: `${allProducts.length} Produkte`,
+            data: allProducts,
+          },
+        });
+      } else {
+        //if category given => return all products of this category
+        const allProductsOfCategory = await productModel.find({
+          category: category,
+        });
+        return res.status(200).json({
+          answer: {
+            code: 200,
+            message: `${allProductsOfCategory.length} Produkte`,
+            data: allProductsOfCategory,
+          },
+        });
+      }
+    }
+
+    //Check validity of priceRange
+    const [minPrice, maxPrice] = priceRange.split("-").map(parseFloat);
+
+    if (priceRange && (isNaN(minPrice) || isNaN(maxPrice))) {
+      return res.status(400).json({
+        answer: {
+          code: 400,
+          message: "Ungültige Preisangabe",
+        },
+      });
+    }
 
     const filteredProducts = await productModel.find({
       category: category,
