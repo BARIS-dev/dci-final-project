@@ -5,12 +5,19 @@ import {
   getProductDetailsController,
   getProductReviewsController,
   toggleLikeController,
+  getFilteredProductsController,
+  getFilteredProductsByCategoryController,
 } from "../controllers/product.controller.js";
 
 export const productRouter = Router();
 
 productRouter.get("/products", getAllProductsController);
 productRouter.get("/:category", getProductsByCategoryController);
+
+//Add route for filtering products
+productRouter.get("/products/filter", getFilteredProductsController);
+productRouter.get("/:category/filter", getFilteredProductsByCategoryController);
+
 productRouter.get("/:productId", getProductDetailsController);
 productRouter.get("/:productId/reviews", getProductReviewsController);
 productRouter.post(
