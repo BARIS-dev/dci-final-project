@@ -46,13 +46,41 @@ export async function getAllProductsController(req, res, next) {
 export async function getProductsByCategoryController(req, res, next) {
   const { category } = req.params;
   try {
-    const productsOfCategory = await productModel.find({ category: category });
+    const limitPerPage = 20;
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * limitPerPage;
+
+    if (page < 1) {
+      res.status(400).json({
+        answer: {
+          code: 400,
+          message: "Ungültige Seitenzahl",
+        },
+      });
+    }
+
+    const totalProductsOfCategory = await productModel.find({
+      category: category,
+    });
+    const setOfResult = await productModel
+      .find({ category: category })
+      .skip(skip)
+      .limit(limitPerPage);
+    const totalPages = Math.ceil(totalProductsOfCategory.length / limitPerPage);
 
     res.status(200).json({
       answer: {
         code: 200,
-        message: `Alle Produkte der Kategorie ${category}`,
-        data: productsOfCategory,
+        message: `${totalProductsOfCategory.length} Produkte der Kategorie ${category}`,
+        data: setOfResult,
+        pagination: {
+          totalPages: totalPages,
+          currentPage: page,
+          hasNextPage: page < totalPages,
+          hasPreviousPage: page > 1,
+          nextPage: page < totalPages ? page + 1 : null,
+          previousPage: page > 1 ? page - 1 : null,
+        },
       },
     });
   } catch (error) {
