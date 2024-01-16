@@ -6,22 +6,25 @@ import {
   getProductReviewsController,
   toggleLikeController,
   getFilteredProductsController,
-  getFilteredProductsByCategoryController,
 } from "../controllers/product.controller.js";
 
 export const productRouter = Router();
 
+//Retrieve all products (or based on category)
 productRouter.get("/products", getAllProductsController);
-productRouter.get("/:category", getProductsByCategoryController);
+productRouter.get("/products/:category", getProductsByCategoryController);
 
-//Add route for filtering products
+//Retrieve filtered products (based on category, size, price range, color)
 productRouter.get("/products/filter", getFilteredProductsController);
-productRouter.get("/:category/filter", getFilteredProductsByCategoryController);
+productRouter.get("/products/:category/filter", getFilteredProductsController);
 
-productRouter.get("/:productId", getProductDetailsController);
-productRouter.get("/:productId/reviews", getProductReviewsController);
+//Retrieve product details (and reviews)
+productRouter.get("product/:productId", getProductDetailsController);
+productRouter.get("product/:productId/reviews", getProductReviewsController);
+
+//Toggle like for a product in productDetails-Page
 productRouter.post(
-  "/:productId/toggleLike",
+  "product/:productId/toggleLike",
   //Add MIDDLEWARE here to check the cookie/token (jwt-VERIFIER) to identify the user,
   toggleLikeController
 );
