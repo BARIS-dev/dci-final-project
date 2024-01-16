@@ -65,6 +65,19 @@ export async function getFilteredProductsController(req, res, next) {
     const category = req.params.category || req.query.category;
     const { size, priceRange, color } = req.query;
 
+    const limitPerPage = 20;
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * limitPerPage;
+
+    if (page < 1) {
+      res.status(400).json({
+        answer: {
+          code: 400,
+          message: "Ungültige Seitenzahl",
+        },
+      });
+    }
+
     //Check which filter is applied
     let filterApplied = {};
     if (category || size || priceRange || color) {
@@ -89,13 +102,28 @@ export async function getFilteredProductsController(req, res, next) {
       };
     }
 
-    const filteredProducts = await productModel.find(filterApplied);
+    const setOfFilteredProducts = await productModel
+      .find(filterApplied)
+      .skip(skip)
+      .limit(limitPerPage);
+    const totalFilteredProducts = await productModel
+      .find(filterApplied)
+      .countDocuments();
+    const totalPages = Math.ceil(totalFilteredProducts / limitPerPage);
 
     res.status(200).json({
       answer: {
         code: 200,
-        message: `${filteredProducts.length} Produkte`,
-        data: filteredProducts,
+        message: `${totalFilteredProducts} Produkte`,
+        data: setOfFilteredProducts,
+        pagination: {
+          totalPages: totalPages,
+          currentPage: page,
+          hasNextPage: page < totalPages,
+          hasPreviousPage: page > 1,
+          nextPage: page < totalPages ? page + 1 : null,
+          previousPage: page > 1 ? page - 1 : null,
+        },
       },
     });
   } catch (error) {
