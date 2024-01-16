@@ -158,13 +158,24 @@ export async function getProductDetailsController(req, res, next) {
     product.averageRating = averageScore; //Update the products averageRating
     await productModel.updateOne({ _id: productId }, product); //Update in database
 
-    res.status(200).json({
-      answer: {
-        code: 200,
-        message: "Details zum Produkt",
-        data: product,
-      },
-    });
+    if (product.countInStock === 0) {
+      res.status(200).json({
+        answer: {
+          code: 200,
+          notice: "Produkt ist derzeit nicht verfügbar",
+          message: "Details zum Produkt",
+          data: product,
+        },
+      });
+    } else {
+      res.status(200).json({
+        answer: {
+          code: 200,
+          message: "Details zum Produkt",
+          data: product,
+        },
+      });
+    }
   } catch (error) {
     console.log(error);
     //next();
