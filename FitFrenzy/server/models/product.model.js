@@ -30,7 +30,7 @@ const ProductSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ["clothing", "equipment", "accessories"],
+      enum: ["Bekleidung", "Ausrüstung", "Accessoires"],
     },
     countInStock: {
       type: Number,
