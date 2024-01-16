@@ -1,7 +1,6 @@
 import { Router } from "express";
 import {
-  getAllProductsController,
-  getProductsByCategoryController,
+  getProductsController,
   getProductDetailsController,
   getProductReviewsController,
   toggleLikeController,
@@ -11,8 +10,8 @@ import {
 export const productRouter = Router();
 
 //Retrieve all products (or based on category)
-productRouter.get("/products", getAllProductsController);
-productRouter.get("/products/:category", getProductsByCategoryController);
+productRouter.get("/products", getProductsController);
+productRouter.get("/products/:category", getProductsController);
 
 //Retrieve filtered products (based on category, size, price range, color)
 productRouter.get("/products/filter", getFilteredProductsController);
