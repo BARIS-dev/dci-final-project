@@ -95,51 +95,31 @@ export async function getFilteredProductsController(req, res, next) {
     const category = req.params.category || req.query.category;
     const { size, priceRange, color } = req.query;
 
-    //Check if no filter is applied
-    if (!size && !priceRange && !color) {
-      if (!category) {
-        //if also no category given => return all products
-        const allProducts = await productModel.find({});
-        return res.status(200).json({
+    //Check which filter is applied
+    let filterApplied = {};
+    if (category || size || priceRange || color) {
+      //Check validity of priceRange
+      const [minPrice, maxPrice] = priceRange.split("-").map(parseFloat);
+
+      if (priceRange && (isNaN(minPrice) || isNaN(maxPrice))) {
+        return res.status(400).json({
           answer: {
-            code: 200,
-            message: `${allProducts.length} Produkte`,
-            data: allProducts,
-          },
-        });
-      } else {
-        //if category given => return all products of this category
-        const allProductsOfCategory = await productModel.find({
-          category: category,
-        });
-        return res.status(200).json({
-          answer: {
-            code: 200,
-            message: `${allProductsOfCategory.length} Produkte`,
-            data: allProductsOfCategory,
+            code: 400,
+            message: "Ungültige Preisangabe",
           },
         });
       }
+
+      //"push" the filter to the filterApplied object: use spread syntax => if filter is not applied, it will not be added to the filterApplied object
+      filterApplied = {
+        ...(category && { category: category }),
+        ...(size && { size: { $in: size.split(",") } }),
+        ...(priceRange && { price: { $gte: minPrice, $lte: maxPrice } }),
+        ...(color && { color: { $in: color.split(",") } }),
+      };
     }
 
-    //Check validity of priceRange
-    const [minPrice, maxPrice] = priceRange.split("-").map(parseFloat);
-
-    if (priceRange && (isNaN(minPrice) || isNaN(maxPrice))) {
-      return res.status(400).json({
-        answer: {
-          code: 400,
-          message: "Ungültige Preisangabe",
-        },
-      });
-    }
-
-    const filteredProducts = await productModel.find({
-      category: category,
-      size: { $in: size.split(",") },
-      price: { $gte: minPrice, $lte: maxPrice },
-      color: { $in: color.split(",") },
-    });
+    const filteredProducts = await productModel.find(filterApplied);
 
     res.status(200).json({
       answer: {
