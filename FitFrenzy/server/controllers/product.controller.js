@@ -1,6 +1,7 @@
 import favoriteModel from "../models/favorite.model.js";
 import productModel from "../models/product.model.js";
 import productReviewModel from "../models/productReview.model.js";
+import cartModel from "../models/cart.model.js";
 
 export async function getProductsController(req, res, next) {
   try {
@@ -148,11 +149,12 @@ export async function getProductDetailsController(req, res, next) {
 
     //calculate the product's rating (always up-to-date when users view products details)
     const reviews = await productReviewModel.find({ productId: productId });
+
     let totalRatingScore = 0;
     const totalNumberOfRatings = reviews.length;
 
     for (const review of reviews) {
-      totalRatingScore = +review.ratingScore;
+      totalRatingScore += +review.ratingScore;
     }
     const averageScore = totalRatingScore / totalNumberOfRatings;
     product.averageRating = averageScore; //Update the products averageRating
@@ -217,19 +219,19 @@ export async function toggleLikeController(req, res, next) {
       res.status(200).json({
         answer: {
           code: 200,
-          message: "Produkt wurde zu Favoriten hinzugefügt",
+          message: "Favorite List erstellt und Produkt hinzugefügt",
         },
       });
     } else {
       //if user already has favorites => check if product is already in favorites list
-      const productInFavorites = userFavorites.find(
-        (item) => item.productId === productId
-      );
+      const productInFavorites = userFavorites.productId.includes(productId);
 
       if (productInFavorites) {
         //if product already in favorites => remove product from favorites
-        await userFavorites.deleteOne({ productId: productId });
-        await userFavorites.save();
+        await favoriteModel.updateOne(
+          { username: username },
+          { $pull: { productId: productId } }
+        );
 
         res.status(200).json({
           answer: {
@@ -239,10 +241,10 @@ export async function toggleLikeController(req, res, next) {
         });
       } else {
         //if product not in favorites => add product to favorites
-        const newFavorite = favoriteModel.create({
-          username: username,
-          productId: productId,
-        });
+        await favoriteModel.updateOne(
+          { username: username },
+          { $addToSet: { productId: productId } }
+        );
         await newFavorite.save();
 
         res.status(200).json({
@@ -252,6 +254,42 @@ export async function toggleLikeController(req, res, next) {
           },
         });
       }
+    }
+  } catch (error) {
+    console.log(error);
+    //next();
+  }
+}
+
+export async function addProductToCartController(req, res, next) {
+  const { productId } = req.params;
+  //const { quantity } = req.body;?
+
+  const username = req.user.username;
+  //user need to login first?
+
+  try {
+    const userCart = await cartModel.findOne({ username: username });
+
+    if (userCart) {
+      const itemInCart = userCart.items.productId.includes(productId);
+
+      if (itemInCart) {
+        const updatedQuantityCart = await cartModel.findOneAndUpdate(
+          { username: username, "items.productId": productId },
+          { $inc: { "items.quantity": 1 } },
+          { new: true }
+        );
+
+        res.status(200).json({
+          answer: {
+            code: 200,
+            message: "Produktmenge im Warenkorb aktualisiert",
+            data: updatedQuantityCart,
+          },
+        });
+      }
+    } else {
     }
   } catch (error) {
     console.log(error);
