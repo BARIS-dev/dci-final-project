@@ -10,6 +10,7 @@ import { userRouter } from "./routes/user.route.js";
 import { productRouter } from "./routes/product.route.js";
 import { favoriteRouter } from "./routes/favorite.route.js";
 import { searchRouter } from "./routes/search.route.js";
+import cookieParser from "cookie-parser";
 
 config();
 mongoErrorListener();
@@ -19,6 +20,7 @@ await mongoConnect();
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/user", userRouter);
 app.use("/", productRouter);

@@ -38,9 +38,9 @@ productRouter.post(
 
 //TODO: Add a product to user's FAVORITE LIST => seperate route? ✅
 //TODO: when retrieving (all) products: Add limit, page ✅
-//TODO: after retrieving (all) products: Add FILTER (filtering options by price range, brand, size, color, etc.) ✅
+//TODO: after retrieving (all) products: Add FILTER ✅
 //TODO: SEARCH function (search for products based on keywords)✅
-//TODO: allow LOGGED-IN users to Submit their own REVIEW and ratings for a product ??? (needed? or only users who already bought this product can submit review?) ⏳
-//TODO: Inventory Management: function to track product STOCK LEVELS and update them when a purchase is made ⏳
+//TODO: Verified purchase => user Submit their own REVIEW and ratings for a product ⏳
+//TODO: Inventory Management: after Verified purchase => update product's STOCK LEVEL ⏳
 //TODO: at productDetails-Page: handle OUT OF STOCK case ✅
 //TODO: add product to CART ⏳
