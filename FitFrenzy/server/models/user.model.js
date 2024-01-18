@@ -46,6 +46,7 @@ const UserSchema = new mongoose.Schema(
       default: 'free',
       enum: ['free', 'premium'],
     },
+    passwordChangedAt: Date,
   },
   {
     timestamps: true,
@@ -68,6 +69,21 @@ UserSchema.methods.correctPassword = async function (
 ) {
   // this.password is not available because it is set to select: false
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+UserSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  // this.passwordChangedAt is not available because it is set to select: false
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10 // base 10
+    );
+
+    return JWTTimestamp < changedTimestamp;
+  }
+
+  // false means NOT changed
+  return false;
 };
 
 const userModel = mongoose.model('User', UserSchema);
