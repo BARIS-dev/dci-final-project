@@ -29,15 +29,6 @@ app.all('*', (req, res, next) => {
   });
 });
 
-app.use((error, req, res, next) => {
-  res.status(error.code || 500).json({
-    answer: {
-      code: error.code || 500,
-      message: error.message || 'Internal server error',
-    },
-  });
-});
-
 // 404 HANDLER
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

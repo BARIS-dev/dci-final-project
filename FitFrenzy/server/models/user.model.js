@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const UserSchema = new mongoose.Schema(
   {
@@ -50,6 +51,24 @@ const UserSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+UserSchema.pre('save', async function (next) {
+  // only run this function if password was actually modified
+  if (!this.isModified('password')) return next();
+
+  // hash the password with cost of 12
+  this.password = await bcrypt.hash(this.password, 12);
+
+  next();
+});
+
+UserSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword
+) {
+  // this.password is not available because it is set to select: false
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const userModel = mongoose.model('User', UserSchema);
 
