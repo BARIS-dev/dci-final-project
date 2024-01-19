@@ -43,6 +43,7 @@ export async function getProductsController(req, res, next) {
       answer: {
         code: 200,
         message: `${totalProducts} Produkte`,
+        category: category,
         data: setOfProducts,
         pagination: {
           totalPages: totalPages,
