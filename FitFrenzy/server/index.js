@@ -7,10 +7,22 @@ import {
   mongoConnectListener,
   mongoDisconnectListener,
   mongoErrorListener,
-} from "./config/db.connect.js";
+} from "./server.js";
 import { userRouter } from "./routes/user.route.js";
 import { productRouter } from "./routes/product.route.js";
 import { favoriteRouter } from "./routes/favorite.route.js";
+import { searchRouter } from "./routes/search.route.js";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
+
+import AppError from "./utils/appError.js";
+import globalErrorHandler from "./controllers/errorController.js";
+
+config();
+mongoErrorListener();
+mongoConnectListener();
+mongoDisconnectListener();
+await mongoConnect();
 import stripeRouter from "./routes/payment.route.js";
 import morgan from "morgan";
 import AppError from "./utils/appError.js";
@@ -23,12 +35,15 @@ const app = express();
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(cors());
 app.use("/user", userRouter);
 app.use("/", productRouter);
 app.use("/favorites", favoriteRouter);
+app.use("/search", searchRouter);
 app.use("/payment", stripeRouter);
+
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();

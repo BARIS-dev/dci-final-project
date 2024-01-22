@@ -8,10 +8,10 @@ const ProductSchema = new mongoose.Schema(
       unique: true,
       minlength: 3,
     },
-    description: {
+    category: {
       type: String,
       required: true,
-      minlength: 10,
+      enum: ["clothing", "equipment", "accessories"],
     },
     price: {
       type: Number,
@@ -20,17 +20,41 @@ const ProductSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: true,
+      //required: true,
       validate(value) {
         if (!isImage(value)) {
           throw new Error("Invalid image URL");
         }
       },
     },
-    category: {
+    description: {
       type: String,
       required: true,
-      enum: ["clothing", "equipment", "accessories"],
+      minlength: 10,
+    },
+    size: {
+      type: String,
+      enum: ["XS", "S", "M", "L", "XL", "XXL", "One size"],
+    },
+    color: {
+      type: String,
+      enum: [
+        "Black",
+        "White",
+        "Red",
+        "Blue",
+        "Yellow",
+        "Green",
+        "Brown",
+        "gray",
+        "purple",
+        "orange",
+        "pink",
+        "Turquoise",
+        "gold",
+        "silver",
+        "Multicolored",
+      ],
     },
     countInStock: {
       type: Number,
