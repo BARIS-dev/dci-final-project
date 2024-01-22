@@ -5,11 +5,15 @@ import PropTypes from "prop-types";
 
 
 export const UserContext = createContext({
-    currentUser: null,
-    setCurrentUser: () => null,
-  });
+  currentUser: null,
+  setCurrentUser: () => null,
+});
 
-
+export const UserProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(null);
+  const value = useMemo(() => {
+    return { currentUser, setCurrentUser };
+  }, [currentUser]);
   export const UserProvider = ({ children }) => {
    
     const [currentUser, setCurrentUser] = useState(null);
@@ -34,6 +38,10 @@ export const UserContext = createContext({
 
 
   //export const UserContext = createContext();*/
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+};
+
+//export const UserContext = createContext();
 
 /*export const UserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
@@ -46,8 +54,7 @@ export const UserContext = createContext({
     );
   };*/
 
-
-  //sec var
+  //secondary method
   import { useContext, createContext } from "react";
   import { GoogleAuthProvider, signInWithPopup, signInWithRedirect, signOut, onAuthStateChanged } from "firebase/auth";
     import { auth } from "../firebase/firebase.settings";
@@ -76,6 +83,3 @@ export const UserContext = createContext({
    UserContextProvider.propTypes = {
     children:PropTypes.node.isRequired,
   };
-
-  
- 
