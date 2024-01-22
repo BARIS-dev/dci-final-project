@@ -1,65 +1,39 @@
-import userModel from "../models/user.model.js";
+import User from '../models/user.model.js';
+import catchAsync from '../utils/catchAsync.js';
 
-export async function userSignUpController(req, res, next) {
-  const { firstName, lastName, username, email, password } = req.body;
+const getAllUsers = catchAsync(async (req, res, next) => {
+  const users = await User.find();
 
-  try {
-    const data = await userModel.create({
-      firstName: firstName,
-      lastName: lastName,
-      username: username,
-      email: email,
-      password: password,
-    });
+  // SEND RESPONSE
+  res.status(200).json({
+    status: 'success',
+    results: users.length,
+    data: { users },
+  });
+});
+const getUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined',
+  });
+};
+const createUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined',
+  });
+};
+const updateUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined',
+  });
+};
+const deleteUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined',
+  });
+};
 
-    const dataObj = data.toObject();
-    delete dataObj.password;
-
-    res.status(200).json({
-      answer: {
-        code: 200,
-        data: dataObj,
-      },
-    });
-  } catch (error) {
-    res.status(401).json({
-      answer: {
-        code: 401,
-        data: "Dieser Benutzer existiert bereits.",
-      },
-    });
-  }
-}
-
-export async function userSignInController(req, res, next) {
-  try {
-    const { username, email, password } = req.body;
-    const user = await userModel.findOne({ username, email });
-
-    if (!user) {
-      res.status(401).json({
-        answer: {
-          code: 401,
-          data: "Benutzername/Email und Passwort stimmen nicht überein.",
-        },
-      });
-
-      const isValid = await user.auth(password);
-
-      if (isValid) {
-        const dataObj = user.toObject();
-        delete dataObj.password;
-        //TODO: JWT einfügen
-      } else {
-        res.status(401).json({
-          answer: {
-            code: 401,
-            data: "Benutzername/Email und Passwort stimmen nicht überein.",
-          },
-        });
-      }
-    }
-  } catch (error) {
-    next(error.message);
-  }
-}
+export { getAllUsers, getUser, createUser, updateUser, deleteUser };
