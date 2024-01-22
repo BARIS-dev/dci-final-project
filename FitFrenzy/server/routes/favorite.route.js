@@ -1,11 +1,10 @@
-import { Router } from "express";
 import jwt from 'jsonwebtoken';
 import { Router } from 'express';
 import {
   addFavoriteToCartController,
   getFavoritesListController,
   removeFromFavoritesController,
-} from "../controllers/favorite.controller.js";
+} from '../controllers/favorite.controller.js';
 
 export const favoriteRouter = Router();
 
