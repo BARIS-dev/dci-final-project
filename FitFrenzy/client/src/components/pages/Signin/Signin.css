@@ -1,0 +1,16 @@
+.signin-container {
+    text-align: center;
+}
+
+.signin-title {
+
+    font-size: 3x1;
+    font-weight: bold;
+    padding: 8px;
+}
+
+.signin-content {
+    max-width: 240px;
+    margin: auto;
+    padding: 4px;
+}
