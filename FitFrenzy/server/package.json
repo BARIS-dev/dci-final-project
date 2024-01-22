@@ -19,7 +19,6 @@
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
-    "razorpay": "^2.9.2",
     "stripe": "^14.13.0"
   },
   "devDependencies": {
