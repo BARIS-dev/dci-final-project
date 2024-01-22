@@ -5,64 +5,6 @@ import cartModel from "../models/cart.model.js";
 
 export async function getProductsController(req, res, next) {
   try {
-    const limitPerPage = 20;
-    const page = parseInt(req.query.page) || 1;
-    const skip = (page - 1) * limitPerPage;
-
-    if (page < 1) {
-      res.status(400).json({
-        answer: {
-          code: 400,
-          message: "Ungültige Seitenzahl",
-        },
-      });
-    }
-
-    let filterByCategory = {};
-    const { category } = req.params;
-
-    if (category) {
-      filterByCategory = { category: category };
-    } else {
-      filterByCategory = {};
-    }
-    //the category is being selected from a list provided by the application => no possibility of entering an invalid category (so this case is not handled here)
-
-    const setOfProducts = await productModel
-      .find(filterByCategory)
-      .skip(skip)
-      .limit(limitPerPage);
-
-    const totalProducts = await productModel
-      .find(filterByCategory)
-      .countDocuments();
-
-    const totalPages = Math.ceil(totalProducts / limitPerPage);
-
-    res.status(200).json({
-      answer: {
-        code: 200,
-        message: `${totalProducts} Produkte`,
-        category: category,
-        data: setOfProducts,
-        pagination: {
-          totalPages: totalPages,
-          currentPage: page,
-          hasNextPage: page < totalPages,
-          hasPreviousPage: page > 1,
-          nextPage: page < totalPages ? page + 1 : null,
-          previousPage: page > 1 ? page - 1 : null,
-        },
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    //next();
-  }
-}
-
-export async function getFilteredProductsController(req, res, next) {
-  try {
     // Extract category from req.params for the second route and req.query for the first route
     const category = req.params.category || req.query.category;
     const { size, priceRange, color } = req.query;
@@ -84,7 +26,9 @@ export async function getFilteredProductsController(req, res, next) {
     let filterApplied = {};
     if (category || size || priceRange || color) {
       //Check validity of priceRange
-      const [minPrice, maxPrice] = priceRange.split("-").map(parseFloat);
+      const [minPrice, maxPrice] = priceRange
+        ? priceRange.split("-").map(parseFloat)
+        : [undefined, undefined];
 
       if (priceRange && (isNaN(minPrice) || isNaN(maxPrice))) {
         return res.status(400).json({
@@ -267,7 +211,7 @@ export async function addProductToCartController(req, res, next) {
 
   try {
     //Check if user already logged in
-    const username = req.user.username;
+    const username = req.user ? req.user.username : undefined;
 
     //AUTHENTICATED USER
     if (username) {
@@ -362,7 +306,7 @@ export async function addProductToCartController(req, res, next) {
           });
         }
       } else {
-        //if user has no guestCart in localStorage/cookie yet => create new guestCart and add product to cart (quantity 1)
+        //if user has no guestCart in cookie yet => create new guestCart and add product to cart (quantity 1)
         const newGuestCart = {
           items: [{ productId: productId, quantity: 1 }],
         };

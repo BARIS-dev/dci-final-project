@@ -4,7 +4,7 @@ import {
   getProductDetailsController,
   getProductReviewsController,
   toggleLikeController,
-  getFilteredProductsController,
+  //getFilteredProductsController,
   addProductToCartController,
 } from "../controllers/product.controller.js";
 
@@ -12,9 +12,6 @@ export const productRouter = Router();
 
 //Retrieve all products (or based on category)
 productRouter.get("/products/:category?", getProductsController);
-
-//Retrieve filtered products (based on category, size, price range, color)
-productRouter.get("/products/:category?/filter", getFilteredProductsController);
 
 //Retrieve product details
 productRouter.get("/product/:productId", getProductDetailsController);
