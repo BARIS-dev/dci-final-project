@@ -1,16 +1,30 @@
-import paymentModel from "../models/payment.model";
+import stripe from "stripe";
+const Stripe = stripe(process.env.STRIPE_SECRET_KEY);
+// Controller function for processing a payment
+const processPayment = async (req, res) => {
+  try {
+    const { amount, currency, source } = req.body;
+    const charge = await Stripe.charges.create({
+      amount,
+      currency,
+      source,
+      description: "Payment for FitFrenzy services",
+    });
 
-export const createPayment = async (req, res) => {
-  const paymentMethod = req.body;
-  res.send({ message: "Payment method added" });
+    // Handle successful payment
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Payment processed successfully",
+        charge,
+      });
+  } catch (error) {
+    // Handle payment error
+    res.status(500).json({ success: false, error: error.message });
+  }
 };
 
-export const getPayments = async (req, res) => {
-  const payments = await paymentModel.find({});
-  res.send(payments);
-};
-
-export const getPaymentById = async (req, res) => {
-  const payment = await paymentModel.findById(req.params.id);
-  res.send(payment);
+module.exports = {
+  processPayment,
 };

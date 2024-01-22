@@ -4,7 +4,6 @@ import {
   addFavoriteToCartController,
   getFavoritesListController,
   removeFromFavoritesController,
-  toggleFavoriteController,
 } from "../controllers/favorite.controller.js";
 
 export const favoriteRouter = Router();

@@ -5,18 +5,21 @@ const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
 
 const stripeRouter = Router();
 
-stripeRouter.post("/payment", (req, res) => {
+stripeRouter.post("/", (req, res) => {
+  console.log(req.body);
   stripeInstance.charges.create(
     {
       source: req.body.tokenId,
       amount: req.body.amount,
-      currency: "eur",
+      currency: req.body.currency,
+      description: req.body.description,
     },
-    (stripeErr, stripeRes) => {
-      if (stripeErr) {
-        res.status(500).json(stripeErr);
+    (err, charge) => {
+      if (err) {
+        console.error("Error creating charge:", err);
+        res.status(500).json({ success: false, error: err });
       } else {
-        res.status(200).json(stripeRes);
+        res.json({ success: true, charge });
       }
     }
   );
