@@ -4,29 +4,23 @@ import {
   getProductDetailsController,
   getProductReviewsController,
   toggleLikeController,
-  //getFilteredProductsController,
   addProductToCartController,
 } from "../controllers/product.controller.js";
 
 export const productRouter = Router();
 
-//Retrieve all products (or based on category)
 productRouter.get("/products/:category?", getProductsController);
 
-//Retrieve product details
 productRouter.get("/product/:productId", getProductDetailsController);
 
-//Retrieve product reviews
 productRouter.get("/product/:productId/reviews", getProductReviewsController);
 
-//Toggle like for a product in productDetails-Page
 productRouter.post(
   "/product/:productId/toggleLike",
   //Add MIDDLEWARE here to check the cookie/token (jwt-VERIFIER) to identify the user,
   toggleLikeController
 );
 
-//add product to cart
 productRouter.post(
   "/product/:productId/add",
   //MIDDLEWARE here (verify user)
