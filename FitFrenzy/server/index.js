@@ -2,7 +2,6 @@ import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { productRouter } from "./routes/product.route.js";
-
 import { favoriteRouter } from "./routes/favorite.route.js";
 import AppError from "./utils/appError.js";
 import globalErrorHandler from "./controllers/errorController.js";
