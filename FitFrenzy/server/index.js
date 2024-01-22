@@ -11,6 +11,10 @@ import { productRouter } from "./routes/product.route.js";
 import { favoriteRouter } from "./routes/favorite.route.js";
 import { searchRouter } from "./routes/search.route.js";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
+
+import AppError from "./utils/appError.js";
+import globalErrorHandler from "./controllers/errorController.js";
 
 config();
 mongoErrorListener();
@@ -19,6 +23,9 @@ mongoDisconnectListener();
 await mongoConnect();
 
 const app = express();
+
+if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -45,6 +52,11 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+// 404 HANDLER
+app.all("*", (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
+
+app.use(globalErrorHandler);
+
+export default app;
