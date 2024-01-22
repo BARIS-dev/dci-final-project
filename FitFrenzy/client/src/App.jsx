@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home.jsx";
 import Header from "./components/shared/header/Header.jsx";
 import Payment from "./pages/payment/payment.jsx";
+import Footer from "./components/shared/footer/Footer.jsx";
+
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/payment" element={<Payment />} />
       </Routes>
+      <Footer />
     </>
   );
 }
