@@ -1,0 +1,19 @@
+.account-container {
+
+    width: 300px;
+    margin: auto;
+}
+
+.account-title {
+
+    text-align: center;
+    font-size: 2x1;
+    font-weight: bold;
+    padding-top: 12;
+}
+
+.logout-button {
+    border: 1px solid;
+    padding: 2px 5px;
+    margin-top: 10px;
+}

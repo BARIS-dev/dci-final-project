@@ -1,4 +1,4 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+/*import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { firebaseApp } from "../firebase/firebase.settings";
 
 
@@ -20,6 +20,6 @@ provider.setCustomParameters({
 export const signInWithGooglePopup = () => {
 
     signInWithPopup(auth, provider)
-};
+};'*/
 
 
