@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { login, signup } from '../controllers/authController.js';
+import { login, signup, protect } from '../controllers/authController.js';
 import { getAllUsers } from '../controllers/user.controller.js';
 
 export const userRouter = Router();
@@ -7,6 +7,6 @@ export const userRouter = Router();
 userRouter.post('/signup', signup);
 userRouter.post('/login', login);
 
-userRouter.route('/').get(getAllUsers);
+userRouter.route('/').get(protect, getAllUsers);
 
 export default userRouter;

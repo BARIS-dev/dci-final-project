@@ -1,5 +1,6 @@
-//import jwt from "jsonwebtoken";
 import { Router } from "express";
+import jwt from 'jsonwebtoken';
+import { Router } from 'express';
 import {
   addFavoriteToCartController,
   getFavoritesListController,
@@ -22,11 +23,11 @@ favoriteRouter.use((req, res, next) => {
   } */
 });
 
-favoriteRouter.get("/", getFavoritesListController);
+favoriteRouter.get('/', getFavoritesListController);
 
-favoriteRouter.post("/:productId/addToCart", addFavoriteToCartController);
+favoriteRouter.post('/:productId/addToCart', addFavoriteToCartController);
 
 favoriteRouter.post(
-  "/:productId/removeFromFavorites",
+  '/:productId/removeFromFavorites',
   removeFromFavoritesController
 );

@@ -1,6 +1,8 @@
+
 import favoriteModel from "../models/favorite.model.js";
 import productModel from "../models/product.model.js";
 import cartModel from "../models/cart.model.js";
+
 
 export async function getFavoritesListController(req, res, next) {
   const username = req.user.username;
@@ -60,7 +62,7 @@ export async function addFavoriteToCartController(req, res, next) {
     res.status(200).json({
       answer: {
         code: 200,
-        message: "Produkt zum Warenkorb hinzugefügt",
+        message: 'Produkt zum Warenkorb hinzugefügt',
       },
     });
   } catch (error) {
@@ -89,7 +91,7 @@ export async function removeFromFavoritesController(req, res, next) {
     res.status(200).json({
       answer: {
         code: 200,
-        message: "Produkt aus der Liste entfernt",
+        message: 'Produkt aus der Liste entfernt',
       },
     });
   } catch (error) {
