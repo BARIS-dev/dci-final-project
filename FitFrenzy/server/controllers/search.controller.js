@@ -1,26 +1,22 @@
 import productModel from "../models/product.model.js";
 
 export async function searchController(req, res, next) {
-  const { searchValue } = req.body;
-  try {
-    const searchResults = [];
-    const allProducts = await productModel.find({});
+  const { searchValue } = req.query;
 
-    //search by name and category (do we need description here?)
-    for (const product of allProducts) {
-      if (
-        product.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchValue.toLowerCase())
-      ) {
-        searchResults.push(product);
-      }
-    }
+  try {
+    const matchedProducts = await productModel.find({
+      $or: [
+        { name: { $regex: searchValue, $options: "i" } },
+        { description: { $regex: searchValue, $options: "i" } },
+        { category: { $regex: searchValue, $options: "i" } },
+      ],
+    });
 
     res.status(200).json({
       answer: {
         code: 200,
-        message: `${searchResults.length} Ergebnisse gefunden`,
-        data: searchResults,
+        message: `${matchedProducts.length} Ergebnisse gefunden`,
+        data: matchedProducts,
       },
     });
   } catch (error) {
