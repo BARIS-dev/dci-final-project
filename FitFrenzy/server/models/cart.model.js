@@ -24,10 +24,3 @@ const CartSchema = new mongoose.Schema({
 const cartModel = mongoose.model("Cart", CartSchema);
 
 export default cartModel;
-
-// FOR CART
-//TODO:Removing Items to/from Cart
-//TODO: View Cart (show all items in cart)
-//TODO: Update item quantity in cart
-//TODO: Delete Cart (allow user clear entire cart)
-//TODO: Checkout => payment
