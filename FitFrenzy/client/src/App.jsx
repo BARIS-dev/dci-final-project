@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/navbar.jsx";
 import Account from "./components/pages/Account/Account.jsx";
 import Signin from "./components/pages/Signin/Signin.jsx";
 import { UserContextProvider } from "./context/user.context.jsx";
-import Payment from "./pages/payment/payment.jsx";
+import Payment from "./pages/payment/Payment.jsx";
 import Footer from "./components/shared/footer/Footer.jsx";
 import AdminDashboard from "./pages/Admin/admin.dashboard.jsx";
 import ProductCreate from "./pages/Admin/product.create.jsx";

@@ -296,6 +296,14 @@ export async function addProductToCartController(req, res, next) {
             JSON.stringify({ items: updatedQuantityGuestCart }),
             { maxAge: 86400000 }
           );
+
+          res.status(200).json({
+            answer: {
+              code: 200,
+              message: "Produktmenge im Gast-Warenkorb aktualisiert",
+              data: updatedQuantityGuestCart,
+            },
+          });
         } else {
           //product not in guestCart yet => add product to cart (quantity 1)
           guestCartObj.items.push({ productId: productId, quantity: 1 });
@@ -303,6 +311,14 @@ export async function addProductToCartController(req, res, next) {
           //update the guestCart in cookie
           res.cookie("guestCart", JSON.stringify(guestCartObj), {
             maxAge: 86400000,
+          });
+
+          res.status(200).json({
+            answer: {
+              code: 200,
+              message: "Produkt wurde zum Gast-Warenkorb hinzugefügt",
+              data: guestCartObj,
+            },
           });
         }
       } else {
