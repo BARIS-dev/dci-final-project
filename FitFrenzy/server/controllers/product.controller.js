@@ -126,7 +126,7 @@ export const getProductReviewsController = catchAsync(
 
 export const toggleLikeController = catchAsync(async (req, res, next) => {
   const { productId } = req.params;
-  const username = req.user.username;
+  const username = req.user ? req.user.username : undefined;
 
   const userFavorites = await favoriteModel.findOne({ userId: userId });
 
@@ -181,6 +181,11 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
 
 export const addProductToCartController = catchAsync(async (req, res, next) => {
   const { productId } = req.params;
+
+  const product = await productModel.findById(productId);
+  if (!product) {
+    next(new AppError("Produkt nicht gefunden", 404));
+  }
 
   //Check if user already logged in
   const username = req.user ? req.user.username : undefined;
@@ -278,7 +283,11 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
         });
       } else {
         //product not in guestCart yet => add product to cart (quantity 1)
-        guestCartObj.items.push({ productId: productId, quantity: 1 });
+        guestCartObj.items.push({
+          productId: productId,
+          productName: product.name,
+          quantity: 1,
+        });
 
         //update the guestCart in cookie
         res.cookie("guestCart", JSON.stringify(guestCartObj), {
@@ -296,7 +305,9 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
     } else {
       //if user has no guestCart in cookie yet => create new guestCart and add product to cart (quantity 1)
       const newGuestCart = {
-        items: [{ productId: productId, quantity: 1 }],
+        items: [
+          { productId: productId, productName: product.name, quantity: 1 },
+        ],
       };
 
       //save guestCart in cookie
