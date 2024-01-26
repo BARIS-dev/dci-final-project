@@ -6,6 +6,7 @@ import {
   toggleLikeController,
   addProductToCartController,
 } from "../controllers/product.controller.js";
+import { protect } from "../controllers/authController.js";
 
 export const productRouter = Router();
 
@@ -17,13 +18,13 @@ productRouter.get("/product/:productId/reviews", getProductReviewsController);
 
 productRouter.post(
   "/product/:productId/toggleLike",
-  //Add MIDDLEWARE here to check the cookie/token (jwt-VERIFIER) to identify the user,
+  protect,
   toggleLikeController
 );
 
 productRouter.post(
   "/product/:productId/add",
-  //MIDDLEWARE here (verify user)
+  protect,
   addProductToCartController
 );
 
