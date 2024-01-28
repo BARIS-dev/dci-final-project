@@ -21,8 +21,24 @@ const CartSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
+      productPrice: {
+        type: Number,
+        ref: "Product",
+      },
     },
   ],
+  sum: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+});
+
+CartSchema.pre("save", function (next) {
+  this.sum = this.items.reduce((total, item) => {
+    return total + item.quantity * item.productPrice;
+  }, 0);
+  next();
 });
 
 const cartModel = mongoose.model("Cart", CartSchema);
