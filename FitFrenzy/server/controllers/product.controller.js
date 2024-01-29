@@ -203,6 +203,7 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
 
   //Check if user already logged in
   const username = req.user ? req.user.username : undefined;
+  console.log("username", username);
 
   //AUTHENTICATED USER
   if (username) {

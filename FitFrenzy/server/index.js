@@ -37,19 +37,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/user", userRouter);
-app.use("/", productRouter);
-app.use("/favorites", favoriteRouter);
-
-app.all("*", (req, res, next) => {
-  res.status(404).json({
-    answer: {
-      code: 404,
-      message: "Page not found",
-    },
-  });
-});
-
 // 404 HANDLER
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

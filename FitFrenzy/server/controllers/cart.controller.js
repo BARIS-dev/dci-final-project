@@ -4,31 +4,63 @@ import AppError from "../utils/appError.js";
 
 export const viewCart = catchAsync(async (req, res, next) => {
   const username = req.user ? req.user.username : undefined;
-  const guestCart = req.cookies.guestCart;
-
   console.log("username", username);
-  console.log("guestCart", guestCart);
 
   if (username) {
+    //Logged in user
     const usersCart = await cartModel.findOne({ username: username });
+    console.log("usersCart", usersCart);
 
     if (!usersCart) {
-      if (guestCart) {
-        res.status(200).json({
+      res.status(200).json({
+        answer: {
           code: 200,
-          message: "Gast-Warenkorb",
-          data: guestCart,
+          message: "Kein Warenkorb vorhanden",
+        },
+      });
+    } else {
+      if (usersCart.items.length === 0) {
+        res.status(200).json({
+          answer: {
+            code: 200,
+            message: "Warenkorb leer",
+            data: usersCart,
+          },
         });
       }
 
-      return next(new AppError("Kein Warenkorb vorhanden", 404));
+      res.status(200).json({
+        answer: {
+          code: 200,
+          message: "Warenkorb für Checkout bereit",
+          data: usersCart,
+        },
+      });
     }
+  } else {
+    //!username => check guestCart
+    const guestCart = req.cookies.guestCart;
 
-    res.status(200).json({
-      code: 200,
-      message: `Warenkorb von User ${username}`,
-      data: usersCart,
-    });
+    console.log("guestCart", guestCart);
+
+    if (!guestCart) {
+      res.status(200).json({
+        answer: {
+          code: 200,
+          message: "Kein (Gast-)Warenkorb vorhanden",
+        },
+      });
+    } else {
+      const guestCartObj = JSON.parse(guestCart);
+
+      res.status(200).json({
+        answer: {
+          code: 200,
+          message: "Gast-Warenkorb",
+          data: guestCartObj,
+        },
+      });
+    }
   }
 });
 
@@ -107,6 +139,7 @@ export const removeItemFromCart = catchAsync(async (req, res, next) => {
   console.log("productId", productId);
 
   const username = req.user ? req.user.username : undefined;
+  console.log("username", username);
   const guestCart = req.cookies.guestCart;
 
   //Logged in user
