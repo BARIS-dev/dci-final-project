@@ -17,7 +17,7 @@ productRouter.get("/product/:productId", getProductDetailsController);
 productRouter.get("/product/:productId/reviews", getProductReviewsController);
 
 productRouter.post(
-  "/product/:productId/toggleLike",
+  "/product/:productId/toggle-like",
   protect,
   toggleLikeController
 );

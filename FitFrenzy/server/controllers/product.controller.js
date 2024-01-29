@@ -128,7 +128,7 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
   const { productId } = req.params;
   const username = req.user ? req.user.username : undefined;
 
-  const userFavorites = await favoriteModel.findOne({ userId: userId });
+  const userFavorites = await favoriteModel.findOne({ username: username });
 
   if (!userFavorites) {
     //if user has no favorites yet => create new favorites list
@@ -146,7 +146,9 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
     });
   } else {
     //if user already has favorites => check if product is already in favorites list
-    const productInFavorites = userFavorites.productId.includes(productId);
+    console.log(userFavorites);
+    console.log(userFavorites.productId);
+    const productInFavorites = userFavorites.productId.equals(productId);
 
     if (productInFavorites) {
       //if product already in favorites => remove product from favorites
@@ -167,7 +169,6 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
         { username: username },
         { $addToSet: { productId: productId } }
       );
-      await newFavorite.save();
 
       res.status(200).json({
         answer: {
