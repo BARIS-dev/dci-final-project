@@ -1,0 +1,25 @@
+.rating {
+  display: flex;
+  align-items: center;
+  column-gap: 2px;
+}
+.star {
+  position: relative;
+  width: 25px;
+}
+
+.star-gold {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  overflow: hidden;
+  width: 50%;
+}
+
+.rating img{
+  width: 25px;
+}
+
+.rating p {
+  margin-left: 5px;
+}
