@@ -126,15 +126,16 @@ export const getProductReviewsController = catchAsync(
 
 export const toggleLikeController = catchAsync(async (req, res, next) => {
   const { productId } = req.params;
-  const username = req.user ? req.user.username : undefined;
+  const product = await productModel.findById(productId);
 
+  const username = req.user ? req.user.username : undefined;
   const userFavorites = await favoriteModel.findOne({ username: username });
 
   if (!userFavorites) {
-    //if user has no favorites yet => create new favorites list
+    //if user has no favorites yet => create new favorites list with product name and id
     const newFavorites = favoriteModel.create({
       username: username,
-      likedItems: [{ productId: productId }],
+      likedItems: [{ productName: product.name, productId: productId }],
     });
     await newFavorites.save();
 
@@ -148,8 +149,6 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
   } else {
     //if user already has favorites => check if product is already in favorites list
     //console.log(userFavorites);
-    //console.log(userFavorites.likedItems);
-
     const productInFavorites = userFavorites.likedItems.some((item) =>
       item.productId.equals(productId)
     );
@@ -159,7 +158,11 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
       //if product already in favorites => remove product from favorites
       const updatedFavorites = await favoriteModel.updateOne(
         { username: username },
-        { $pull: { likedItems: { productId: productId } } }
+        {
+          $pull: {
+            likedItems: { productId: productId },
+          },
+        }
       );
 
       res.status(200).json({
@@ -173,7 +176,11 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
       //if product not in favorites => add product to favorites
       await favoriteModel.updateOne(
         { username: username },
-        { $addToSet: { likedItems: { productId: productId } } }
+        {
+          $addToSet: {
+            likedItems: { productName: product.name, productId: productId },
+          },
+        }
       );
 
       res.status(200).json({

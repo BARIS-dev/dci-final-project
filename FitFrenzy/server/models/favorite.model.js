@@ -9,6 +9,11 @@ const FavoriteSchema = new mongoose.Schema(
     },
     likedItems: [
       {
+        productName: {
+          type: String,
+          ref: "Product",
+        },
+
         productId: {
           type: mongoose.Schema.ObjectId,
           ref: "Product",

@@ -9,14 +9,6 @@ export const getFavoritesListController = catchAsync(async (req, res, next) => {
 
   const usersFavorites = await favoriteModel.find({ username: username });
 
-  console.log(usersFavorites);
-
-  /* const favoriteProducts = [];
-  for (const favorite of usersFavorites) {
-    const product = await productModel.findById(favorite.productId);
-    favoriteProducts.push(product.name);
-  } */
-
   res.status(200).json({
     code: 200,
     message: `Favorite Artikel von User ${username}`,
