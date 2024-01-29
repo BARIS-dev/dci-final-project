@@ -18,12 +18,11 @@ export const getFavoritesListController = catchAsync(async (req, res, next) => {
 
 export const addFavoriteToCartController = catchAsync(
   async (req, res, next) => {
-    const username = req.user.username;
     const { productId } = req.params;
+    const username = req.user ? req.user.username : undefined;
 
     //Check product availability (again to make sure up-to-date)
     const selectedProduct = productModel.findById(productId);
-
     if (!selectedProduct || selectedProduct.countInStock === 0) {
       return next(new AppError("Produkt nicht verfügbar", 404));
     }
@@ -31,26 +30,53 @@ export const addFavoriteToCartController = catchAsync(
     //Add product to cart
     const usersCart = await cartModel.findOne({ username: username });
 
-    const productInCart = usersCart.items.find(
-      (item) => item.productId === productId
-    );
+    if (!usersCart) {
+      const newCart = cartModel.create({
+        username: username,
+        items: [
+          {
+            productId: productId,
+            productName: selectedProduct.name,
+            quantity: 1,
+            productPrice: selectedProduct.price,
+          },
+        ],
+      });
+      await newCart.save();
 
-    if (productInCart) {
-      //if product already in cart => increase quantity
-      productInCart.quantity++;
-      await usersCart.save();
+      res.status(200).json({
+        answer: {
+          code: 200,
+          message: "Warenkorb erstellt und Produkt hinzugefügt",
+        },
+      });
     } else {
-      //if product not in cart => add product to cart
-      usersCart.items.push({ productId: productId, quantity: 1 });
-      await usersCart.save();
-    }
+      const productInCart = usersCart.items.find((item) =>
+        item.productId.equals(productId)
+      );
 
-    res.status(200).json({
-      answer: {
-        code: 200,
-        message: "Produkt zum Warenkorb hinzugefügt",
-      },
-    });
+      if (productInCart) {
+        //if product already in cart => increase quantity
+        productInCart.quantity++;
+        await usersCart.save();
+      } else {
+        //if product not in cart => add product to cart
+        usersCart.items.push({
+          productId: productId,
+          productName: selectedProduct.name,
+          quantity: 1,
+          productPrice: selectedProduct.price,
+        });
+        await usersCart.save();
+      }
+
+      res.status(200).json({
+        answer: {
+          code: 200,
+          message: "Produkt zum Warenkorb hinzugefügt",
+        },
+      });
+    }
   }
 );
 

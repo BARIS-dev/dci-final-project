@@ -5,6 +5,7 @@ import { userRouter } from "./routes/user.route.js";
 import { productRouter } from "./routes/product.route.js";
 import { favoriteRouter } from "./routes/favorite.route.js";
 import { searchRouter } from "./routes/search.route.js";
+import { cartRouter } from "./routes/cart.route.js";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import paymentRouter from "./routes/payment.route.js";
@@ -26,6 +27,7 @@ app.use("/user", userRouter);
 app.use("/", productRouter);
 app.use("/favorites", favoriteRouter);
 app.use("/search", searchRouter);
+app.use("/cart", cartRouter);
 app.use("/", paymentRouter);
 
 app.use((req, res, next) => {

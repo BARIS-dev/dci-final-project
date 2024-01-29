@@ -1,4 +1,4 @@
-import cartModel from "../models/cartModel.js";
+import cartModel from "../models/cart.model.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
 
@@ -6,10 +6,21 @@ export const viewCart = catchAsync(async (req, res, next) => {
   const username = req.user ? req.user.username : undefined;
   const guestCart = req.cookies.guestCart;
 
+  console.log("username", username);
+  console.log("guestCart", guestCart);
+
   if (username) {
     const usersCart = await cartModel.findOne({ username: username });
 
     if (!usersCart) {
+      if (guestCart) {
+        res.status(200).json({
+          code: 200,
+          message: "Gast-Warenkorb",
+          data: guestCart,
+        });
+      }
+
       return next(new AppError("Kein Warenkorb vorhanden", 404));
     }
 
@@ -18,14 +29,6 @@ export const viewCart = catchAsync(async (req, res, next) => {
       message: `Warenkorb von User ${username}`,
       data: usersCart,
     });
-  } else if (guestCart) {
-    res.status(200).json({
-      code: 200,
-      message: "Warenkorb von Gast",
-      data: guestCart,
-    });
-  } else {
-    return next(new AppError("Kein Warenkorb vorhanden", 404));
   }
 });
 
@@ -100,9 +103,11 @@ export const updateCartPriceWhenQuantityChanges = catchAsync(
 );
 
 export const removeItemFromCart = catchAsync(async (req, res, next) => {
+  const { productId } = req.body;
+  console.log("productId", productId);
+
   const username = req.user ? req.user.username : undefined;
   const guestCart = req.cookies.guestCart;
-  const { productId } = req.body;
 
   //Logged in user
   if (username) {
