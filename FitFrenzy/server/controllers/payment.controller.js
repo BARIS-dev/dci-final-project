@@ -4,7 +4,7 @@ dotenv.config();
 const Stripe = stripe(process.env.STRIPE_PUBLIC_KEY);
 
 export const addNewPaymentMethod = async (req, res) => {
-  const { type, card, billing_details, country } = req.body;
+  const { type, card, billing_details } = req.body;
   try {
     const paymentMethod = await Stripe.paymentMethods.create({
       type: type,
