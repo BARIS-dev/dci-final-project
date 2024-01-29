@@ -1,28 +1,19 @@
 import { Router } from "express";
-import stripe from "stripe";
+import {
+  addNewBankAccount,
+  addNewPaymentMethod,
+  deleteBankAccount,
+  listPaymentMethods,
+  updatePaymentMethod,
+} from "../controllers/payment.controller.js";
 
-const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
+const paymentRouter = Router();
 
-const stripeRouter = Router();
+paymentRouter
+  .post("/payment-methods", addNewPaymentMethod)
+  .post("/payment-methods/:paymentMethodId", updatePaymentMethod)
+  .get("/payment-methods", listPaymentMethods)
+  .post("/customers/:id/sources", addNewBankAccount)
+  .delete("/customers/:id/sources/:id", deleteBankAccount);
 
-stripeRouter.post("/", (req, res) => {
-  console.log(req.body);
-  stripeInstance.charges.create(
-    {
-      source: req.body.tokenId,
-      amount: req.body.amount,
-      currency: req.body.currency,
-      description: req.body.description,
-    },
-    (err, charge) => {
-      if (err) {
-        console.error("Error creating charge:", err);
-        res.status(500).json({ success: false, error: err });
-      } else {
-        res.json({ success: true, charge });
-      }
-    }
-  );
-});
-
-export default stripeRouter;
+export default paymentRouter;
