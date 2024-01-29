@@ -7,11 +7,13 @@ const FavoriteSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    productId: [
+    likedItems: [
       {
-        type: mongoose.Schema.ObjectId,
-        ref: "Product",
-        required: true,
+        productId: {
+          type: mongoose.Schema.ObjectId,
+          ref: "Product",
+          required: true,
+        },
       },
     ],
   },

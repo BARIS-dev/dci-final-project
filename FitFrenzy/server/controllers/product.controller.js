@@ -134,7 +134,7 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
     //if user has no favorites yet => create new favorites list
     const newFavorites = favoriteModel.create({
       username: username,
-      productId: productId,
+      likedItems: [{ productId: productId }],
     });
     await newFavorites.save();
 
@@ -142,32 +142,38 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
       answer: {
         code: 200,
         message: "Favorite List erstellt und Produkt hinzugefügt",
+        data: newFavorites,
       },
     });
   } else {
     //if user already has favorites => check if product is already in favorites list
-    console.log(userFavorites);
-    console.log(userFavorites.productId);
-    const productInFavorites = userFavorites.productId.equals(productId);
+    //console.log(userFavorites);
+    //console.log(userFavorites.likedItems);
+
+    const productInFavorites = userFavorites.likedItems.some((item) =>
+      item.productId.equals(productId)
+    );
+    console.log(productInFavorites);
 
     if (productInFavorites) {
       //if product already in favorites => remove product from favorites
-      await favoriteModel.updateOne(
+      const updatedFavorites = await favoriteModel.updateOne(
         { username: username },
-        { $pull: { productId: productId } }
+        { $pull: { likedItems: { productId: productId } } }
       );
 
       res.status(200).json({
         answer: {
           code: 200,
           message: "Produkt wurde aus Favoriten entfernt",
+          data: updatedFavorites,
         },
       });
     } else {
       //if product not in favorites => add product to favorites
       await favoriteModel.updateOne(
         { username: username },
-        { $addToSet: { productId: productId } }
+        { $addToSet: { likedItems: { productId: productId } } }
       );
 
       res.status(200).json({

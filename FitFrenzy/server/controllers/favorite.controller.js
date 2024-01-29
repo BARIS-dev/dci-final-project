@@ -9,16 +9,18 @@ export const getFavoritesListController = catchAsync(async (req, res, next) => {
 
   const usersFavorites = await favoriteModel.find({ username: username });
 
-  const favoriteProducts = [];
+  console.log(usersFavorites);
+
+  /* const favoriteProducts = [];
   for (const favorite of usersFavorites) {
     const product = await productModel.findById(favorite.productId);
     favoriteProducts.push(product.name);
-  }
+  } */
 
   res.status(200).json({
     code: 200,
     message: `Favorite Artikel von User ${username}`,
-    data: favoriteProducts,
+    data: usersFavorites,
   });
 });
 
@@ -60,23 +62,27 @@ export const addFavoriteToCartController = catchAsync(
   }
 );
 
-export const removeFromFavoritesController = async (req, res, next) => {
-  const { productId } = req.params;
-  const username = req.user.username;
+export const removeFromFavoritesController = catchAsync(
+  async (req, res, next) => {
+    const { productId } = req.params;
+    const username = req.user.username;
 
-  //verify product existence? if not exist (anymore) then product could not be found?
-  const selectedProduct = await productModel.findById(productId);
-  if (!selectedProduct) {
-    return next(new AppError("Produkt nicht verfügbar", 404));
+    //verify product existence? if not exist (anymore) then product could not be found?
+    const selectedProduct = await productModel.findById(productId);
+    if (!selectedProduct) {
+      return next(new AppError("Produkt nicht verfügbar", 404));
+    }
+
+    await favoriteModel.deleteOne({ username: username, productId: productId });
+    //remove a product from the favoriteList array
+
+    res.status(200).json({
+      answer: {
+        code: 200,
+        message: "Produkt aus der Liste entfernt",
+      },
+    });
   }
+);
 
-  await favoriteModel.deleteOne({ username: username, productId: productId });
-  //remove a product from the favoriteList array
-
-  res.status(200).json({
-    answer: {
-      code: 200,
-      message: "Produkt aus der Liste entfernt",
-    },
-  });
-};
+export const deleteFavoriteController = catchAsync();
