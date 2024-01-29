@@ -1,45 +1,37 @@
-
 import favoriteModel from "../models/favorite.model.js";
 import productModel from "../models/product.model.js";
 import cartModel from "../models/cart.model.js";
+import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
 
-
-export async function getFavoritesListController(req, res, next) {
+export const getFavoritesListController = catchAsync(async (req, res, next) => {
   const username = req.user.username;
 
-  try {
-    const usersFavorites = await favoriteModel.find({ username: username });
+  const usersFavorites = await favoriteModel.find({ username: username });
 
-    const favoriteProducts = [];
-    for (const favorite of usersFavorites) {
-      const product = await productModel.findById(favorite.productId);
-      favoriteProducts.push(product.name);
-    }
-
-    res.status(200).json({
-      code: 200,
-      message: `Favorite Artikel von User ${username}`,
-      data: favoriteProducts,
-    });
-  } catch (error) {
-    console.log(error);
-    //next();
+  const favoriteProducts = [];
+  for (const favorite of usersFavorites) {
+    const product = await productModel.findById(favorite.productId);
+    favoriteProducts.push(product.name);
   }
-}
 
-export async function addFavoriteToCartController(req, res, next) {
-  const username = req.user.username;
-  const { productId } = req.params;
+  res.status(200).json({
+    code: 200,
+    message: `Favorite Artikel von User ${username}`,
+    data: favoriteProducts,
+  });
+});
 
-  try {
+export const addFavoriteToCartController = catchAsync(
+  async (req, res, next) => {
+    const username = req.user.username;
+    const { productId } = req.params;
+
     //Check product availability (again to make sure up-to-date)
     const selectedProduct = productModel.findById(productId);
 
     if (!selectedProduct || selectedProduct.countInStock === 0) {
-      res.status(404).json({
-        code: 404,
-        message: "Produkt nicht verfügbar",
-      });
+      return next(new AppError("Produkt nicht verfügbar", 404));
     }
 
     //Add product to cart
@@ -62,40 +54,29 @@ export async function addFavoriteToCartController(req, res, next) {
     res.status(200).json({
       answer: {
         code: 200,
-        message: 'Produkt zum Warenkorb hinzugefügt',
+        message: "Produkt zum Warenkorb hinzugefügt",
       },
     });
-  } catch (error) {
-    console.log(error);
-    //next();
   }
-}
+);
 
-export async function removeFromFavoritesController(req, res, next) {
+export const removeFromFavoritesController = async (req, res, next) => {
   const { productId } = req.params;
   const username = req.user.username;
 
-  try {
-    //verify product existence? if not exist (anymore) then product could not be found?
-    const selectedProduct = await productModel.findById(productId);
-    if (!selectedProduct || selectedProduct.countInStock === 0) {
-      res.status(404).json({
-        code: 404,
-        message: "Produkt nicht verfügbar",
-      });
-    }
-
-    await favoriteModel.deleteOne({ username: username, productId: productId });
-    //remove a product from the favoriteList array
-
-    res.status(200).json({
-      answer: {
-        code: 200,
-        message: 'Produkt aus der Liste entfernt',
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    //next();
+  //verify product existence? if not exist (anymore) then product could not be found?
+  const selectedProduct = await productModel.findById(productId);
+  if (!selectedProduct) {
+    return next(new AppError("Produkt nicht verfügbar", 404));
   }
-}
+
+  await favoriteModel.deleteOne({ username: username, productId: productId });
+  //remove a product from the favoriteList array
+
+  res.status(200).json({
+    answer: {
+      code: 200,
+      message: "Produkt aus der Liste entfernt",
+    },
+  });
+};
