@@ -5,5 +5,5 @@ export const emailValidator = check("email")
 .normalizeEmail()
 .trim()
 .escape()
-.isLength({ min: 5, max: 50 });
+.isLength({ min: 5, max: 50 })
 .withMessage("Die Email muss zwischen 5 und 50 Zeichen lang sein");
