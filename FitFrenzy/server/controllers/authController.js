@@ -1,8 +1,8 @@
-import { promisify } from 'util';
-import jwt from 'jsonwebtoken';
-import userModel from '../models/user.model.js';
-import catchAsync from '../utils/catchAsync.js';
-import AppError from '../utils/appError.js';
+import { promisify } from "util";
+import jwt from "jsonwebtoken";
+import userModel from "../models/user.model.js";
+import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
 
 //* payload, secret, and options
 const signToken = function (id) {
@@ -16,7 +16,7 @@ const createSendToken = function (user, statusCode, res) {
   const token = signToken(user._id);
 
   res.status(statusCode).json({
-    status: 'success',
+    status: "success",
     token,
     data: { user },
   });
@@ -44,14 +44,14 @@ const login = catchAsync(async (req, res, next) => {
 
   // 1) CHECK IF EMAIL AND PASSWORD EXIST
   if (!email || !password) {
-    return next(new AppError('Please provide email and password', 400));
+    return next(new AppError("Please provide email and password", 400));
   }
 
   // 2) CHECK IF USER EXISTS && PASSWORD IS CORRECT
-  const user = await userModel.findOne({ email }).select('+password'); // select password because it is not selected by default
+  const user = await userModel.findOne({ email }).select("+password"); // select password because it is not selected by default
 
   if (!user || !(await user.correctPassword(password, user.password))) {
-    return next(new AppError('Incorrect email or password', 401));
+    return next(new AppError("Incorrect email or password", 401));
   }
 
   // console.log(user);
@@ -66,14 +66,14 @@ const protect = catchAsync(async (req, res, next) => {
 
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
+    req.headers.authorization.startsWith("Bearer")
   ) {
-    token = req.headers.authorization.split(' ')[1];
+    token = req.headers.authorization.split(" ")[1];
   }
 
   if (!token) {
     return next(
-      new AppError('You are not logged in! Please log in to get access.', 401)
+      new AppError("You are not logged in! Please log in to get access.", 401)
     );
   }
 
@@ -85,14 +85,14 @@ const protect = catchAsync(async (req, res, next) => {
 
   if (!currentUser) {
     return next(
-      new AppError('The user belonging to this token no longer exists.', 401)
+      new AppError("The user belonging to this token no longer exists.", 401)
     );
   }
 
   // 4) CHECK IF USER CHANGED PASSWORD AFTER THE TOKEN WAS ISSUED
   if (currentUser.changedPasswordAfter(decoded.iat)) {
     return next(
-      new AppError('User recently changed password! Please log in again.', 401)
+      new AppError("User recently changed password! Please log in again.", 401)
     );
   }
 

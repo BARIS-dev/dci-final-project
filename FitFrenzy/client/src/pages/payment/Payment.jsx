@@ -1,6 +1,6 @@
 const Payment = () => {
   const processPayment = () => {
-    fetch("http://localhost:8080/payment", {
+    fetch("http://localhost:8000/payment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

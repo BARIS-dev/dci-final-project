@@ -5,6 +5,7 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 24px 100px;
+  z-index: 99;
 }
 header .logo {
   font-family: "Abhaya Libre", serif;

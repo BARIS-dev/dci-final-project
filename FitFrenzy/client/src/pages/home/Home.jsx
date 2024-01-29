@@ -20,11 +20,9 @@ const Home = () => {
           <h1 className="big-title">STARK</h1>
           <h1 className="big-title">HERVORRAGEND</h1>
         </div>
-
         <p>
-          Browse through our diverse range of meticulously crafted garments,
-          designed to bring out your individuality and cater to your sense of
-          style.
+          Stöbere durch unsere große Auswahl an Fitnessprodukten und finde das
+          Passende für dich. Mehr Auswahl gibt es nicht!
         </p>
         <Link className="shop-btn">JETZT SHOPPEN</Link>
         <div className="number-box">
