@@ -13,30 +13,29 @@ const Home = () => {
       <img className="main-img" src={mainimg} alt="" />
       <div className="main-of-section">
         <div>
-          <h1 className="big-title" style={{ fontSize: 30 }}>
-            FÜHL DICH
-          </h1>
-          <h1 className="big-title">FIT</h1>
-          <h1 className="big-title">STARK</h1>
-          <h1 className="big-title">HERVORRAGEND</h1>
+          <h1 className="big-title">GET FIT</h1>
+          <h1 className="big-title">FEEL GREAT </h1>
+          <h1 className="big-title">LIVE STRONG</h1>
         </div>
+
         <p>
-          Stöbere durch unsere große Auswahl an Fitnessprodukten und finde das
-          Passende für dich. Mehr Auswahl gibt es nicht!
+          Browse through our diverse range of meticulously crafted garments,
+          designed to bring out your individuality and cater to your sense of
+          style.
         </p>
-        <Link className="shop-btn">JETZT SHOPPEN</Link>
+        <Link className="shop-btn">Shop Now</Link>
         <div className="number-box">
           <div>
             <h1>200+</h1>
-            <p>Internationale Marken</p>
+            <p>International Brands</p>
           </div>
           <div>
             <h1>2,000+</h1>
-            <p>Hochqualitative Produkte</p>
+            <p>High-Quality Products</p>
           </div>
           <div>
             <h1>30,000+</h1>
-            <p>Zufriedene Kunden</p>
+            <p>Happy Customers</p>
           </div>
         </div>
       </div>
