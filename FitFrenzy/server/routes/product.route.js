@@ -6,7 +6,7 @@ import {
   toggleLikeController,
   addProductToCartController,
 } from "../controllers/product.controller.js";
-import { optionalProtect, protect } from "../controllers/authController.js";
+import { protect } from "../controllers/authController.js";
 
 export const productRouter = Router();
 
@@ -22,8 +22,4 @@ productRouter.post(
   toggleLikeController
 );
 
-productRouter.post(
-  "/product/:productId/add",
-  optionalProtect,
-  addProductToCartController
-);
+productRouter.post("/product/:productId/add", addProductToCartController);

@@ -66,9 +66,9 @@ export const viewCart = catchAsync(async (req, res, next) => {
 
 export const updateCartPriceWhenQuantityChanges = catchAsync(
   async (req, res, next) => {
+    const { productId, quantity } = req.body;
     const username = req.user ? req.user.username : undefined;
     const guestCart = req.cookies.guestCart;
-    const { productId, quantity } = req.body;
 
     //Logged in user
     if (username) {
@@ -101,27 +101,31 @@ export const updateCartPriceWhenQuantityChanges = catchAsync(
 
     //Not logged in user
     else if (guestCart) {
-      const productAlreadyInCart = guestCart.items.some(
+      const guestCartObj = JSON.parse(guestCart);
+      console.log(guestCartObj);
+      const productAlreadyInCart = guestCartObj.some(
         (item) => item.productId === productId
       );
+      console.log(productAlreadyInCart);
 
       if (!productAlreadyInCart) {
         return next(new AppError("Produkt nicht im Warenkorb", 404));
       }
 
-      const updatedGuestCart = guestCart.items.map((item) => {
+      const updatedGuestCart = guestCartObj.map((item) => {
         if (item.productId === productId) {
+          console.log(item.productId + " " + item.quantity);
           item.quantity = quantity;
+          console.log(item.productId + " " + item.quantity);
         }
         return item;
       });
+      console.log("Updated guest cart" + updatedGuestCart);
 
       //update cookie
-      res.cookie(
-        "guestCart",
-        { items: updatedGuestCart },
-        { maxAge: 86400000 }
-      );
+      res.cookie("guestCart", JSON.stringify(updatedGuestCart), {
+        maxAge: 86400000,
+      });
 
       res.status(200).json({
         code: 200,
@@ -136,7 +140,6 @@ export const updateCartPriceWhenQuantityChanges = catchAsync(
 
 export const removeItemFromCart = catchAsync(async (req, res, next) => {
   const { productId } = req.body;
-  console.log("productId", productId);
 
   const username = req.user ? req.user.username : undefined;
   console.log("username", username);
@@ -173,7 +176,9 @@ export const removeItemFromCart = catchAsync(async (req, res, next) => {
 
   //Not logged in user
   else if (guestCart) {
-    const productAlreadyInCart = guestCart.items.some(
+    console.log(guestCart);
+    const guestCartObj = JSON.parse(guestCart);
+    const productAlreadyInCart = guestCartObj.items.some(
       (item) => item.productId === productId
     );
 
@@ -181,9 +186,13 @@ export const removeItemFromCart = catchAsync(async (req, res, next) => {
       return next(new AppError("Produkt nicht im Warenkorb", 404));
     }
 
-    const updatedGuestCart = guestCart.items.filter(
+    const updatedGuestCart = guestCartObj.items.filter(
       (item) => item.productId !== productId
     );
+
+    res.cookie("guestCart", JSON.stringify(updatedGuestCart), {
+      maxAge: 86400000,
+    });
 
     res.status(200).json({
       code: 200,
@@ -201,6 +210,7 @@ export const deleteCart = catchAsync(async (req, res, next) => {
 
   //Logged in user
   if (username) {
+    console.log("this in block username");
     const usersCart = await cartModel.findOne({ username: username });
 
     if (!usersCart) {
@@ -209,18 +219,18 @@ export const deleteCart = catchAsync(async (req, res, next) => {
 
     await cartModel.deleteOne({ username: username });
 
-    res.status(200).json({
-      code: 200,
-      message: "Warenkorb gelöscht",
-    });
+    res.status(200).json({});
   }
 
   //Not logged in user
   else if (guestCart) {
+    console.log("this in block guestCart");
     res.clearCookie("guestCart");
     res.status(200).json({
-      code: 200,
-      message: "Gast-Warenkorb gelöscht",
+      answer: {
+        code: 200,
+        message: "Warenkorb gelöscht",
+      },
     });
   } else {
     return next(new AppError("Kein Warenkorb vorhanden", 404));

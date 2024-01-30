@@ -6,12 +6,12 @@ import {
   updateCartPriceWhenQuantityChanges,
   viewCart,
 } from "../controllers/cart.controller.js";
-import { optionalProtect, protect } from "../controllers/authController.js";
+import { protect } from "../controllers/authController.js";
 
 export const cartRouter = Router();
 
-cartRouter.get("/", optionalProtect, viewCart);
-cartRouter.put("/update", optionalProtect, updateCartPriceWhenQuantityChanges);
-cartRouter.put("/remove-item", optionalProtect, removeItemFromCart);
-cartRouter.delete("/delete", optionalProtect, deleteCart);
+cartRouter.get("/", viewCart);
+cartRouter.put("/update", updateCartPriceWhenQuantityChanges);
+cartRouter.put("/remove-item", removeItemFromCart);
+cartRouter.delete("/delete", deleteCart);
 cartRouter.post("/checkout", protect, checkout);
