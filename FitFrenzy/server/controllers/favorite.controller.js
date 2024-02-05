@@ -88,6 +88,8 @@ export const removeFromFavoritesController = catchAsync(
 
     //verify product existence? if not exist (anymore) then product could not be found?
     const selectedProduct = await productModel.findById(productId);
+    console.log("selectedProduct", selectedProduct);
+
     if (!selectedProduct) {
       return next(new AppError("Produkt nicht verfügbar", 404));
     }
@@ -104,4 +106,15 @@ export const removeFromFavoritesController = catchAsync(
   }
 );
 
-export const deleteFavoriteController = catchAsync();
+export const deleteFavoriteController = catchAsync(async (req, res, next) => {
+  const username = req.user.username;
+
+  await favoriteModel.deleteMany({ username: username });
+
+  res.status(200).json({
+    answer: {
+      code: 200,
+      message: `Liste von User ${username} gelöscht `,
+    },
+  });
+});
