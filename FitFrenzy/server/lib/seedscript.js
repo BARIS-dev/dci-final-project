@@ -4,10 +4,13 @@ config({ path: "../.env" });
 import { faker } from "@faker-js/faker";
 import mongoose from "mongoose";
 import productModel from "../models/product.model.js";
-import { mongoConnect } from "../config/db.connect.js";
 
-await mongoConnect();
-console.log("Connected to MongoDB");
+// connect to DB
+mongoose
+  .connect(process.env.DB_CONNECTION, {
+    dbName: "fitfrenzy",
+  })
+  .then(() => console.log("Connected to MongoDB"));
 
 const getRandomIndexOfArray = (array) => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -41,11 +44,12 @@ async function seedProducts(productsToCreate) {
         name: faker.commerce.productName(),
         category: categories[getRandomIndexOfArray(categories)],
         price: faker.commerce.price(),
+        image: faker.image.urlLoremFlickr({ category: "sports" }),
         description: faker.commerce.productDescription(),
-        size: sizes[getRandomIndexOfArray(sizes)],
-        color: colors[getRandomIndexOfArray(colors)],
+        size: getRandomInArrays(sizes, 2, 4),
+        color: getRandomInArrays(colors, 1, 4),
         countInStock: faker.number.int({ min: 0, max: 200 }),
-        averageRating: faker.number.float({ min: 1, max: 5, precision: 0.01 }),
+        averageRating: 4.5,
       };
 
       await productModel.create(product);
@@ -60,4 +64,18 @@ async function seedProducts(productsToCreate) {
   }
 }
 
-await seedProducts(2);
+const getRandomInArrays = (array, min, max) => {
+  const count = faker.number.int({ min: min, max: max });
+  const randomItems = [];
+
+  for (let i = 0; i < count; i++) {
+    const randomIndex = getRandomIndexOfArray(array);
+    if (!randomItems.includes(array[randomIndex])) {
+      randomItems.push(array[randomIndex]);
+    }
+  }
+
+  return randomItems;
+};
+
+await seedProducts(1);

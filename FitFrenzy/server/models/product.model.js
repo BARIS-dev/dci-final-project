@@ -21,11 +21,6 @@ const ProductSchema = new mongoose.Schema(
     image: {
       type: String,
       //required: true,
-      validate(value) {
-        if (!isImage(value)) {
-          throw new Error("Invalid image URL");
-        }
-      },
     },
     description: {
       type: String,
@@ -33,11 +28,11 @@ const ProductSchema = new mongoose.Schema(
       minlength: 10,
     },
     size: {
-      type: String,
+      type: [String],
       enum: ["XS", "S", "M", "L", "XL", "XXL", "One size"],
     },
     color: {
-      type: String,
+      type: [String],
       enum: [
         "Black",
         "White",
