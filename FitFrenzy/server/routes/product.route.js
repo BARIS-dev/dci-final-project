@@ -7,6 +7,9 @@ import {
   addProductToCartController,
 } from "../controllers/product.controller.js";
 import { protect } from "../controllers/authController.js";
+import userModel from "../models/user.model.js";
+import { promisify } from "util";
+import jwt from "jsonwebtoken";
 
 export const productRouter = Router();
 

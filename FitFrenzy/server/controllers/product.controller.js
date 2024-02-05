@@ -212,8 +212,11 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
 
     if (usersCart) {
       //if user already has a cart => check if product already in cart
-      const productAlreadyInCart =
-        usersCart.items.productId.includes(productId);
+      console.log("usersCart", usersCart);
+      const productAlreadyInCart = usersCart.items.some(
+        (item) => item.productId === productId
+      );
+      console.log(productAlreadyInCart);
 
       if (productAlreadyInCart) {
         //product already in cart => increase quantity

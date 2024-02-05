@@ -103,7 +103,8 @@ export const updateCartPriceWhenQuantityChanges = catchAsync(
     else if (guestCart) {
       const guestCartObj = JSON.parse(guestCart);
       console.log(guestCartObj);
-      const productAlreadyInCart = guestCartObj.some(
+
+      const productAlreadyInCart = guestCartObj.items.some(
         (item) => item.productId === productId
       );
       console.log(productAlreadyInCart);
@@ -112,18 +113,18 @@ export const updateCartPriceWhenQuantityChanges = catchAsync(
         return next(new AppError("Produkt nicht im Warenkorb", 404));
       }
 
-      const updatedGuestCart = guestCartObj.map((item) => {
+      const updatedGuestCart = guestCartObj.items.map((item) => {
         if (item.productId === productId) {
-          console.log(item.productId + " " + item.quantity);
+          //console.log(item.productId + " " + item.quantity);
           item.quantity = quantity;
-          console.log(item.productId + " " + item.quantity);
+          //console.log(item.productId + " " + item.quantity);
         }
         return item;
       });
       console.log("Updated guest cart" + updatedGuestCart);
 
       //update cookie
-      res.cookie("guestCart", JSON.stringify(updatedGuestCart), {
+      res.cookie("guestCart", JSON.stringify({ items: updatedGuestCart }), {
         maxAge: 86400000,
       });
 
@@ -176,11 +177,13 @@ export const removeItemFromCart = catchAsync(async (req, res, next) => {
 
   //Not logged in user
   else if (guestCart) {
-    console.log(guestCart);
     const guestCartObj = JSON.parse(guestCart);
+    console.log(guestCartObj);
+
     const productAlreadyInCart = guestCartObj.items.some(
       (item) => item.productId === productId
     );
+    console.log(productAlreadyInCart);
 
     if (!productAlreadyInCart) {
       return next(new AppError("Produkt nicht im Warenkorb", 404));
@@ -190,7 +193,7 @@ export const removeItemFromCart = catchAsync(async (req, res, next) => {
       (item) => item.productId !== productId
     );
 
-    res.cookie("guestCart", JSON.stringify(updatedGuestCart), {
+    res.cookie("guestCart", JSON.stringify({ items: updatedGuestCart }), {
       maxAge: 86400000,
     });
 
@@ -219,7 +222,12 @@ export const deleteCart = catchAsync(async (req, res, next) => {
 
     await cartModel.deleteOne({ username: username });
 
-    res.status(200).json({});
+    res.status(200).json({
+      answer: {
+        code: 200,
+        message: "Warenkorb gelöscht",
+      },
+    });
   }
 
   //Not logged in user
@@ -229,7 +237,7 @@ export const deleteCart = catchAsync(async (req, res, next) => {
     res.status(200).json({
       answer: {
         code: 200,
-        message: "Warenkorb gelöscht",
+        message: "Gast-Warenkorb gelöscht",
       },
     });
   } else {
@@ -239,19 +247,42 @@ export const deleteCart = catchAsync(async (req, res, next) => {
 
 export const checkout = catchAsync(async (req, res, next) => {
   const username = req.user ? req.user.username : undefined;
+  const guestCart = req.cookies.guestCart;
 
-  //if user already logged in => navigate to checkout page with cart data
+  //if user already logged in => save the guestCart data into the database
   if (username) {
-    const usersCart = await cartModel.findOne({ username: username });
+    const guestCartObj = JSON.parse(guestCart);
+    console.log("guestCartObj", guestCartObj);
 
-    if (!usersCart) {
-      return next(new AppError("Kein Warenkorb vorhanden", 404));
+    let userCart = await cartModel.findOne({ username: username });
+
+    if (!userCart) {
+      userCart = await cartModel.create({
+        username: username,
+        items: guestCartObj.items,
+      });
     }
+
+    //transfer guestCart items to usersCart - check if product already in usersCart
+    guestCartObj.items.forEach((guestCartItem) => {
+      const productInCart = userCart.items.find((item) =>
+        item.productId.equals(guestCartItem.productId)
+      );
+
+      if (productInCart) {
+        productInCart.quantity = guestCartItem.quantity;
+      } else {
+        userCart.items.push(guestCartItem);
+      }
+    });
+
+    await userCart.save();
+    res.clearCookie("guestCart");
 
     res.status(200).json({
       code: 200,
       message: "Warenkorb für Checkout bereit",
-      data: usersCart,
+      data: userCart,
     });
   }
 
@@ -261,5 +292,7 @@ export const checkout = catchAsync(async (req, res, next) => {
       code: 200,
       message: "Bitte einloggen oder registrieren",
     });
+
+    return next(new AppError("User not authenticated", 404));
   }
 });
