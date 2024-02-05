@@ -324,7 +324,12 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
       //if user has no guestCart in cookie yet => create new guestCart and add product to cart (quantity 1)
       const newGuestCart = {
         items: [
-          { productId: productId, productName: product.name, quantity: 1 },
+          {
+            productId: productId,
+            productName: product.name,
+            quantity: 1,
+            productPrice: product.price,
+          },
         ],
       };
 

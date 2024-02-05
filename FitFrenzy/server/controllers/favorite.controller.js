@@ -23,6 +23,7 @@ export const addFavoriteToCartController = catchAsync(
 
     //Check product availability (again to make sure up-to-date)
     const selectedProduct = productModel.findById(productId);
+
     if (!selectedProduct || selectedProduct.countInStock === 0) {
       return next(new AppError("Produkt nicht verfügbar", 404));
     }
