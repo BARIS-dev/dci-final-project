@@ -49,11 +49,23 @@
 
         button {
           border: none;
+          outline: none;
+          box-shadow: none;
           border-radius: 50%;
           width: 2em;
           height: 2em;
           margin-right: 0.5em;
           cursor: pointer;
+          position: relative;
+
+          .tick-mark {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.25em;
+            color: var(--input-backgrand);
+          }
         }
       }
 
@@ -107,13 +119,12 @@
           border-radius: 50%;
           width: 3em;
           height: 3em;
-
           background-color: var(--accent);
           color: var(--input-backgrand);
           cursor: pointer;
 
           &:hover {
-            background-color: var(--primary);
+            background-color: chocolate;
           }
 
           .heart {

@@ -8,6 +8,7 @@ const ProductDetail = () => {
   const { id } = useParams(); //65c15356d08e1b4d4624a721
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const [selectedColor, setSelectedColor] = useState(null);
 
   useEffect(() => {
     fetch(`http://localhost:8000/product/${id}`)
@@ -28,8 +29,6 @@ const ProductDetail = () => {
 
   return (
     <section className="product-container">
-      {/* breadcrumb nav
-       */}
       <div className="breadcrumb-trail">
         <p>
           Home &raquo; Shop &raquo;{" "}
@@ -65,7 +64,12 @@ const ProductDetail = () => {
                     style={{
                       backgroundColor: color,
                     }}
-                  ></button>
+                    onClick={() => setSelectedColor(color)}
+                  >
+                    {selectedColor === color && (
+                      <span className="tick-mark">&#10003;</span>
+                    )}
+                  </button>
                 ))}
             </div>
           </div>
