@@ -1,28 +1,56 @@
-import { createContext, useMemo, useState } from "react";
+import { useContext, createContext, useEffect, useState } from "react";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { auth } from "../firebase/firebase.settings";
+import PropTypes from "prop-types";
 
-export const UserContext = createContext({
-  currentUser: null,
-  setCurrentUser: () => null,
-});
+const UserContext = createContext();
 
-export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const value = useMemo(() => {
-    return { currentUser, setCurrentUser };
-  }, [currentUser]);
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+export const UserContextProvider = ({ children }) => {
+  const [user, setUser] = useState({});
+
+
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
+  };
+
+  const logOut = () => {
+    signOut(auth)
+  }
+
+
+
+  useEffect(()=> {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log('User', currentUser)
+
+    });
+    return () => {
+      unsubscribe();
+    }
+
+  }, [])
+
+
+
+  return (
+    <UserContext.Provider value={{ googleSignIn, logOut, user }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+export const UserAuth = () => {
+  return useContext(UserContext);
+}
+  UserContextProvider.propTypes = {
+    children:PropTypes.node.isRequired,
 };
 
-//export const UserContext = createContext();
 
-/*export const UserProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(null);
-    const value = () => ({ currentUser, setCurrentUser });
-  
-    return (
-      <UserContext.Provider value={value()}>
-        {children}
-      </UserContext.Provider>
-    );
-  };*/

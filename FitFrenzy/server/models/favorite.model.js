@@ -3,15 +3,24 @@ import mongoose from "mongoose";
 const FavoriteSchema = new mongoose.Schema(
   {
     username: {
-      type: mongoose.Schema.ObjectId,
+      type: String,
       ref: "User",
       required: true,
     },
-    productId: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Product",
-      required: true,
-    },
+    likedItems: [
+      {
+        productName: {
+          type: String,
+          ref: "Product",
+        },
+
+        productId: {
+          type: mongoose.Schema.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
