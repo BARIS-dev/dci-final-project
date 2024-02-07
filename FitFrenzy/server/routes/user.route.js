@@ -1,12 +1,22 @@
 import { Router } from 'express';
-import { login, signup, protect } from '../controllers/authController.js';
+import {
+  signup,
+  login,
+  logout,
+  protect,
+  restrictTo,
+} from '../controllers/authController.js';
 import { getAllUsers } from '../controllers/user.controller.js';
 
 export const userRouter = Router();
 
 userRouter.post('/signup', signup);
 userRouter.post('/login', login);
+userRouter.get('/logout', logout);
 
-userRouter.route('/').get(protect, getAllUsers);
+// Protect all routes after this middleware
+userRouter.use(protect);
+
+userRouter.route('/').get(getAllUsers);
 
 export default userRouter;
