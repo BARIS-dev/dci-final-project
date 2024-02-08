@@ -10,21 +10,28 @@ const Header = () => {
       <Link className="logo" to={"/"}>
         FitFrenzy
       </Link>
-      <ul>
-        <Link className="nav-item">Shop</Link>
-        <Link className="nav-item">Angebote</Link>
-        <Link className="nav-item">Neu hinzugefügt</Link>
-        <Link className="nav-item">Marken</Link>
-      </ul>
+
+      <div className="navbar">
+        
+        <ul>
+          <Link className="nav-item">Shop</Link>
+          <Link className="nav-item">Angebote</Link>
+          <Link className="nav-item">Neu hinzugefügt</Link>
+          <Link className="nav-item">Marken</Link>
+        </ul>
+      </div>
       <div className="search-box">
         <button htmlFor="">
           <img src={searchIcon} alt="Such-Icon" />
         </button>
         <input type="text" placeholder="Suche nach Produkten..." />
       </div>
-      <div className="icons">
-        <Link>
-          <img src={basket} alt="Warenkorb-Icon" />
+      <div className="korb">
+        <Link to="/cart">
+          <div>
+            <p className="korb-nummer">0</p>
+            <img src={basket} alt="Warenkorb-Icon" />
+          </div>
         </Link>
         <Link>
           <img src={user} alt="Benutzer-Icon" />

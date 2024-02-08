@@ -12,7 +12,7 @@ function Footer() {
   return (
     <footer>
       <div className="newsletter">
-        <h1></h1>
+        <h1>Bleiben Sie über unsere neuesten Angebote auf dem Laufenden</h1>
         <form>
           <input type="text" placeholder="Email-Adresse eingeben" />
           <button type="submit">Newsletter abonnieren</button>

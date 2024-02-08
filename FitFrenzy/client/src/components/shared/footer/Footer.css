@@ -8,6 +8,7 @@ footer {
 }
 .information {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 footer p {
@@ -42,7 +43,7 @@ footer h3 {
 }
 .newsletter h1 {
   max-width: 550px;
-  font-size: 40px;
+  font-size: 36px;
 }
 .newsletter input {
   width: 100%;
@@ -53,6 +54,7 @@ footer h3 {
 }
 form {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   row-gap: 14px;
   width: 40%;
@@ -60,8 +62,56 @@ form {
 .last-footer-section {
   border-top: 1px solid rgba(0, 0, 0, 0.103);
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding-top: 20px;
-  margin-top: 50px;
+  padding-top: 20px;Bleiben Sie über unsere neuesten Angebote auf dem Laufenden
+  footer {
+    padding-inline: 50px;
+  }
+}
+
+@media screen and (max-width: 601px) {
+  /* tablet */
+  footer {
+    padding-inline: 30px;
+  }
+  .info-box1{
+    width: 100%;
+  }
+  .newsletter{
+    flex-direction: column;
+    padding: 20px;
+    left: 30px;
+    right: 30px;
+    row-gap: 20px;
+  }
+  form {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 360px) {
+  /* mobile */
+  footer{
+    padding-inline: 30px;
+  }
+  .information{
+    column-gap: 10px;
+  }
+  .info-box1{
+    width: 100%;
+  }
+  .info-box2{
+    width: 45%;
+  }
+  .newsletter{
+    flex-direction: column;
+    padding: 20px;
+    left: 30px;
+    right: 30px;
+    row-gap: 20px;
+  }
+ form {
+    width: 100%;
+  }
 }

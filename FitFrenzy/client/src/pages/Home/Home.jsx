@@ -12,7 +12,6 @@ const Home = () => {
   return (
     <div>
       <div className="home-first-section">
-        <img className="main-img" src={mainimg} alt="" />
         <div className="main-of-section">
           <div>
             <h1 className="big-title" style={{ fontSize: 30 }}>
@@ -42,6 +41,7 @@ const Home = () => {
               <p>Zufriedene Kunden</p>
             </div>
           </div>
+          <img className="main-img" src={mainimg} alt="" />
         </div>
         <ul>
           <img src={versace} alt="" />

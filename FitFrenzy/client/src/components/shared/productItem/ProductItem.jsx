@@ -1,6 +1,8 @@
 import "./ProductItem.css";
 import clothes from "../../../assets/img/clothes.png";
 import Rating from "../rating/Rating";
+
+
 const ProductItem = ({ product }) => {
   return (
     <div className="product-item">

@@ -44,7 +44,71 @@ header input {
   border-radius: 20px 0px 0px 20px;
   cursor: pointer;
 }
-.icons {
+
+.korb-nummer {
   display: flex;
-  column-gap: 30px;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: brown;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--input-backgrand);
+  margin-left: 15px;
+  text-decoration: none;
+}
+.korb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+ 
+}
+
+@media screen and (max-width: 1025px) {
+  /* desk */
+  header {
+    padding-inline: 50px;
+  }
+
+  header ul {
+    position: absolute;
+    flex-direction: column;
+    left: -250px;
+    top: 70px;
+    padding: 20px 20px 20px 100px;
+    row-gap: 15px;
+    transition: left 200ms ease-in-out;
+    /* background-color: var(--text); */
+  }
+  header .nav-item {
+    color: rgb(0, 0, 0);
+  }
+  .navbar {
+    order: -1;
+  }
+  .navbar p {
+    display: inline-block;
+  }
+  .navbar:hover ul {
+    left: 0px;
+  }
+  .navbar p {
+    padding: 15px;
+  }
+}
+@media screen and (max-width: 601px) {
+  /* tablet */
+  header {
+    padding-inline: 30px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  /* mobile */
+  header {
+    padding-inline: 10px;
+  }
 }
