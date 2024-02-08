@@ -1,8 +1,10 @@
 import "./product.detail.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import AverageRating from "../../components/productDetails/productAverageRating/averageRating.jsx";
 import QuantityInput from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
+import { TablistComponent } from "../../components/productDetails/tabList/tablistComponent.jsx";
 
 const ProductDetail = () => {
   const { id } = useParams(); //65c15356d08e1b4d4624a721
@@ -11,12 +13,14 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/product/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setProduct(data.answer.data);
+    try {
+      axios.get(`http://localhost:8000/product/${id}`).then((response) => {
+        setProduct(response.data.answer.data);
       });
-    console.log(product);
+      console.log(product);
+    } catch (error) {
+      console.log(error);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -36,6 +40,7 @@ const ProductDetail = () => {
             product.category[0].toUpperCase() + product.category.slice(1)}
         </p>
       </div>
+
       <div className="product-overview">
         <div className="product-img">
           <img src={product.image} alt={product.name} />
@@ -66,9 +71,9 @@ const ProductDetail = () => {
                     }}
                     onClick={() => setSelectedColor(color)}
                   >
-                    {selectedColor === color && (
+                    {selectedColor === color ? (
                       <span className="tick-mark">&#10003;</span>
-                    )}
+                    ) : null}
                   </button>
                 ))}
             </div>
@@ -93,6 +98,8 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+
+      <TablistComponent />
     </section>
   );
 };

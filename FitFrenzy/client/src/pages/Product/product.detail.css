@@ -7,19 +7,21 @@
 
   .product-overview {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 
     .product-img {
       border-radius: 1em;
-      width: 40%;
+      width: 100%;
+
       img {
         width: 100%;
+        border-radius: 1em;
         margin: 0 auto;
       }
     }
 
     .product-info {
-      width: 55%;
       display: flex;
       flex-direction: column;
       gap: 1em;
@@ -37,7 +39,7 @@
       .product-description {
         font-size: 1.25em;
         padding-bottom: 0.5em;
-        border-bottom: 1px solid var(--paragraph);
+        border-bottom: 1px solid var(--primary);
         color: var(--paragraph);
       }
 
@@ -47,24 +49,24 @@
         gap: 0.5em;
         font-size: 1.25em;
 
-        button {
-          border: none;
-          outline: none;
-          box-shadow: none;
-          border-radius: 50%;
-          width: 2em;
-          height: 2em;
-          margin-right: 0.5em;
-          cursor: pointer;
-          position: relative;
+        .color-btn {
+          display: flex;
 
-          .tick-mark {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.25em;
-            color: var(--input-backgrand);
+          button {
+            border: none;
+            outline: none;
+            box-shadow: none;
+            border-radius: 50%;
+            width: 2em;
+            height: 2em;
+            margin-right: 0.5em;
+            cursor: pointer;
+
+            .tick-mark {
+              display: block;
+              font-size: 1.25em;
+              color: var(--input-backgrand);
+            }
           }
         }
       }
@@ -105,12 +107,12 @@
           padding: 0.5em 1em;
           font-size: 1.25em;
           width: 50%;
-          background-color: var(--text);
+          background-color: var(--accent);
           color: var(--input-backgrand);
           cursor: pointer;
 
           &:hover {
-            background-color: var(--paragraph);
+            background-color: var(--primary);
           }
         }
 
@@ -124,13 +126,29 @@
           cursor: pointer;
 
           &:hover {
-            background-color: chocolate;
+            background-color: var(--primary);
           }
 
           .heart {
             font-size: 2em;
           }
         }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .product-container {
+    .product-overview {
+      flex-direction: row;
+
+      .product-img {
+        width: 40%;
+      }
+
+      .product-info {
+        width: 55%;
       }
     }
   }
