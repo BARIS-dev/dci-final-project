@@ -126,15 +126,16 @@ export const getProductReviewsController = catchAsync(
 
 export const toggleLikeController = catchAsync(async (req, res, next) => {
   const { productId } = req.params;
-  const username = req.user ? req.user.username : undefined;
+  const product = await productModel.findById(productId);
 
-  const userFavorites = await favoriteModel.findOne({ userId: userId });
+  const username = req.user ? req.user.username : undefined;
+  const userFavorites = await favoriteModel.findOne({ username: username });
 
   if (!userFavorites) {
-    //if user has no favorites yet => create new favorites list
+    //if user has no favorites yet => create new favorites list with product name and id
     const newFavorites = favoriteModel.create({
       username: username,
-      productId: productId,
+      likedItems: [{ productName: product.name, productId: productId }],
     });
     await newFavorites.save();
 
@@ -142,32 +143,45 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
       answer: {
         code: 200,
         message: "Favorite List erstellt und Produkt hinzugefügt",
+        data: newFavorites,
       },
     });
   } else {
     //if user already has favorites => check if product is already in favorites list
-    const productInFavorites = userFavorites.productId.includes(productId);
+    //console.log(userFavorites);
+    const productInFavorites = userFavorites.likedItems.some((item) =>
+      item.productId.equals(productId)
+    );
+    console.log(productInFavorites);
 
     if (productInFavorites) {
       //if product already in favorites => remove product from favorites
-      await favoriteModel.updateOne(
+      const updatedFavorites = await favoriteModel.updateOne(
         { username: username },
-        { $pull: { productId: productId } }
+        {
+          $pull: {
+            likedItems: { productId: productId },
+          },
+        }
       );
 
       res.status(200).json({
         answer: {
           code: 200,
           message: "Produkt wurde aus Favoriten entfernt",
+          data: updatedFavorites,
         },
       });
     } else {
       //if product not in favorites => add product to favorites
       await favoriteModel.updateOne(
         { username: username },
-        { $addToSet: { productId: productId } }
+        {
+          $addToSet: {
+            likedItems: { productName: product.name, productId: productId },
+          },
+        }
       );
-      await newFavorite.save();
 
       res.status(200).json({
         answer: {
@@ -189,6 +203,7 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
 
   //Check if user already logged in
   const username = req.user ? req.user.username : undefined;
+  console.log("username", username);
 
   //AUTHENTICATED USER
   if (username) {
@@ -197,8 +212,11 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
 
     if (usersCart) {
       //if user already has a cart => check if product already in cart
-      const productAlreadyInCart =
-        usersCart.items.productId.includes(productId);
+      console.log("usersCart", usersCart);
+      const productAlreadyInCart = usersCart.items.some(
+        (item) => item.productId === productId
+      );
+      console.log(productAlreadyInCart);
 
       if (productAlreadyInCart) {
         //product already in cart => increase quantity
@@ -306,7 +324,12 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
       //if user has no guestCart in cookie yet => create new guestCart and add product to cart (quantity 1)
       const newGuestCart = {
         items: [
-          { productId: productId, productName: product.name, quantity: 1 },
+          {
+            productId: productId,
+            productName: product.name,
+            quantity: 1,
+            productPrice: product.price,
+          },
         ],
       };
 
