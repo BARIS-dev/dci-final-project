@@ -1,4 +1,3 @@
-//import React from 'react'
 import { useState } from "react";
 import "./SendMessage.css";
 import { chatAuth, db } from "../../../firebase/firebase.chat";
@@ -12,7 +11,7 @@ const SendMessage = ({ scroll }) => {
   const SendMessage = async (e) => {
     e.preventDefault();
     if (input === "") {
-      alert("Please enter a valid message");
+      alert("Bitte gebe eine Nachricht ein!");
     }
     const { uid, displayName } = chatAuth.currentUser;
     await addDoc(collection(db, "messages"), {
@@ -33,10 +32,10 @@ const SendMessage = ({ scroll }) => {
         onChange={(e) => setInput(e.target.value)}
         className="input-style"
         type="text"
-        placeholder="Message"
+        placeholder="Nachricht eingeben..."
       />
       <button className="button-style" type="submit">
-        Send
+        Senden
       </button>
     </form>
   );

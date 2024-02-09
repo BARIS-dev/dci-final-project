@@ -1,35 +1,28 @@
-//import React from 'react'
 import PropTypes from "prop-types";
 import "./Modal.css";
 import ChatRoom from "../ChatRoom/Chatroom";
-import SendMessage from "../Sendmessage/SendMessage";
+import { FaX } from "react-icons/fa6";
 
 const Modal = ({ open, onClose }) => {
   if (!open) return null;
   return (
-    <div className="overlay">
-      <div className="modalContainer">
-        <div className="navbar-chat">
-          <h2>Hallo!</h2>
-          <p>
-            Wir sind für dich da und freuen uns auf deine Fragen oder dein
-            Feedback
-          </p>
+    <div className="overlay animate__animated animate__fadeIn animte__faster">
+      <div className="chat-container">
+        <div className="chat-header">
+          <div className="chat-header-left">
+            <h2>Hallo!</h2>
+            <p>
+              Kundensupport: <span className="on-off-span">online</span>
+            </p>
+          </div>
+          <div className="chat-header-right">
+            <a onClick={onClose} className="closeBtn">
+              <FaX />
+            </a>
+          </div>
         </div>
-        <div className="content">
+        <div className="chat-content">
           <ChatRoom />
-        </div>
-
-        <div className="send-message">
-          <SendMessage />
-        </div>
-
-        <div className="modalRight">
-          <button onClick={onClose} className="closeBtn">
-            X
-          </button>
-
-          <div className="btnContainer"></div>
         </div>
       </div>
     </div>
