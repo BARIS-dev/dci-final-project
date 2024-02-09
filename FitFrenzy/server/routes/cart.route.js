@@ -5,7 +5,8 @@ import {
   removeItemFromCart,
   updateCartPriceWhenQuantityChanges,
   viewCart,
-} from "../controllers/cartController.js";
+} from "../controllers/cart.controller.js";
+import { protect } from "../controllers/authController.js";
 
 export const cartRouter = Router();
 
@@ -13,4 +14,4 @@ cartRouter.get("/", viewCart);
 cartRouter.put("/update", updateCartPriceWhenQuantityChanges);
 cartRouter.put("/remove-item", removeItemFromCart);
 cartRouter.delete("/delete", deleteCart);
-cartRouter.post("/checkout", checkout);
+cartRouter.post("/checkout", protect, checkout);
