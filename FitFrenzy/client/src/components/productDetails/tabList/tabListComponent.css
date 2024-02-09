@@ -1,0 +1,43 @@
+.tab-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem 0;
+
+  .list-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+
+    .list-item-title {
+      padding: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        width: 100%;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        text-align: center;
+        font-size: 1.25em;
+        cursor: pointer;
+        border-bottom: 1px solid var(--secondary);
+      }
+
+      .selected {
+        border-bottom: 1px solid var(--primary);
+        padding-bottom: 0.5em;
+        color: var(--accent);
+      }
+    }
+
+    .list-item-content {
+      /* bg-white p-2 rounded-xl */
+      .hidden {
+        display: none;
+      }
+    }
+  }
+}

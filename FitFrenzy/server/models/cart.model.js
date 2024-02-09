@@ -25,6 +25,14 @@ const CartSchema = new mongoose.Schema({
         type: Number,
         ref: "Product",
       },
+      productSize: {
+        type: String,
+        ref: "Product",
+      },
+      productColor: {
+        type: String,
+        ref: "Product",
+      },
     },
   ],
   sum: {

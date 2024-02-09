@@ -12,6 +12,7 @@ import paymentRouter from "./routes/payment.route.js";
 
 import AppError from "./utils/appError.js";
 import globalErrorHandler from "./controllers/errorController.js";
+import productReviewModel from "./models/productReview.model.js";
 
 config(); // Load env variables
 
@@ -29,6 +30,19 @@ app.use("/favorites", favoriteRouter);
 app.use("/search", searchRouter);
 app.use("/cart", cartRouter);
 app.use("/", paymentRouter);
+
+//FOR TESTING - WILL REMOVE
+app.use("/reviews", async (req, res, next) => {
+  try {
+    const allReviews = await productReviewModel.find();
+    res.status(200).json({
+      message: "test",
+      data: allReviews,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
