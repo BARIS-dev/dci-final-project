@@ -12,17 +12,20 @@ import paymentRouter from './routes/payment.route.js';
 
 import AppError from './utils/appError.js';
 import globalErrorHandler from './controllers/errorController.js';
+// import { getAllUsers } from './controllers/user.controller.js';
 
 config(); // Load env variables
 
 const app = express();
+app.use(cors());
 
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors());
+// app.get('/getUsers', getAllUsers);
+
 app.use('/user', userRouter);
 app.use('/', productRouter);
 app.use('/favorites', favoriteRouter);

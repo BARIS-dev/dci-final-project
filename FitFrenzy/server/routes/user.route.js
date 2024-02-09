@@ -15,8 +15,8 @@ userRouter.post('/login', login);
 userRouter.get('/logout', logout);
 
 // Protect all routes after this middleware
-userRouter.use(protect);
+// userRouter.use(protect); //! bug: can not get user info with protect middleware
 
-userRouter.route('/').get(getAllUsers);
+userRouter.route('/getAllUsers').get(getAllUsers);
 
 export default userRouter;
