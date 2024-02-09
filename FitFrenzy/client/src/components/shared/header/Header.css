@@ -88,14 +88,14 @@ header {
         .navmenu-button-container {
           display: none;
         }
-    }
+      }
 
-    
-    .pc-nav {
-      display: flex;
-    }
-    .mobile-nav {
-      display: none;
+      .pc-nav {
+        display: flex;
+      }
+      .mobile-nav {
+        display: none;
+      }
     }
   }
 }
