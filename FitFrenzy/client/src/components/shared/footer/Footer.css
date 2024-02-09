@@ -1,67 +1,55 @@
 footer {
-  background-color: var(--input-backgrand);
-  position: relative;
-  margin-top: 150px;
-  padding-top: 140px;
-  padding-bottom: 88px;
-  padding-inline: 100px;
-}
-.information {
-  display: flex;
-  justify-content: space-between;
-}
-footer p {
-  color: var(--paragraph);
-}
-.info-box1 p {
-  width: 250px;
-  margin-block: 25px;
-}
-footer h3 {
-  margin-bottom: 25px;
-  line-height: 33px;
-}
-.info-box2 p {
-  line-height: 29px;
-}
-.links img {
-  margin-right: 15px;
-}
-.newsletter {
-  position: absolute;
-  background-color: var(--text);
-  color: white;
-  top: 0;
-  transform: translateY(-50%);
-  right: 100px;
-  left: 100px;
-  display: flex;
-  padding: 43px 64px;
-  border-radius: 20px;
-  justify-content: space-between;
-}
-.newsletter h1 {
-  max-width: 550px;
-  font-size: 40px;
-}
-.newsletter input {
+  background-color: var(--accent);
+  color: var(--background);
+  text-align: center;
   width: 100%;
-  line-height: 48px;
-  border-radius: 24px;
-  padding-inline: 14px;
-  border: none;
-}
-form {
+  padding: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+
   display: flex;
-  flex-direction: column;
-  row-gap: 14px;
-  width: 40%;
-}
-.last-footer-section {
-  border-top: 1px solid rgba(0, 0, 0, 0.103);
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding-top: 20px;
-  margin-top: 50px;
+  flex-direction: column;
+  .footer-divider {
+    width: 80%;
+    height: 1px;
+    background-color: #ffffff77;
+    margin: 2rem 0;
+  }
+  .footer-logos-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    .social-media-logos {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      svg {
+        font-size: 1.8rem;
+        color: var(--background);
+      }
+    }
+    .payment-logos {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      svg {
+        font-size: 2rem;
+        color: var(--background);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  footer {
+    padding: 2rem 0;
+    flex-direction: row;
+    .footer-logos-container {
+      flex-direction: row;
+    }
+  }
 }

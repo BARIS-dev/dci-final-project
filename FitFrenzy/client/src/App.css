@@ -3,3 +3,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+html,
+body {
+  height: 100vh;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: "Roboto", sans-serif;
+}

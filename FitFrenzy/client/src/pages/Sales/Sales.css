@@ -1,0 +1,8 @@
+.sales-container {
+  .sales-hero {
+    height: 20vh;
+    width: 100%;
+    background: url("../../assets/img/sales-banner.png") no-repeat center
+      center/cover;
+  }
+}
