@@ -37,15 +37,16 @@ const ProductDetail = () => {
   };
 
   const addToCart = () => {
-    console.log("selected Color: " + selectedColor);
-    console.log("selected quantity: " + quantity);
-    console.log("selected size: " + selectedSize);
     try {
       axios.post(`http://localhost:8000/product/${id}/add`, {
         quantity: quantity,
         color: selectedColor,
         size: selectedSize,
       });
+
+      console.log("selected Color: " + selectedColor);
+      console.log("selected quantity: " + quantity);
+      console.log("selected size: " + selectedSize);
     } catch (error) {
       console.log(error);
     }
