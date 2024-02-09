@@ -6,7 +6,7 @@ import Navbar from "./components/navbar/navbar.jsx";
 import Account from "./pages/Account/Account.jsx";
 import Signin from "./pages/Signin/Signin.jsx";
 import { UserContextProvider } from "./context/user.context.jsx";
-import Payment from "./pages/payment/Payment.jsx";
+import Payment from "./pages/Payment/Payment.jsx";
 import Footer from "./components/shared/footer/Footer.jsx";
 import AdminDashboard from "./pages/Admin/admin.dashboard.jsx";
 import ProductCreate from "./pages/Admin/product.create.jsx";
@@ -14,7 +14,6 @@ import ProductDetail from "./pages/Product/product.detail.jsx";
 import Signout from "./pages/Signout/Signout.jsx";
 import Navbarchat from "./components/chat/Navbarchat/NavbarChat.jsx";
 import PaymentMethods from "./pages/PaymentMethods/PaymentMethods.jsx";
-
 
 function App() {
   return (
