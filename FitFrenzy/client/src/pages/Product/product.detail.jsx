@@ -2,7 +2,7 @@ import "./product.detail.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import AverageRating from "../../components/productDetails/productAverageRating/averageRating.jsx";
+import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
 import QuantityInput from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
 import { TablistComponent } from "../../components/productDetails/tabList/tablistComponent.jsx";
 
@@ -50,7 +50,7 @@ const ProductDetail = () => {
 
           {product.averageRating && (
             <div className="product-avg-rating">
-              <AverageRating averageRating={product.averageRating} />
+              <Rating rating={product.averageRating} />
               {product.averageRating}/5
             </div>
           )}

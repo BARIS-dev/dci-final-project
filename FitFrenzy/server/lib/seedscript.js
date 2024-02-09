@@ -3,7 +3,9 @@ config({ path: "../.env" });
 
 import { faker } from "@faker-js/faker";
 import mongoose from "mongoose";
+import userModel from "../models/user.model.js";
 import productModel from "../models/product.model.js";
+import productReviewModel from "../models/productReview.model.js";
 
 // connect to DB
 mongoose
@@ -15,6 +17,20 @@ mongoose
 const getRandomIndexOfArray = (array) => {
   const randomIndex = Math.floor(Math.random() * array.length);
   return randomIndex;
+};
+
+const getRandomsInArrays = (array, min, max) => {
+  const count = faker.number.int({ min: min, max: max });
+  const randomItems = [];
+
+  for (let i = 0; i < count; i++) {
+    const randomIndex = getRandomIndexOfArray(array);
+    if (!randomItems.includes(array[randomIndex])) {
+      randomItems.push(array[randomIndex]);
+    }
+  }
+
+  return randomItems;
 };
 
 async function seedProducts(productsToCreate) {
@@ -46,8 +62,8 @@ async function seedProducts(productsToCreate) {
         price: faker.commerce.price(),
         image: faker.image.urlLoremFlickr({ category: "sports" }),
         description: faker.commerce.productDescription(),
-        size: getRandomInArrays(sizes, 2, 4),
-        color: getRandomInArrays(colors, 1, 4),
+        size: getRandomsInArrays(sizes, 2, 4),
+        color: getRandomsInArrays(colors, 1, 4),
         countInStock: faker.number.int({ min: 0, max: 200 }),
         averageRating: 4.5,
       };
@@ -64,18 +80,39 @@ async function seedProducts(productsToCreate) {
   }
 }
 
-const getRandomInArrays = (array, min, max) => {
-  const count = faker.number.int({ min: min, max: max });
-  const randomItems = [];
+async function seedReviews(reviewsToCreate) {
+  try {
+    const reviewerIds = await userModel.find().select("_id");
+    const reviewerNames = await userModel.find().select("username");
+    console.log(reviewerNames); //??? why give me also id here
+    const productIds = await productModel.find().select("_id");
 
-  for (let i = 0; i < count; i++) {
-    const randomIndex = getRandomIndexOfArray(array);
-    if (!randomItems.includes(array[randomIndex])) {
-      randomItems.push(array[randomIndex]);
+    for (let i = 0; i < reviewsToCreate; i++) {
+      let review = {
+        reviewerId: reviewerIds[getRandomIndexOfArray(reviewerIds)],
+        reviewerName:
+          reviewerNames[getRandomIndexOfArray(reviewerNames)].username,
+        productId: productIds[getRandomIndexOfArray(productIds)],
+        ratingScore: faker.number.int({ min: 3, max: 5 }),
+        reviewText: faker.lorem.sentence(),
+      };
+
+      await productReviewModel.create(review);
+      console.log(review);
     }
+    console.log("Reviews created");
+  } catch (error) {
+    console.log(error);
+  } finally {
+    mongoose.disconnect();
+    console.log("Disconnected from MongoDB");
   }
+}
 
-  return randomItems;
-};
+/* async function deleteReviews() {
+  await productReviewModel.deleteMany({});
+} */
 
-await seedProducts(1);
+await seedReviews(10);
+
+//await seedProducts(1);

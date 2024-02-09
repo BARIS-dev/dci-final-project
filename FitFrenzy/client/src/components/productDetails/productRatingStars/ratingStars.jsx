@@ -1,9 +1,14 @@
 // eslint-disable-next-line react/prop-types
-const AverageRating = ({ averageRating }) => {
+export const Rating = ({ rating }) => {
   const renderStars = () => {
-    const fullStars = Math.floor(averageRating);
-    const hasHalfStar = averageRating % 1 !== 0;
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    const remainingStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
+    /*    console.log("fullStars", fullStars);
+    console.log("hasHalfStar", hasHalfStar);
+    console.log("remainingStar", remainingStars);
+ */
     const stars = [];
 
     for (let i = 0; i < fullStars; i++) {
@@ -22,10 +27,19 @@ const AverageRating = ({ averageRating }) => {
       );
     }
 
+    for (let i = 0; i < remainingStars; i++) {
+      stars.push(
+        <span
+          key={`empty-${i}`}
+          style={{ color: "silver", fontSize: "1.25em" }}
+        >
+          &#9733;
+        </span>
+      );
+    }
+
     return stars;
   };
 
   return <div className="product-rating">{renderStars()}</div>;
 };
-
-export default AverageRating;

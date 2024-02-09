@@ -1,0 +1,33 @@
+.reviews-bar {
+  display: flex;
+  justify-content: space-between;
+
+  .reviews-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  .reviews-bar-right {
+    .sorting-btn {
+      border: none;
+      outline: none;
+      padding: 0.5em 1em;
+      background-color: var(--secondary);
+      border-radius: 62px;
+
+      select {
+        border: none;
+        outline: none;
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.review-card {
+  padding: 1em;
+  margin: 0.5em 0;
+  border: 1px solid var(--primary);
+  border-radius: 3em;
+}
