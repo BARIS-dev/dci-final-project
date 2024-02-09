@@ -11,13 +11,14 @@ const ProductDetail = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   useEffect(() => {
     try {
       axios.get(`http://localhost:8000/product/${id}`).then((response) => {
         setProduct(response.data.answer.data);
       });
-      console.log(product);
+      //console.log(product);
     } catch (error) {
       console.log(error);
     }
@@ -26,9 +27,28 @@ const ProductDetail = () => {
 
   if (!product) return <h1>Loading...</h1>;
 
+  const setColor = (event) => {
+    setSelectedColor(event.target.style.backgroundColor);
+  };
+
   const amountHandler = (amount) => {
     setQuantity(amount);
     console.log(quantity);
+  };
+
+  const addToCart = () => {
+    console.log("selected Color: " + selectedColor);
+    console.log("selected quantity: " + quantity);
+    console.log("selected size: " + selectedSize);
+    try {
+      axios.post(`http://localhost:8000/product/${id}/add`, {
+        quantity: quantity,
+        color: selectedColor,
+        size: selectedSize,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -69,7 +89,7 @@ const ProductDetail = () => {
                     style={{
                       backgroundColor: color,
                     }}
-                    onClick={() => setSelectedColor(color)}
+                    onClick={setColor}
                   >
                     {selectedColor === color ? (
                       <span className="tick-mark">&#10003;</span>
@@ -84,14 +104,25 @@ const ProductDetail = () => {
             <div className="size-btn">
               {product.size &&
                 product.size.map((size, index) => (
-                  <button key={index}>{size}</button>
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setSelectedSize(size);
+                    }}
+                  >
+                    {size}
+                  </button>
                 ))}
             </div>
           </div>
 
           <div className="product-cta">
             <QuantityInput amount={amountHandler} />
-            <button className="product-add-to-cart">Add to Cart</button>
+
+            <button onClick={addToCart} className="product-add-to-cart">
+              Add to Cart
+            </button>
+
             <button className="product-add-to-fav">
               <span className="heart">&#10084;</span>
             </button>

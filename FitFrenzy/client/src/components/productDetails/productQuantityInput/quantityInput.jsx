@@ -6,21 +6,20 @@ const QuantityInput = ({ amount }) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleDecrease = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+    const updatedQuantity = quantity - 1;
+    setQuantity(updatedQuantity);
+    amount(updatedQuantity);
   };
 
   const handleIncrease = () => {
-    if (quantity < 10) {
-      setQuantity(quantity + 1);
-    }
+    const updatedQuantity = quantity + 1;
+
+    setQuantity(updatedQuantity);
+    amount(updatedQuantity);
   };
 
   const quantityHandler = (event) => {
-    const buyQuantity = parseInt(event.target.value) || 1;
-    setQuantity(buyQuantity);
-    amount(buyQuantity);
+    console.log(event.target.value);
   };
 
   return (

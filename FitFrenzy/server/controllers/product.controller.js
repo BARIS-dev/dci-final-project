@@ -195,6 +195,7 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
 
 export const addProductToCartController = catchAsync(async (req, res, next) => {
   const { productId } = req.params;
+  const { quantity, color, size } = req.body;
 
   const product = await productModel.findById(productId);
   if (!product) {
@@ -222,7 +223,7 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
         //product already in cart => increase quantity
         const updatedQuantityCart = await cartModel.findOneAndUpdate(
           { username: username, "items.productId": productId },
-          { $inc: { "items.quantity": 1 } },
+          { $inc: { "items.quantity": quantity } },
           { new: true }
         );
         res.status(200).json({
@@ -236,7 +237,9 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
         //product not in cart yet => add product to cart (quantity 1)
         const updatedCart = await cartModel.findOneAndUpdate(
           { username: username },
-          { $addToSet: { items: { productId: productId, quantity: 1 } } },
+          {
+            $addToSet: { items: { productId: productId, quantity: quantity } },
+          },
           { new: true }
         );
         res.status(200).json({
@@ -251,7 +254,7 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
       //if user has no cart yet => create new cart and add product to cart (quantity 1)
       const newCart = cartModel.create({
         username: username,
-        items: [{ productId: productId, quantity: 1 }],
+        items: [{ productId: productId, quantity: quantity }],
       });
       await newCart.save();
       res.status(200).json({
@@ -280,7 +283,7 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
         //if product already in guestCart  => increase quantity in this guest cart in cookie
         const updatedQuantityGuestCart = guestCartObj.items.map((item) => {
           if (item.productId === productId) {
-            item.quantity += 1;
+            item.quantity += quantity;
           }
           return item;
         });
@@ -304,7 +307,7 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
         guestCartObj.items.push({
           productId: productId,
           productName: product.name,
-          quantity: 1,
+          quantity: quantity,
         });
 
         //update the guestCart in cookie
@@ -327,7 +330,7 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
           {
             productId: productId,
             productName: product.name,
-            quantity: 1,
+            quantity: quantity,
             productPrice: product.price,
           },
         ],

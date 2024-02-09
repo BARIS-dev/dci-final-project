@@ -1,33 +1,97 @@
-.reviews-bar {
+.reviewsTab {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 
-  .reviews-bar-left {
+  .reviews-bar {
     display: flex;
-    align-items: center;
-    gap: 0.5em;
-  }
+    justify-content: space-between;
+    margin-bottom: 1em;
 
-  .reviews-bar-right {
-    .sorting-btn {
-      border: none;
-      outline: none;
-      padding: 0.5em 1em;
-      background-color: var(--secondary);
-      border-radius: 62px;
+    .reviews-bar-left {
+      display: flex;
+      align-items: last baseline;
+      gap: 0.5em;
+    }
 
-      select {
+    .reviews-bar-right {
+      button {
         border: none;
         outline: none;
-        background-color: transparent;
+        padding: 0.5em 1em;
+        background-color: var(--secondary);
+        border-radius: 62px;
+        margin-left: 1em;
+        cursor: pointer;
+
+        select {
+          border: none;
+          outline: none;
+          background-color: transparent;
+        }
+      }
+
+      .write-review-btn {
+        background-color: var(--accent);
+        color: var(--secondary);
       }
     }
   }
+
+  .review-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-bottom: 1em;
+
+    .review-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      padding: 1em 2em;
+      margin: 0.5em 0;
+      border: 1px solid var(--secondary);
+      border-radius: 3em;
+
+      .reviewer {
+        display: flex;
+        gap: 0.25em;
+        align-items: center;
+
+        .verified-badge {
+          width: 1rem;
+          height: 1rem;
+          border-radius: 50%;
+          background-color: var(--accent);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .tick-mark {
+          color: white;
+          font-size: 0.825em;
+        }
+      }
+    }
+  }
+
+  .load-btn {
+    border: none;
+    outline: none;
+    padding: 0.5em 0.75em;
+    background-color: var(--secondary);
+    color: var(--text);
+    border-radius: 62px;
+    margin: auto;
+  }
 }
 
-.review-card {
-  padding: 1em;
-  margin: 0.5em 0;
-  border: 1px solid var(--primary);
-  border-radius: 3em;
+@media only screen and (min-width: 768px) {
+  .reviewsTab {
+    .review-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 2em;
+    }
+  }
 }

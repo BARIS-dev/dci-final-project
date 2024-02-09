@@ -15,19 +15,28 @@ export function RatingReviewsTab() {
         .then((response) => {
           setReviews(response.data.answer.data);
         });
-      console.log(reviews);
+      //console.log(reviews);
     } catch (error) {
       console.log(error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const formatDate = (dateCreated) => {
+    const date = new Date(dateCreated);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
-    <div>
+    <div className="reviewsTab">
       <div className="reviews-bar">
         <div className="reviews-bar-left">
-          <h4>All Reviews</h4>
-          <p>({reviews.length})</p>
+          <h3>All Reviews</h3>
+          <h3>({reviews.length})</h3>
         </div>
 
         <div className="reviews-bar-right">
@@ -38,6 +47,8 @@ export function RatingReviewsTab() {
               <option value="lowest-rating">Lowest Rating</option>
             </select>
           </button>
+
+          <button className="write-review-btn">Write a Review</button>
         </div>
       </div>
 
@@ -46,12 +57,21 @@ export function RatingReviewsTab() {
           return (
             <div className="review-card" key={review._id}>
               <Rating rating={review.ratingScore} />
-              <h4>{review.userName}</h4>
-              {review.reviewText}
+              <div className="reviewer">
+                <h4>{review.reviewerName}</h4>{" "}
+                <div className="verified-badge">
+                  <span className="tick-mark">&#10003;</span>
+                </div>
+              </div>
+
+              <p>{review.reviewText}</p>
+              <p>Posted on {formatDate(review.createdAt)}</p>
             </div>
           );
         })}
       </div>
+
+      <button className="load-btn">Load more Reviews</button>
     </div>
   );
 }
