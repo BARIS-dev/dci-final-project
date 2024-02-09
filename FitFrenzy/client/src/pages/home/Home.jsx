@@ -10,6 +10,7 @@ const Home = () => {
       <BrandsBarItem />
       <ProductsList />
     </>
+  );
 };
 
 export default Home;

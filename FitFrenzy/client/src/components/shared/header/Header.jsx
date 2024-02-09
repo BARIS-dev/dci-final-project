@@ -1,3 +1,4 @@
+import "animate.css";
 import { Link } from "react-router-dom";
 import { FaCartShopping, FaUser, FaBars, FaX, FaShop } from "react-icons/fa6";
 import { FaSearch, FaPercentage } from "react-icons/fa";
@@ -13,7 +14,6 @@ import {
 
 import "./Header.css";
 import { useState } from "react";
-import "animate.css";
 
 const Header = () => {
   const brands = ["Nike", "Adidas", "Puma", "Reebok", "Under Armour"];
