@@ -11,7 +11,7 @@ const signToken = function (id) {
   });
 };
 
-const createSendToken = function (user, statusCode, res) {
+const createSendToken = function (user, statusCode, res, req) {
   // CREATE A TOKEN
   const token = signToken(user._id);
 
@@ -20,10 +20,10 @@ const createSendToken = function (user, statusCode, res) {
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    // secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
   };
 
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
   res.cookie('jwt', token, cookieOptions);
 
@@ -50,7 +50,7 @@ const signup = catchAsync(async (req, res, next) => {
   });
 
   // SEND TOKEN TO CLIENT
-  createSendToken(newUser, 201, res);
+  createSendToken(newUser, 201, res, req);
 });
 
 // LOGIN A USER
@@ -69,10 +69,8 @@ const login = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect email or password', 401));
   }
 
-  console.log(user);
-
   // 3) IF EVERYTHING IS OK, SEND TOKEN TO CLIENT
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, res, req);
 });
 
 const logout = (req, res) => {
@@ -84,6 +82,9 @@ const logout = (req, res) => {
 const protect = catchAsync(async (req, res, next) => {
   // 1) GET TOKEN AND CHECK IF IT EXISTS
   let token;
+
+  //! TESTING
+  console.log(req.headers, 'req.headers');
 
   if (
     req.headers.authorization &&
@@ -110,22 +111,21 @@ const protect = catchAsync(async (req, res, next) => {
     );
   }
 
-  // 4) CHECK IF USER CHANGED PASSWORD AFTER THE TOKEN WAS ISSUED
-  if (currentUser.changedPasswordAfter(decoded.iat)) {
-    return next(
-      new AppError('User recently changed password! Please log in again.', 401)
-    );
-  }
+  // // 4) CHECK IF USER CHANGED PASSWORD AFTER THE TOKEN WAS ISSUED
+  // if (currentUser.changedPasswordAfter(decoded.iat)) {
+  //   return next(
+  //     new AppError('User recently changed password! Please log in again.', 401)
+  //   );
+  // }
 
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = currentUser;
   next();
 });
 
-const restrictTo = (...roles) => {
+const restrictTo = () => {
   return (req, res, next) => {
-    // roles ['admin', 'lead-guide']. role='user'
-    if (!roles.includes(req.user.role)) {
+    if (!req.user.isAdmin) {
       return next(
         new AppError('You do not have permission to perform this action', 403)
       );
