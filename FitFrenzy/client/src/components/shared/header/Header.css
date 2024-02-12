@@ -44,28 +44,28 @@ header input {
   border-radius: 20px 0px 0px 20px;
   cursor: pointer;
 }
-
-.korb-nummer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background-color: brown;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--input-backgrand);
-  margin-left: 15px;
-  text-decoration: none;
-}
-.korb {
+.cart {
   display: flex;
   justify-content: center;
   align-items: center;
   column-gap: 20px;
  
 }
+.nav-cart-count{
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -40px;
+  margin-left: -30px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: red;
+  color: var(--input-backgrand);
+  }
+
 
 @media screen and (max-width: 1025px) {
   /* desk */

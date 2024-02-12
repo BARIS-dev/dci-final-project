@@ -26,13 +26,9 @@ const Header = () => {
         </button>
         <input type="text" placeholder="Suche nach Produkten..." />
       </div>
-      <div className="korb">
-        <Link to="/cart">
-          <div>
-            <p className="korb-nummer">0</p>
-            <img src={basket} alt="Warenkorb-Icon" />
-          </div>
-        </Link>
+      <div className="cart">
+      <Link to='/cart'><img src={basket} alt="Warenkorb-Icon" /></Link>
+        <div className="nav-cart-count">0</div>
         <Link>
           <img src={user} alt="Benutzer-Icon" />
         </Link>
