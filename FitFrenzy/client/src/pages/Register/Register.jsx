@@ -10,19 +10,28 @@ function Register() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [membership, setMembership] = useState('free');
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     axios
-      .post('http://127.0.0.1:8000/user/signup', {
-        firstName,
-        lastName,
-        userName,
-        email,
-        password,
-        isAdmin,
-        membership,
-      })
+      .post(
+        'http://localhost:8000/user/signup',
+        {
+          firstName,
+          lastName,
+          userName,
+          email,
+          password,
+          isAdmin,
+          membership,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      )
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
@@ -66,13 +75,14 @@ function Register() {
           onChange={e => setPassword(e.target.value)}
           required
         />
-        <input
-          type="boolean"
-          placeholder="isAdmin"
-          value={isAdmin}
-          onChange={e => setIsAdmin(e.target.value)}
-          required
-        />
+        <label>
+          <input
+            type="checkbox"
+            checked={isAdmin}
+            onChange={e => setIsAdmin(e.target.checked)}
+          />
+          isAdmin
+        </label>
         <input
           type="text"
           placeholder="Membership"

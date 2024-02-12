@@ -9,7 +9,6 @@ import { searchRouter } from './routes/search.route.js';
 import { cartRouter } from './routes/cart.route.js';
 import morgan from 'morgan';
 import paymentRouter from './routes/payment.route.js';
-// import { getAllUsers } from './controllers/user.controller.js';
 
 import AppError from './utils/appError.js';
 import globalErrorHandler from './controllers/errorController.js';
@@ -17,7 +16,12 @@ import globalErrorHandler from './controllers/errorController.js';
 config(); // Load env variables
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
 
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
