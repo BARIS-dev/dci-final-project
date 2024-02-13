@@ -14,7 +14,6 @@ import Signout from './pages/Signout/Signout.jsx';
 import Register from './pages/Register/Register.jsx';
 import api from './api/posts.js';
 import { useEffect } from 'react';
-import axios from 'axios';
 
 function App() {
   useEffect(() => {
@@ -28,16 +27,6 @@ function App() {
       }
     };
     fetchData();
-
-    // get data from mongoDB
-    axios
-      .get('http://localhost:8000/user/getAllUsers')
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data', error);
-      });
   }, []);
 
   return (

@@ -1,0 +1,95 @@
+/* Genel stiller */
+.register-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  padding: 20px;
+}
+
+.register-form-left {
+  float: left;
+  width: 50%;
+}
+
+.register-form-right {
+  float: right;
+  width: 50%;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+select {
+  width: calc(100% - 22px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+input[type='checkbox'] {
+  margin-top: 5px;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #4c53af;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4c53afda;
+}
+
+/* Responsive Tasarım */
+@media screen and (max-width: 768px) {
+  .register-container {
+    flex-direction: column;
+  }
+
+  .register-form {
+    display: block;
+
+    width: 100%;
+    padding: 10px;
+  }
+
+  .register-form-left,
+  .register-form-right {
+    float: none;
+    width: 100%;
+  }
+}

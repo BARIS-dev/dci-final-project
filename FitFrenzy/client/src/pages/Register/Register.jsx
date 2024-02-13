@@ -1,99 +1,127 @@
 import { useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import users from '../../api/users.js';
+import './Register.css';
 
-function Register() {
+function RegisterPage() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [userName, setUserName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [membership, setMembership] = useState('free');
+  const [isAdmin, setIsAdmin] = useState(false); // Default to false
+  const [membership, setMembership] = useState('free'); // Default to 'free'
+  const navigate = useNavigate();
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleRegister = async () => {
+    try {
+      // Yeni kullanıcı bilgileri
+      const newUser = {
+        firstName,
+        lastName,
+        username,
+        email,
+        password,
+        isAdmin: isAdmin.toString(), // Convert isAdmin to string
+        membership,
+      };
 
-    axios
-      .post(
-        'http://localhost:8000/user/signup',
-        {
-          firstName,
-          lastName,
-          userName,
-          email,
-          password,
-          isAdmin,
-          membership,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-        }
-      )
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      // API isteği gönderme
+      const response = await users.post('/users', newUser);
+      console.log('Yeni kullanıcı başarıyla kaydedildi:', response.data);
+
+      navigate('/signin');
+    } catch (error) {
+      console.error('Kayıt sırasında bir hata oluştu:', error);
+    }
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form action="POST" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={e => setFirstName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={e => setLastName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Username"
-          value={userName}
-          onChange={e => setUserName(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-        />
-        <label>
-          <input
-            type="checkbox"
-            checked={isAdmin}
-            onChange={e => setIsAdmin(e.target.checked)}
-          />
-          isAdmin
-        </label>
-        <input
-          type="text"
-          placeholder="Membership"
-          value={membership}
-          onChange={e => setMembership(e.target.value)}
-          required
-        />
-        <input type="submit" onClick={handleSubmit} />
+    <div className="register-container">
+      <h2>Kayıt Ol</h2>
+      <form onSubmit={handleRegister} className="register-form">
+        <div className="register-form-left">
+          <label>
+            İsim:
+            <input
+              type="text"
+              value={firstName}
+              onChange={e => setFirstName(e.target.value)}
+              required
+            />
+          </label>
+          <br />
+          <label>
+            Soyisim:
+            <input
+              type="text"
+              value={lastName}
+              onChange={e => setLastName(e.target.value)}
+              required
+            />
+          </label>
+          <br />
+          <label>
+            Kullanıcı Adı:
+            <input
+              type="text"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              required
+            />
+          </label>
+          <br />
+        </div>
+        <div className="register-form-right">
+          <label>
+            E-posta:
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          <br />
+          <label>
+            Şifre:
+            <input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          <br />
+          <label>
+            Admin mi?
+            <input
+              type="checkbox"
+              checked={isAdmin}
+              onChange={e => setIsAdmin(e.target.checked)}
+              required
+            />
+          </label>
+          <br />
+          <label>
+            Üyelik Türü:
+            <select
+              value={membership}
+              onChange={e => setMembership(e.target.value)}
+              required
+            >
+              <option value="free">Ücretsiz</option>
+              <option value="premium">Premium</option>
+            </select>
+          </label>
+          <br />
+          <button type="submit" className="register-btn">
+            Kayıt Ol
+          </button>
+        </div>
       </form>
     </div>
   );
 }
 
-export default Register;
+export default RegisterPage;

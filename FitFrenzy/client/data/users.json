@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "id": "4544",
+      "firstName": "omer",
+      "lastName": "faruk",
+      "username": "omer",
+      "email": "omer@mail.com",
+      "password": "test1234",
+      "isAdmin": "true",
+      "membership": "free"
+    }
+  ]
+}
