@@ -24,7 +24,9 @@ const QuantityInput = ({ amount }) => {
 
   return (
     <div className="quantity-input">
-      <button onClick={handleDecrease}>-</button>
+      <button disabled={quantity < 2 ? true : false} onClick={handleDecrease}>
+        -
+      </button>
       <input
         type="number"
         value={quantity}
@@ -32,7 +34,9 @@ const QuantityInput = ({ amount }) => {
         min={1}
         max={10}
       />
-      <button onClick={handleIncrease}>+</button>
+      <button disabled={quantity > 9 ? true : false} onClick={handleIncrease}>
+        +
+      </button>
     </div>
   );
 };

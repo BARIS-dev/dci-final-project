@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
 import QuantityInput from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
-import { TablistComponent } from "../../components/productDetails/tabList/tablistComponent.jsx";
+import { TablistComponent } from "../../components/productDetails/tabList/tabListComponent.jsx";
 
 const ProductDetail = () => {
   const { id } = useParams(); //65c15356d08e1b4d4624a721
@@ -52,6 +52,14 @@ const ProductDetail = () => {
     }
   };
 
+  const toggleFavorite = () => {
+    try {
+      axios.post(`http://localhost:8000/product/${id}/toggle-like`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <section className="product-container">
       <div className="breadcrumb-trail">
@@ -76,7 +84,7 @@ const ProductDetail = () => {
             </div>
           )}
 
-          <h2>{product.price} €</h2>
+          <p className="product-price">{product.price} €</p>
 
           <p className="product-description">{product.description}</p>
 
@@ -124,7 +132,7 @@ const ProductDetail = () => {
               Add to Cart
             </button>
 
-            <button className="product-add-to-fav">
+            <button className="product-add-to-fav" onClick={toggleFavorite}>
               <span className="heart">&#10084;</span>
             </button>
           </div>
