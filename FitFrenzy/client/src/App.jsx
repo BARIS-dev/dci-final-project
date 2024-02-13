@@ -12,22 +12,23 @@ import AdminDashboard from './pages/Admin/admin.dashboard.jsx';
 import ProductCreate from './pages/Admin/product.create.jsx';
 import Signout from './pages/Signout/Signout.jsx';
 import Register from './pages/Register/Register.jsx';
-import api from './api/posts.js';
-import { useEffect } from 'react';
+// import api from './api/posts.js';
+// import { useEffect } from 'react';
 
 function App() {
-  useEffect(() => {
-    // get data from data folder
-    const fetchData = async () => {
-      try {
-        const response = await api.get('/posts');
-        console.log(response.data);
-      } catch (error) {
-        console.error('Error fetching data', error);
-      }
-    };
-    fetchData();
-  }, []);
+  // test data from data folder
+  // useEffect(() => {
+  //   // get data from data folder
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await api.get('/posts');
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <>

@@ -9,6 +9,36 @@
       "password": "test1234",
       "isAdmin": "true",
       "membership": "free"
+    },
+    {
+      "id": "8ded",
+      "firstName": "test2",
+      "lastName": "test2",
+      "username": "test2",
+      "email": "test2@mail.com",
+      "password": "test1234",
+      "isAdmin": "true",
+      "membership": "premium"
+    },
+    {
+      "id": "ce30",
+      "firstName": "test3",
+      "lastName": "test3",
+      "username": "test3",
+      "email": "test3@mail.com",
+      "password": "test1234",
+      "isAdmin": "true",
+      "membership": "premium"
+    },
+    {
+      "id": "e6e7",
+      "firstName": "test4",
+      "lastName": "test4",
+      "username": "test4",
+      "email": "test4@mail.com",
+      "password": "test1234",
+      "isAdmin": "true",
+      "membership": "premium"
     }
   ]
 }

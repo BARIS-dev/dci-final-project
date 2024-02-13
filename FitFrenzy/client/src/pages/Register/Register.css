@@ -57,6 +57,7 @@ select {
 
 input[type='checkbox'] {
   margin-top: 5px;
+  margin-left: 10px;
 }
 
 .register-btn {

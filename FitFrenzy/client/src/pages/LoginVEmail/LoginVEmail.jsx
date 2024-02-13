@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import users from '../../api/users.js';
 
 function LoginVEmail() {
+  const [userList, setUserList] = useState([]);
+  const [curruser, setCurruser] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   // useEffect(() => {
   //   const fetchUserData = async () => {
   //     try {
@@ -30,11 +35,6 @@ function LoginVEmail() {
     fetchData();
   }, []);
 
-  const [userList, setUserList] = useState([]);
-  const [curruser, setCurruser] = useState(null);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   // get data from mongoDB
   // useEffect(() => {
   //   axios
@@ -50,11 +50,12 @@ function LoginVEmail() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // login from json file
-    const user = userList.find(user => user.email === email);
 
-    if (user && user.password === password) {
-      setCurruser(user);
+    // login from json file
+    const userFromJSON = userList.find(user => user.email === email);
+
+    if (userFromJSON && userFromJSON.password === password) {
+      setCurruser(userFromJSON);
 
       setEmail('');
       setPassword('');

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import users from '../../api/users.js';
 import './Register.css';
 
@@ -9,9 +9,9 @@ function RegisterPage() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false); // Default to false
-  const [membership, setMembership] = useState('free'); // Default to 'free'
-  const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [membership, setMembership] = useState('free');
+  // const navigate = useNavigate();
 
   const handleRegister = async () => {
     try {
@@ -22,27 +22,26 @@ function RegisterPage() {
         username,
         email,
         password,
-        isAdmin: isAdmin.toString(), // Convert isAdmin to string
+        isAdmin: isAdmin.toString(),
         membership,
       };
 
       // API isteği gönderme
       const response = await users.post('/users', newUser);
-      console.log('Yeni kullanıcı başarıyla kaydedildi:', response.data);
-
-      navigate('/signin');
+      console.log('Successfully registered', response.data);
+      // navigate('/signin');
     } catch (error) {
-      console.error('Kayıt sırasında bir hata oluştu:', error);
+      console.error('Something went wrong', error);
     }
   };
 
   return (
     <div className="register-container">
-      <h2>Kayıt Ol</h2>
+      <h2>Registrieren</h2>
       <form onSubmit={handleRegister} className="register-form">
         <div className="register-form-left">
           <label>
-            İsim:
+            Vorname:
             <input
               type="text"
               value={firstName}
@@ -52,7 +51,7 @@ function RegisterPage() {
           </label>
           <br />
           <label>
-            Soyisim:
+            Nachname:
             <input
               type="text"
               value={lastName}
@@ -62,7 +61,7 @@ function RegisterPage() {
           </label>
           <br />
           <label>
-            Kullanıcı Adı:
+            Benutzer Name:
             <input
               type="text"
               value={username}
@@ -73,8 +72,8 @@ function RegisterPage() {
           <br />
         </div>
         <div className="register-form-right">
-          <label>
-            E-posta:
+          <label className="label-email">
+            E-mail:
             <input
               type="email"
               value={email}
@@ -84,7 +83,7 @@ function RegisterPage() {
           </label>
           <br />
           <label>
-            Şifre:
+            Passwort:
             <input
               type="password"
               value={password}
@@ -94,7 +93,7 @@ function RegisterPage() {
           </label>
           <br />
           <label>
-            Admin mi?
+            Ist Admin?
             <input
               type="checkbox"
               checked={isAdmin}
@@ -104,19 +103,19 @@ function RegisterPage() {
           </label>
           <br />
           <label>
-            Üyelik Türü:
+            Mitgliedschaft:
             <select
               value={membership}
               onChange={e => setMembership(e.target.value)}
               required
             >
-              <option value="free">Ücretsiz</option>
+              <option value="free">Free</option>
               <option value="premium">Premium</option>
             </select>
           </label>
           <br />
           <button type="submit" className="register-btn">
-            Kayıt Ol
+            Registrieren
           </button>
         </div>
       </form>
