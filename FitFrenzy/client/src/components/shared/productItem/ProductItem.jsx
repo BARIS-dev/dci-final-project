@@ -7,7 +7,7 @@ const ProductItem = ({ product }) => {
       <img className="img" src={product.img ? product.img : clothes} alt="" />
       <h3>{product.name}</h3>
       <p>{product.category}</p>
-      <Rating rating={product.averageRating*20}/>
+      <Rating rating={product.averageRating * 20} />
       <h3>{product.price}€</h3>
     </div>
   );

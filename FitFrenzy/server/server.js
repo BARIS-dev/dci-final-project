@@ -1,24 +1,24 @@
-import mongoose from 'mongoose';
-import { config } from 'dotenv';
-import app from './index.js';
+import mongoose from "mongoose";
+import { config } from "dotenv";
+import app from "./index.js";
 
 config();
 
 // connect to DB
 mongoose
   .connect(process.env.DB_CONNECTION, {
-    dbName: 'fitfrenzy',
+    dbName: "fitfrenzy",
   })
-  .then(() => console.log('Connected to MongoDB'));
+  .then(() => console.log("Connected to MongoDB"));
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8000;
 const server = app.listen(port, () => {
   console.log(`Server is running on port ${process.env.PORT}...`);
 });
 
 // handle unhandled rejections
-process.on('unhandledRejection', err => {
-  console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED REJECTION! 💥 Shutting down...");
   console.log(err.name, err.message);
 
   // giving time to finish all the requests
