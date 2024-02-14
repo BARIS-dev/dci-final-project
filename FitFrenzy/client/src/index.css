@@ -1,6 +1,6 @@
 :root {
   --text: #09110e;
-  --input-backgrand: #f0f0f0;
+  --input-background: #f0f0f0;
   --background: #e8f3ef;
   --primary: #2e564a;
   --secondary: #d7eae4;
@@ -15,4 +15,8 @@
   --primary: #a9d1c5;
   --secondary: #152822;
   --accent: #60a992;
+}
+
+.hidden {
+  display: none;
 }

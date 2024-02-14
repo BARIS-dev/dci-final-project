@@ -195,6 +195,7 @@ export const toggleLikeController = catchAsync(async (req, res, next) => {
 
 export const addProductToCartController = catchAsync(async (req, res, next) => {
   const { productId } = req.params;
+  const { quantity, color, size } = req.body;
 
   const product = await productModel.findById(productId);
   if (!product) {
@@ -214,15 +215,23 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
       //if user already has a cart => check if product already in cart
       console.log("usersCart", usersCart);
       const productAlreadyInCart = usersCart.items.some(
-        (item) => item.productId === productId
+        (item) =>
+          item.productId === productId &&
+          item.productSize === size &&
+          item.productColor === color
       );
       console.log(productAlreadyInCart);
 
       if (productAlreadyInCart) {
         //product already in cart => increase quantity
         const updatedQuantityCart = await cartModel.findOneAndUpdate(
-          { username: username, "items.productId": productId },
-          { $inc: { "items.quantity": 1 } },
+          {
+            username: username,
+            "items.productId": productId,
+            "items.productSize": size,
+            "items.productColor": color,
+          },
+          { $inc: { "items.quantity": quantity } },
           { new: true }
         );
         res.status(200).json({
@@ -236,7 +245,17 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
         //product not in cart yet => add product to cart (quantity 1)
         const updatedCart = await cartModel.findOneAndUpdate(
           { username: username },
-          { $addToSet: { items: { productId: productId, quantity: 1 } } },
+          {
+            $addToSet: {
+              items: {
+                productId: productId,
+                quantity: quantity,
+                productSize: size,
+                productColor: color,
+                productPrice: product.price,
+              },
+            },
+          },
           { new: true }
         );
         res.status(200).json({
@@ -251,7 +270,15 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
       //if user has no cart yet => create new cart and add product to cart (quantity 1)
       const newCart = cartModel.create({
         username: username,
-        items: [{ productId: productId, quantity: 1 }],
+        items: [
+          {
+            productId: productId,
+            quantity: quantity,
+            productSize: size,
+            productColor: color,
+            productPrice: product.price,
+          },
+        ],
       });
       await newCart.save();
       res.status(200).json({
@@ -273,14 +300,17 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
       //if user has a guestCart => check if product already in cart
       const guestCartObj = JSON.parse(guestCart);
       const productAlreadyInGuestCart = guestCartObj.items.some(
-        (item) => item.productId === productId
+        (item) =>
+          item.productId === productId &&
+          item.productSize === size &&
+          item.productColor === color
       );
 
       if (productAlreadyInGuestCart) {
         //if product already in guestCart  => increase quantity in this guest cart in cookie
         const updatedQuantityGuestCart = guestCartObj.items.map((item) => {
           if (item.productId === productId) {
-            item.quantity += 1;
+            item.quantity += quantity;
           }
           return item;
         });
@@ -304,7 +334,10 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
         guestCartObj.items.push({
           productId: productId,
           productName: product.name,
-          quantity: 1,
+          quantity: quantity,
+          productPrice: product.price,
+          productSize: size,
+          productColor: color,
         });
 
         //update the guestCart in cookie
@@ -327,8 +360,10 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
           {
             productId: productId,
             productName: product.name,
-            quantity: 1,
+            quantity: quantity,
             productPrice: product.price,
+            productSize: size,
+            productColor: color,
           },
         ],
       };

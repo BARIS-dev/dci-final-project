@@ -1,114 +1,101 @@
-@import url("https://fonts.googleapis.com/css2?family=Abhaya+Libre&family=Roboto&family=Satisfy&display=swap");
-
 header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 100px;
-  z-index: 99;
-}
-header .logo {
-  font-family: "Abhaya Libre", serif;
-  color: var(--text);
-  font-size: 32px;
-  font-weight: bold;
-  text-decoration: none;
-}
 
-header .nav-item {
-  color: var(--text);
-  text-decoration: none;
-}
-header ul {
-  display: flex;
-  column-gap: 30px;
-}
-header input {
-  all: unset;
-  padding: 12px 16px 12px 0px;
-  border-radius: 0px 20px 20px 0px;
-  border: none;
-  background-color: var(--input-backgrand);
-  width: 80%;
-}
-.search-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 35%;
-}
-.search-box button {
-  all: unset;
-  background-color: var(--input-backgrand);
-  padding: 7px 16px;
-  border-radius: 20px 0px 0px 20px;
-  cursor: pointer;
-}
-.cart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 20px;
- 
-}
-.nav-cart-count{
-  width: 22px;
-  height: 22px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: -40px;
-  margin-left: -30px;
-  border-radius: 11px;
-  font-size: 14px;
-  font-weight: 700;
-  background-color: red;
-  color: var(--input-backgrand);
-  }
-
-
-@media screen and (max-width: 1025px) {
-  /* desk */
-  header {
-    padding-inline: 50px;
-  }
-
-  header ul {
-    position: absolute;
-    flex-direction: column;
-    left: -250px;
-    top: 70px;
-    padding: 20px 20px 20px 100px;
-    row-gap: 15px;
-    transition: left 200ms ease-in-out;
-    /* background-color: var(--text); */
-  }
-  header .nav-item {
-    color: rgb(0, 0, 0);
-  }
   .navbar {
-    order: -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: var(--secondary);
+    color: var(--background);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+
+    position: relative;
+
+    .nav-left {
+      .navmenu-button-container {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        background-color: var(--accent);
+        padding: 0.5rem 1rem;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        z-index: 100;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
   }
-  .navbar p {
-    display: inline-block;
-  }
-  .navbar:hover ul {
-    left: 0px;
-  }
-  .navbar p {
-    padding: 15px;
-  }
-}
-@media screen and (max-width: 601px) {
-  /* tablet */
-  header {
-    padding-inline: 30px;
+
+  .pc-nav {
+    display: none;
   }
 }
 
-@media screen and (max-width: 360px) {
-  /* mobile */
+.mobile-nav {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--secondary);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 2rem;
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    margin-left: 3rem;
+    svg {
+      font-size: 2rem;
+    }
+  }
+}
+.menu-bars-button {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu-x-button {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media only screen and (min-width: 768px) {
   header {
-    padding-inline: 10px;
+    .navbar {
+      padding: 1rem 5rem;
+      .nav-left {
+        .navmenu-button-container {
+          display: none;
+        }
+      }
+
+      .pc-nav {
+        display: flex;
+      }
+      .mobile-nav {
+        display: none;
+      }
+    }
   }
 }

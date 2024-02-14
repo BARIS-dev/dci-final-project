@@ -18,7 +18,6 @@ export const addNewPaymentMethod = async (req, res) => {
           line1: billing_details.line1,
           line2: billing_details.line2,
           postal_code: billing_details.postal_code,
-          state: billing_details.state,
         },
       },
     });

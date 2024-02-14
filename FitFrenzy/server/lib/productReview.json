@@ -1,0 +1,89 @@
+{
+  "reviews": [
+    {
+      "productId": "product_id_1",
+      "reviews": [
+        {
+          "reviewerId": "review_id_1",
+          "ratingScore": 5,
+          "reviewText": "This product exceeded my expectations!"
+        },
+        {
+          "reviewerId": "review_id_2",
+          "ratingScore": 4,
+          "reviewText": "Good quality for the price."
+        },
+        {
+          "reviewerId": "review_id_3",
+          "ratingScore": 3,
+          "reviewText": "Average product, nothing special."
+        },
+        {
+          "reviewerId": "review_id_4",
+          "ratingScore": 5,
+          "reviewText": "Highly recommended! Great value."
+        }
+      ]
+    },
+    {
+      "productId": "product_id_2",
+      "reviews": [
+        {
+          "reviewerId": "review_id_5",
+          "ratingScore": 4,
+          "reviewText": "Impressed with the build quality."
+        },
+        {
+          "reviewerId": "review_id_6",
+          "ratingScore": 4,
+          "reviewText": "Very satisfied with this purchase."
+        },
+        {
+          "reviewerId": "review_id_7",
+          "ratingScore": 3,
+          "reviewText": "Decent product, but could be improved."
+        }
+      ]
+    },
+    {
+      "productId": "product_id_3",
+      "reviews": [
+        {
+          "reviewerId": "review_id_57",
+          "ratingScore": 5,
+          "reviewText": "Absolutely amazing! Worth every penny."
+        },
+        {
+          "reviewerId": "review_id_58",
+          "ratingScore": 5,
+          "reviewText": "Couldn't be happier with my purchase!"
+        },
+        {
+          "reviewerId": "review_id_59",
+          "ratingScore": 4,
+          "reviewText": "Good product overall, minor issues."
+        },
+        {
+          "reviewerId": "review_id_60",
+          "ratingScore": 4,
+          "reviewText": "Would recommend this to friends."
+        },
+        {
+          "reviewerId": "review_id_61",
+          "ratingScore": 3,
+          "reviewText": "Not bad, but expected better quality."
+        },
+        {
+          "reviewerId": "review_id_62",
+          "ratingScore": 3,
+          "reviewText": "Average product, nothing extraordinary."
+        },
+        {
+          "reviewerId": "review_id_63",
+          "ratingScore": 2,
+          "reviewText": "Disappointed with the product quality."
+        }
+      ]
+    }
+  ]
+}
