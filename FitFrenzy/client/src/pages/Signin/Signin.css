@@ -1,16 +1,55 @@
 .signin-container {
-    text-align: center;
+  text-align: center;
+  padding: 8px;
+  margin: auto;
+}
+
+.login-form {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  width: 100%;
 }
 
 .signin-title {
-
-    font-size: 3x1;
-    font-weight: bold;
-    padding: 8px;
+  /* font-weight: bold; */
+  padding: 8px;
+  margin-bottom: 8px;
 }
 
 .signin-content {
-    max-width: 240px;
-    margin: auto;
-    padding: 4px;
+  background-color: #f2f2f2;
+
+  max-width: 245px;
+  margin: auto;
+  padding: 4px;
+  border-radius: 5px;
+}
+
+.login-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 16px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 60%;
+  opacity: 0.9;
+}
+
+.login-btn:hover {
+  opacity: 1;
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }

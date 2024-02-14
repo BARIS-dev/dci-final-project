@@ -9,6 +9,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    max-width: 1500px;
+    margin: 0 auto;
 
     .product-img {
       border-radius: 1em;
@@ -36,8 +38,13 @@
         gap: 0.5em;
       }
 
+      .product-price {
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+
       .product-description {
-        font-size: 1.25em;
+        font-size: 1em;
         padding-bottom: 0.5em;
         border-bottom: 1px solid var(--primary);
         color: var(--paragraph);
@@ -47,7 +54,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.5em;
-        font-size: 1.25em;
+        font-size: 1.15em;
 
         .color-btn {
           display: flex;
@@ -57,15 +64,15 @@
             outline: none;
             box-shadow: none;
             border-radius: 50%;
-            width: 2em;
-            height: 2em;
+            width: 1.75em;
+            height: 1.75em;
             margin-right: 0.5em;
             cursor: pointer;
 
             .tick-mark {
               display: block;
               font-size: 1.25em;
-              color: var(--input-backgrand);
+              color: var(--input-background);
             }
           }
         }
@@ -75,23 +82,25 @@
         display: flex;
         flex-direction: column;
         gap: 0.5em;
-        font-size: 1.25em;
+        font-size: 1.15em;
 
         button {
           border: none;
           border-radius: 62px;
           width: 5em;
-          height: 2em;
+          height: 1.75em;
           margin-right: 0.5em;
           cursor: pointer;
+          background-color: var(--accent);
+          color: var(--input-background);
 
           &:hover {
-            background-color: var(--primary);
+            background-color: var(--secondary);
+            color: var(--text);
           }
 
           &:focus {
-            background-color: var(--text);
-            color: var(--input-backgrand);
+            background-color: var(--primary);
           }
         }
       }
@@ -108,7 +117,7 @@
           font-size: 1.25em;
           width: 50%;
           background-color: var(--accent);
-          color: var(--input-backgrand);
+          color: var(--input-background);
           cursor: pointer;
 
           &:hover {
@@ -122,7 +131,7 @@
           width: 3em;
           height: 3em;
           background-color: var(--accent);
-          color: var(--input-backgrand);
+          color: var(--input-background);
           cursor: pointer;
 
           &:hover {
@@ -133,6 +142,23 @@
             font-size: 2em;
           }
         }
+        .liked {
+          background-color: transparent;
+          color: var(--accent);
+
+          .heart {
+            font-size: 2.5em;
+          }
+
+          &:hover {
+            background-color: transparent;
+            color: var(--primary);
+          }
+        }
+      }
+
+      .Toastify__toast-container {
+        top: 5rem;
       }
     }
   }
@@ -149,6 +175,10 @@
 
       .product-info {
         width: 55%;
+
+        .Toastify__toast-container {
+          top: 18rem;
+        }
       }
     }
   }
