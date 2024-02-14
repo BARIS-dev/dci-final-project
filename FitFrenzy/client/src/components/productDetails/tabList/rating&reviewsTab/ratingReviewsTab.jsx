@@ -71,7 +71,13 @@ export function RatingReviewsTab() {
         })}
       </div>
 
-      <button className="load-btn">Load more Reviews</button>
+      {reviews.length === 0 ? (
+        <div className="no-reviews">
+          <p>No Reviews Yet</p>
+        </div>
+      ) : (
+        <button className="load-btn">Load more Reviews</button>
+      )}
     </div>
   );
 }

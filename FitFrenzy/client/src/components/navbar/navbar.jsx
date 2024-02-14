@@ -1,7 +1,7 @@
 //import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "./navbar.css";
-import { UserAuth } from "../../context/user.context.jsx";
+import { Link, useNavigate } from 'react-router-dom';
+import './navbar.css';
+import { UserAuth } from '../../context/user.context.jsx';
 
 const Navbar = () => {
   const { user, logOut } = UserAuth();
@@ -9,7 +9,7 @@ const Navbar = () => {
   const handleSignOut = async () => {
     try {
       await logOut();
-      navigate("/signed-out");
+      navigate('/signed-out');
     } catch (error) {
       console.log(error);
     }
@@ -21,9 +21,14 @@ const Navbar = () => {
       {user?.displayName ? (
         <button onClick={handleSignOut}>Logout</button>
       ) : (
-        <Link to="signin" className="navbar-link">
-          Sign in
-        </Link>
+        <>
+          <Link to="signin" className="navbar-link">
+            Sign in
+          </Link>
+          <Link to="register" className="navbar-link">
+            Register
+          </Link>
+        </>
       )}
     </div>
   );
