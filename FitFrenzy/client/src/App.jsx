@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/home/Home.jsx";
+import Home from "./pages/Home/Home.jsx";
 import Header from "./components/shared/header/Header.jsx";
 import Navbar from "./components/navbar/navbar.jsx";
 import Account from "./pages/Account/Account.jsx";
