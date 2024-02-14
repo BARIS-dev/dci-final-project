@@ -156,6 +156,10 @@
           }
         }
       }
+
+      .Toastify__toast-container {
+        top: 5rem;
+      }
     }
   }
 }
@@ -171,6 +175,10 @@
 
       .product-info {
         width: 55%;
+
+        .Toastify__toast-container {
+          top: 18rem;
+        }
       }
     }
   }
