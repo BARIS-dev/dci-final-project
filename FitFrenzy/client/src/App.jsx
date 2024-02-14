@@ -16,6 +16,7 @@ import Signout from "./pages/Signout/Signout.jsx";
 import Navbarchat from "./components/chat/Navbarchat/NavbarChat.jsx";
 import PaymentMethods from "./pages/PaymentMethods/PaymentMethods.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
+import RegisterPage from "./pages/Register/Register.jsx";
 
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/signed-out" element={<Signout />} />
           <Route path="/account" element={<Account />} />
           <Route path="/product/:id" element={<ProductDetail />} />
