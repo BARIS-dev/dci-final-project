@@ -94,3 +94,19 @@ button:hover {
     width: 100%;
   }
 }
+
+.success-message {
+  background-color: #4caf50; /* Yeşil arka plan */
+  color: white; /* Beyaz metin */
+  padding: 10px; /* Kenar boşlukları */
+  margin-bottom: 10px; /* Alt kısma boşluk */
+  border-radius: 5px; /* Köşe yuvarlatma */
+}
+
+.error-message {
+  background-color: #f44336; /* Kırmızı arka plan */
+  color: white; /* Beyaz metin */
+  padding: 10px; /* Kenar boşlukları */
+  margin-bottom: 10px; /* Alt kısma boşluk */
+  border-radius: 5px; /* Köşe yuvarlatma */
+}

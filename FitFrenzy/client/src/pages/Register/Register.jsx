@@ -11,6 +11,9 @@ function RegisterPage() {
   const [password, setPassword] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [membership, setMembership] = useState('free');
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   // const navigate = useNavigate();
 
   const handleRegister = async () => {
@@ -29,15 +32,26 @@ function RegisterPage() {
       // API isteği gönderme
       const response = await users.post('/users', newUser);
       console.log('Successfully registered', response.data);
+      setIsSuccess(true);
+      setErrorMessage('');
       // navigate('/signin');
     } catch (error) {
       console.error('Something went wrong', error);
+      setIsSuccess(false);
+      setErrorMessage('Kayıt sırasında bir hata oluştu.');
     }
   };
 
   return (
     <div className="register-container">
       <h2>Registrieren</h2>
+      {isSuccess && (
+        <div className="success-message">
+          Kayıt başarıyla gerçekleşti. Giriş yapmak için
+          <a href="/signin">buraya tıklayın</a>.
+        </div>
+      )}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
       <form onSubmit={handleRegister} className="register-form">
         <div className="register-form-left">
           <label>
@@ -98,7 +112,6 @@ function RegisterPage() {
               type="checkbox"
               checked={isAdmin}
               onChange={e => setIsAdmin(e.target.checked)}
-              required
             />
           </label>
           <br />
@@ -107,7 +120,6 @@ function RegisterPage() {
             <select
               value={membership}
               onChange={e => setMembership(e.target.value)}
-              required
             >
               <option value="free">Free</option>
               <option value="premium">Premium</option>

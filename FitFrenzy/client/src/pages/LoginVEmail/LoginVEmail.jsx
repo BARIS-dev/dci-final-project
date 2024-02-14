@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import { userAuth } from '../../context/user.context.jsx';
 import users from '../../api/users.js';
 
 function LoginVEmail() {
@@ -8,6 +10,10 @@ function LoginVEmail() {
   const [password, setPassword] = useState('');
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginMessage, setLoginMessage] = useState('');
+  // const { user, setUser } = userAuth();
+
+  const navigate = useNavigate();
+  // console.log('User', user);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,13 +32,19 @@ function LoginVEmail() {
     const userFromJSON = userList.find(user => user.email === email);
 
     if (userFromJSON && userFromJSON.password === password) {
-      setCurruser(userFromJSON);
+      // setUser(userFromJSON);
       // setIsLoggedIn(true);
+      setCurruser(userFromJSON);
       setEmail('');
       setPassword('');
-      setLoginMessage('Erfolgreicher Login!'); // Başarılı giriş durumu
+      setLoginMessage('Erfolgreicher Login!');
+
+      setTimeout(() => {
+        setLoginMessage('');
+        navigate('/account');
+      }, 2000);
     } else {
-      setLoginMessage('Ungültige E-Mail oder Passwort'); // Başarısız giriş durumu
+      setLoginMessage('Ungültige E-Mail oder Passwort');
     }
   };
 
@@ -41,6 +53,12 @@ function LoginVEmail() {
       console.log('Logged in', curruser);
     }
   }, [curruser]);
+
+  // useEffect(() => {
+  //   if (user !== null) {
+  //     console.log('Logged in', user);
+  //   }
+  // }, [user]);
 
   return (
     <div className="signin-content">
