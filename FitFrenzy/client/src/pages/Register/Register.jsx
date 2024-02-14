@@ -38,7 +38,7 @@ function RegisterPage() {
     } catch (error) {
       console.error('Something went wrong', error);
       setIsSuccess(false);
-      setErrorMessage('Kayıt sırasında bir hata oluştu.');
+      setErrorMessage('Something went wrong.');
     }
   };
 
