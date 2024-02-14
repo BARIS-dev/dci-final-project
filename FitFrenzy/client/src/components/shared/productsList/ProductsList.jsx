@@ -34,7 +34,7 @@ const ProductsList = () => {
   }, [category, size, color]);
   return (
     <div>
-      <form>
+      <form className="filter-form">
         <select name="category" onChange={handleFilterChange}>
           <option value="">Category</option>
           <option value="clothing">Clothing</option>
@@ -75,6 +75,7 @@ const ProductsList = () => {
           <ProductItem key={product._id} product={product} />
         ))}
       </div>
+      
     </div>
   );
 };
