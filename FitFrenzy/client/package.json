@@ -29,6 +29,7 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.21.1",
     "react-stripe-checkout": "^2.6.3",
+    "react-toastify": "^10.0.4",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
