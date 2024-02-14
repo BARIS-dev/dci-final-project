@@ -42,6 +42,7 @@
           .remove-btn-row {
             display: flex;
             justify-content: space-between;
+
             .remove-btn {
               background-color: transparent;
               width: 2em;

@@ -142,6 +142,19 @@
             font-size: 2em;
           }
         }
+        .liked {
+          background-color: transparent;
+          color: var(--accent);
+
+          .heart {
+            font-size: 2.5em;
+          }
+
+          &:hover {
+            background-color: transparent;
+            color: var(--primary);
+          }
+        }
       }
     }
   }

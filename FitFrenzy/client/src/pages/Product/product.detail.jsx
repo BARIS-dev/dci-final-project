@@ -2,6 +2,8 @@ import "./product.detail.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
 import QuantityInput from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
 import { TablistComponent } from "../../components/productDetails/tabList/tabListComponent.jsx";
@@ -12,7 +14,7 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-  const [messageAfterAddToCart, setMessageAfterAddToCart] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -43,7 +45,14 @@ const ProductDetail = () => {
   };
 
   const addToCart = async () => {
+    if (!selectedColor || !selectedSize) {
+      toast.error("Please select a color and a size");
+      return;
+    }
+
     try {
+      console.log("id: " + id);
+
       const response = await axios.post(
         `http://localhost:8000/product/${id}/add`,
         {
@@ -53,7 +62,8 @@ const ProductDetail = () => {
         }
       );
       console.log(response);
-      setMessageAfterAddToCart(response.data.answer.message);
+
+      toast.success("Product added to cart");
 
       /* console.log("selected Color: " + selectedColor);
       console.log("selected quantity: " + quantity);
@@ -64,6 +74,7 @@ const ProductDetail = () => {
   };
 
   const toggleFavorite = () => {
+    setIsFavorite(!isFavorite); //temporary solution
     try {
       axios.post(`http://localhost:8000/product/${id}/toggle-like`);
     } catch (error) {
@@ -80,12 +91,6 @@ const ProductDetail = () => {
             product.category[0].toUpperCase() + product.category.slice(1)}
         </p>
       </div>
-
-      {messageAfterAddToCart && (
-        <div className="message-after-add-to-cart">
-          <p>{messageAfterAddToCart}</p>
-        </div>
-      )}
 
       <div className="product-overview">
         <div className="product-img">
@@ -149,10 +154,29 @@ const ProductDetail = () => {
               Add to Cart
             </button>
 
-            <button className="product-add-to-fav" onClick={toggleFavorite}>
+            <button
+              title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+              className={`product-add-to-fav ${isFavorite ? "liked" : ""}`}
+              onClick={toggleFavorite}
+            >
               <span className="heart">&#10084;</span>
             </button>
           </div>
+
+          <ToastContainer
+            position="top-right"
+            top={0}
+            right={0}
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </div>
       </div>
 
