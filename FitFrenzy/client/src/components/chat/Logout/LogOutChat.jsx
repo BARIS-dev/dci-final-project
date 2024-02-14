@@ -1,7 +1,6 @@
 //import React from 'react'
 
-
-import { chatAuth } from "../../../firebase/firebase.chat"
+import { chatAuth } from "../../../firebase/firebase.chat";
 
 import "./LogOutChat.css";
 
@@ -19,12 +18,7 @@ import "./LogOutChat.css";
 
 export default LogOutChat*/
 
-
-
 const LogOutChat = () => {
-  
-  
-  
   return (
     <button onClick={() => chatAuth.LogOutChat()} className="logout-button">
       Logout
@@ -32,4 +26,4 @@ const LogOutChat = () => {
   );
 };
 
-export default LogOutChat
+export default LogOutChat;

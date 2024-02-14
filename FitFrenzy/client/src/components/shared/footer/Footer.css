@@ -23,6 +23,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    padding: 1rem 2rem;
     .social-media-logos {
       display: flex;
       align-items: center;
@@ -50,6 +51,9 @@ footer {
     flex-direction: row;
     .footer-logos-container {
       flex-direction: row;
+    }
+    .footer-divider {
+      display: none;
     }
   }
 }
