@@ -16,7 +16,22 @@ import Signout from "./pages/Signout/Signout.jsx";
 import Navbarchat from "./components/chat/Navbarchat/NavbarChat.jsx";
 import PaymentMethods from "./pages/PaymentMethods/PaymentMethods.jsx";
 
+
 function App() {
+  // test data from data folder
+  // useEffect(() => {
+  //   // get data from data folder
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await api.get('/posts');
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
   return (
     <>
       <UserContextProvider>
@@ -26,6 +41,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<Signin />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/signed-out" element={<Signout />} />
           <Route path="/account" element={<Account />} />
           <Route path="/product/:id" element={<ProductDetail />} />

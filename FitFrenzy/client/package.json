@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "data": "npx json-server -p 8080 -w data/data.json",
+    "users": "npx json-server -p 8081 -w data/users.json"
   },
   "dependencies": {
     "@rollup/rollup-darwin-arm64": "^4.10.0",
