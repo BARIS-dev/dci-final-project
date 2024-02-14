@@ -5,8 +5,9 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
+import { TablistComponent } from "../../components/productDetails/tabList/tablistComponent.jsx";
 import QuantityInput from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
-import { TablistComponent } from "../../components/productDetails/tabList/tabListComponent.jsx";
+
 
 const ProductDetail = () => {
   const { id } = useParams(); //65c15356d08e1b4d4624a721
