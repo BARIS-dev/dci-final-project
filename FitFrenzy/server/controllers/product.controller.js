@@ -197,7 +197,14 @@ export const addProductToCartController = catchAsync(async (req, res, next) => {
   const { productId } = req.params;
   const { quantity, color, size } = req.body;
 
+  if (!quantity || !color || !size) {
+    return next(
+      new AppError("Fehlende Informationen: Menge oder Farbe oder Größe", 400)
+    );
+  }
+
   const product = await productModel.findById(productId);
+
   if (!product) {
     next(new AppError("Produkt nicht gefunden", 404));
   }

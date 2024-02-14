@@ -1,9 +1,10 @@
 //import React from "react";
-import "./Signin.css";
-import { GoogleButton } from "react-google-button";
-import { UserAuth } from "../../context/user.context.jsx";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import './Signin.css';
+import { GoogleButton } from 'react-google-button';
+import { UserAuth } from '../../context/user.context.jsx';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import LoginVEmail from '../LoginVEmail/LoginVEmail.jsx';
 
 const Signin = () => {
   const { googleSignIn, user } = UserAuth();
@@ -20,17 +21,21 @@ const Signin = () => {
 
   useEffect(() => {
     if (user != null) {
-      navigate("/account");
+      navigate('/account');
     }
   }, [user, navigate]);
 
   return (
-    <div className="signin-container">
-      <h1 className="signin-title">Sign in</h1>
-      <div className="signin-content">
-        <GoogleButton onClick={handleGoogleSignIn} />
+    <>
+      <br />
+      <div className="signin-container">
+        <h1 className="signin-title">Sign in</h1>
+        <LoginVEmail />
+        <div className="signin-content">
+          <GoogleButton onClick={handleGoogleSignIn} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
