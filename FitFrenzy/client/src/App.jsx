@@ -15,6 +15,7 @@ import Cart from "./pages/Cart/cart.jsx";
 import Signout from "./pages/Signout/Signout.jsx";
 import Navbarchat from "./components/chat/Navbarchat/NavbarChat.jsx";
 import PaymentMethods from "./pages/PaymentMethods/PaymentMethods.jsx";
+import Checkout from "./pages/Checkout/Checkout.jsx";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           </Route>
 
           <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
         <Footer />
       </UserContextProvider>
