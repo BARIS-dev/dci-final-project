@@ -30,14 +30,19 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/user', userRouter);
-app.use('/', productRouter);
-app.use('/favorites', favoriteRouter);
-app.use('/search', searchRouter);
-app.use('/cart', cartRouter);
-app.use('/', paymentRouter);
 
-// app.get('/getAllUsers', getAllUsers);
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+app.use("/user", userRouter);
+app.use("/", productRouter);
+app.use("/favorites", favoriteRouter);
+app.use("/search", searchRouter);
+app.use("/cart", cartRouter);
+app.use("/", paymentRouter);
 
 //FOR TESTING - WILL REMOVE
 app.use("/reviews", async (req, res, next) => {
