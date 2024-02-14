@@ -12,16 +12,22 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [messageAfterAddToCart, setMessageAfterAddToCart] = useState(null);
 
   useEffect(() => {
-    try {
-      axios.get(`http://localhost:8000/product/${id}`).then((response) => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/product/${id}`);
+
         setProduct(response.data.answer.data);
-      });
-      //console.log(product);
-    } catch (error) {
-      console.log(error);
-    }
+
+        //console.log(product);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -36,17 +42,22 @@ const ProductDetail = () => {
     console.log(quantity);
   };
 
-  const addToCart = () => {
+  const addToCart = async () => {
     try {
-      axios.post(`http://localhost:8000/product/${id}/add`, {
-        quantity: quantity,
-        color: selectedColor,
-        size: selectedSize,
-      });
+      const response = await axios.post(
+        `http://localhost:8000/product/${id}/add`,
+        {
+          quantity: quantity,
+          color: selectedColor,
+          size: selectedSize,
+        }
+      );
+      console.log(response);
+      setMessageAfterAddToCart(response.data.answer.message);
 
-      console.log("selected Color: " + selectedColor);
+      /* console.log("selected Color: " + selectedColor);
       console.log("selected quantity: " + quantity);
-      console.log("selected size: " + selectedSize);
+      console.log("selected size: " + selectedSize); */
     } catch (error) {
       console.log(error);
     }
@@ -69,6 +80,12 @@ const ProductDetail = () => {
             product.category[0].toUpperCase() + product.category.slice(1)}
         </p>
       </div>
+
+      {messageAfterAddToCart && (
+        <div className="message-after-add-to-cart">
+          <p>{messageAfterAddToCart}</p>
+        </div>
+      )}
 
       <div className="product-overview">
         <div className="product-img">

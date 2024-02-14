@@ -23,7 +23,12 @@ if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use("/user", userRouter);
 app.use("/", productRouter);
 app.use("/favorites", favoriteRouter);
