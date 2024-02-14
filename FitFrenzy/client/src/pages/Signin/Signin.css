@@ -23,9 +23,10 @@
 .signin-content {
   background-color: #f2f2f2;
 
-  max-width: 240px;
+  max-width: 245px;
   margin: auto;
   padding: 4px;
+  border-radius: 5px;
 }
 
 .login-btn {

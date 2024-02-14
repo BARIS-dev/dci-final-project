@@ -6,27 +6,13 @@ function LoginVEmail() {
   const [curruser, setCurruser] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       const response = await fetch('/data/users.json');
-  //       const userData = await response.json();
-  //       setUserList(userData);
-  //       console.log(userData);
-  //     } catch (error) {
-  //       console.error('Kullanıcı verileri alınamadı:', error);
-  //     }
-  //   };
-  //   fetchUserData();
-  // }, []);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginMessage, setLoginMessage] = useState('');
 
   useEffect(() => {
-    // get data from data folder
     const fetchData = async () => {
       try {
         const response = await users.get('/users');
-        console.log(response.data);
         setUserList(response.data);
       } catch (error) {
         console.error('Error fetching data', error);
@@ -35,32 +21,18 @@ function LoginVEmail() {
     fetchData();
   }, []);
 
-  // get data from mongoDB
-  // useEffect(() => {
-  //   axios
-  //     .get('http://localhost:8000/user/getAllUsers')
-  //     .then(response => {
-  //       setUserList(response.data);
-  //       console.log(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data', error);
-  //     });
-  // }, []);
-
   const handleSubmit = e => {
     e.preventDefault();
-
-    // login from json file
     const userFromJSON = userList.find(user => user.email === email);
 
     if (userFromJSON && userFromJSON.password === password) {
       setCurruser(userFromJSON);
-
+      // setIsLoggedIn(true);
       setEmail('');
       setPassword('');
+      setLoginMessage('Erfolgreicher Login!'); // Başarılı giriş durumu
     } else {
-      console.log('Invalid email or password');
+      setLoginMessage('Ungültige E-Mail oder Passwort'); // Başarısız giriş durumu
     }
   };
 
@@ -91,6 +63,13 @@ function LoginVEmail() {
           Login
         </button>
       </form>
+
+      <p
+        className="login-message"
+        style={{ color: loginMessage.includes('oder') ? 'red' : 'green' }}
+      >
+        {loginMessage}
+      </p>
 
       <br />
       <p>OR</p>
