@@ -18,6 +18,7 @@ import PaymentMethods from './pages/PaymentMethods/PaymentMethods.jsx';
 import Checkout from './pages/Checkout/Checkout.jsx';
 import RegisterPage from './pages/Register/Register.jsx';
 
+
 function App() {
   // test data from data folder
   // useEffect(() => {
@@ -55,6 +56,7 @@ function App() {
 
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/checkout" element={<Checkout />} />
+          
         </Routes>
         <Footer />
       </UserContextProvider>
