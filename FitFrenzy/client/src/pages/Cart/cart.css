@@ -1,30 +1,24 @@
 .cart-container {
   margin: 2em;
-
   h1 {
     margin: 1em 0;
   }
-
   .cart-overview {
     max-width: 1500px;
     margin: 0 auto;
-
     .cart-items,
     .order-summary {
       border: 1px solid var(--accent);
       border-radius: 1em;
       padding: 2em 1em;
     }
-
     .cart-items {
       margin-bottom: 2em;
-
       .cart-item {
         display: flex;
         gap: 2em;
         padding: 1em 0;
         border-bottom: 1px solid var(--accent);
-
         .product-image {
           border-radius: 1em;
           width: 200px;
@@ -32,24 +26,20 @@
           object-fit: cover;
           border-radius: 0.5em;
         }
-
         .cart-item-details {
           width: 100%;
           display: flex;
           flex-direction: column;
           gap: 0.5em;
-
           .remove-btn-row {
             display: flex;
             justify-content: space-between;
-
             .remove-btn {
               background-color: transparent;
               width: 2em;
               height: 2em;
               cursor: pointer;
               border: none;
-
               img {
                 width: 100%;
                 height: 100%;
@@ -57,19 +47,16 @@
               }
             }
           }
-
           .cart-row {
             display: flex;
             gap: 0.25em;
             color: var(--paragraph);
           }
-
           .price-row {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             .quantity-input {
               button {
                 border: none;
@@ -77,7 +64,6 @@
                 cursor: pointer;
                 width: 2em;
               }
-
               input {
                 width: 100%;
                 background-color: var(--input-background);
@@ -86,54 +72,44 @@
               }
             }
           }
-
           .product-name {
             font-size: 1.15em;
             font-weight: bold;
             margin: 0.5em 0 1em 0;
           }
-
           .product-price {
             font-size: 1.15em;
             font-weight: bold;
           }
         }
       }
-
       .cart-item:last-child {
         border-bottom: none;
         padding-bottom: 1em;
       }
     }
-
     .order-summary {
       display: flex;
       flex-direction: column;
       gap: 1em;
-
       .summary-row,
       .total-row {
         display: flex;
         justify-content: space-between;
       }
-
       .total-row {
         padding-top: 1em;
         border-top: 1px solid var(--accent);
       }
-
       .value {
         font-weight: bold;
       }
-
       .discount {
         color: red;
       }
-
       .sum {
         font-size: 1.25em;
       }
-
       button {
         border-radius: 3.875rem;
         border: none;
@@ -142,18 +118,15 @@
         background-color: var(--accent);
         color: var(--background);
         cursor: pointer;
-
         &:hover {
           background-color: var(--secondary);
           color: var(--primary);
         }
       }
-
       .promo-input {
         display: flex;
         justify-content: space-between;
         gap: 1em;
-
         input {
           outline: none;
           padding: 0.5em;
@@ -161,25 +134,21 @@
           border-radius: 0.5em;
           width: 70%;
         }
-
         button {
           width: 30%;
         }
       }
-
       .checkout-btn {
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.15em;
         margin-top: 0.5em;
-
         svg {
           width: 1.5em;
           height: 1.5em;
           margin-left: 0.5em;
         }
-
         &:hover {
           .arrow-path {
             stroke: var(--primary);
@@ -189,22 +158,18 @@
     }
   }
 }
-
 @media only screen and (min-width: 768px) {
   .cart-container {
     .cart-overview {
       display: flex;
       gap: 2em;
-
       .cart-items {
         width: 65%;
       }
     }
-
     .order-summary {
       width: 35%;
       height: fit-content;
-
       .checkout-btn {
         width: 100%;
       }

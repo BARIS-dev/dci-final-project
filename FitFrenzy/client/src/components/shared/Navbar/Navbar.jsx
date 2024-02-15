@@ -144,7 +144,7 @@ const Navbar = () => {
               <Link className="nav-item" to={"/cart"}>
                 <FaCartShopping />
               </Link>
-              <Link className="nav-item" to={"/login"}>
+              <Link className="nav-item" to={"/signin"}>
                 <FaUser />
               </Link>
             </ul>
