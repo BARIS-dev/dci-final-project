@@ -9,7 +9,7 @@ import Footer from "./components/shared/footer/Footer.jsx";
 import AdminDashboard from "./pages/Admin/admin.dashboard.jsx";
 import ProductCreate from "./pages/Admin/product.create.jsx";
 import ProductDetail from "./pages/Product/product.detail.jsx";
-import Cart from "./pages/Cart/cart.jsx";
+import Cart from "./pages/Cart/cartPage.jsx";
 import Signout from "./pages/Signout/Signout.jsx";
 import PaymentMethods from "./pages/PaymentMethods/PaymentMethods.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";

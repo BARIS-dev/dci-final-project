@@ -7,22 +7,29 @@ function Cart() {
 
   return (
     <section>
+      <button
+        onClick={() => {
+          console.log(cart);
+        }}
+      >
+        Show cart in localStorage
+      </button>
+
       {cart.length === 0 ? (
         <h1>Your cart is empty</h1>
       ) : (
         <div>
-          {cart.items.map((item) => {
+          {cart.map((item, index) => {
             return (
-              <div key={item.productId}>
-                <p>{item.productName}</p>
+              <div key={index}>
+                <p>{item.name}</p>
                 <p>{item.quantity}</p>
-                <p>{item.productPrice}</p>
-                <p>{item.productSize}</p>
-                <p>{item.productColor}</p>
+                <p>{item.price}</p>
+                <p>{item.size}</p>
+                <p>{item.color}</p>
               </div>
             );
           })}
-          <p>Total: {cart.sum}</p>
         </div>
       )}
     </section>
