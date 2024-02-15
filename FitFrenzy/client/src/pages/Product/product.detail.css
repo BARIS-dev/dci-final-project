@@ -103,6 +103,11 @@
             background-color: var(--primary);
           }
         }
+
+        .selected {
+          background-color: var(--primary);
+          color: var(--input-background);
+        }
       }
 
       .product-cta {

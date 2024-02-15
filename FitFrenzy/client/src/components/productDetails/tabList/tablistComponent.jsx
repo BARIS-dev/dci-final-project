@@ -1,10 +1,10 @@
-import "./tablistComponent.css";
+import "./tabListComponent.css";
 import { useState, useRef } from "react";
 import { FAQsTab } from "./faqTab/faqTab.jsx";
 import { ProductDetailTab } from "./productDetailTab/productDetailTab.jsx";
 import { RatingReviewsTab } from "./rating&reviewsTab/ratingReviewsTab.jsx";
 
-export function TablistComponent() {
+export function TabListComponent() {
   const items = [
     {
       title: "Product Details",

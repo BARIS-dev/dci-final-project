@@ -2,7 +2,7 @@ import "./quantityInput.css";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const QuantityInput = ({ amount }) => {
+export const QuantityInput = ({ amount }) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleDecrease = () => {
@@ -40,8 +40,6 @@ const QuantityInput = ({ amount }) => {
     </div>
   );
 };
-
-export default QuantityInput;
 
 QuantityInput.propTypes = {
   amount: PropTypes.func.isRequired,
