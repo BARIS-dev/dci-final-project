@@ -3,3 +3,17 @@
   padding-inline: 100px;
   flex-wrap: wrap;
 }
+
+.filter-form{
+  display: flex;
+  flex-direction: row;
+  column-gap: 25px;
+  padding: 20px 100px;
+  justify-content: center;
+  width: 100%;
+}
+
+.filter-form select {
+width: 25%;
+padding: 5px;
+}

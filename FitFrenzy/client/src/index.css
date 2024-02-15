@@ -1,12 +1,11 @@
 :root {
   --text: #09110e;
   --input-background: #f0f0f0;
-  --background: #e8f3ef;
+  --background: #eeeeee;
   --primary: #2e564a;
   --secondary: #d7eae4;
   --accent: #569f88;
   --paragraph: rgba(0, 0, 0, 0.603);
-  --warning-text: brown;
 }
 
 .darkmode {
@@ -15,7 +14,6 @@
   --primary: #a9d1c5;
   --secondary: #152822;
   --accent: #60a992;
-  --warning-text: #ff7f50;
 }
 
 .hidden {

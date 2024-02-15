@@ -1,4 +1,3 @@
-//import React from "react";
 import "./NavbarChat.css";
 import { chatAuth } from "../../../firebase/firebase.chat";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -20,22 +19,22 @@ const Navbarchat = () => {
   console.log(user);
 
   return (
-    <div className="nav">
-      <h1 className="heading">
-        <a href="navbarchat" target="_blank">
-          {" "}
-          Brauchen Sie Rat? Chatte mit uns{" "}
-        </a>
-      </h1>
-      <h2 className="heading">Montag bis Freitag 09:00 - 17:00 </h2>
-      <p></p>
-      <button className="modalBtn" onClick={() => setOpenModal(true)}>
-        Chat
-      </button>
+    <div className="chat-help-container">
+      <a className="modal-btn" onClick={() => setOpenModal(true)}>
+        Kundensupport-Chat <SiGooglechat />
+      </a>
       <Modal open={openModal} onClose={() => setOpenModal(false)} />
-      <SiGooglechat size={20} className="icon" />
 
-      {user ? <LogOutChat /> : <SignInChat />}
+      {user ? (
+        <div>
+          Eingeloggt als: {user.displayName} <LogOutChat />
+        </div>
+      ) : (
+        <div>
+          Logge dich ein, um zu chatten
+          <SignInChat />
+        </div>
+      )}
     </div>
   );
 };

@@ -12,7 +12,6 @@
     "users": "npx json-server -p 8081 -w data/users.json"
   },
   "dependencies": {
-    "@rollup/rollup-darwin-arm64": "^4.10.0",
     "@stripe/react-stripe-js": "^2.4.0",
     "@stripe/stripe-js": "^2.3.0",
     "animate.css": "^4.1.1",
@@ -44,6 +43,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "nodemon": "^3.0.2",
-    "vite": "^5.1.1"
+    "vite": "^5.1.0"
   }
 }

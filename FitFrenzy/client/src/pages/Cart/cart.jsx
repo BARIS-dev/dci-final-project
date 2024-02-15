@@ -1,27 +1,20 @@
 import "./cart.css";
 import { useState, useEffect } from "react";
-import axios from "axios";
+//import axios from "axios";
+
 import QuantityInput from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
 import DeleteIcon from "../../assets/svg/delete.svg";
 //import ArrowIcon from "../../assets/svg/arrow.svg";
-
 const Cart = () => {
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/cart");
-        setCart(response.data.answer.data.items);
-        console.log(cart);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchCart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //const [cart, setCart] = useState({});
+  const [updatedQuantity, setUpdatedQuantity] = useState();
+  const amountHandler = (amount) => {
+    setUpdatedQuantity(amount);
+    console.log(updatedQuantity);
+  };
+  const promoCodeHandler = (event) => {
+    console.log(event.target.value);
+  };
 
   return (
     <section className="cart-container">
@@ -39,7 +32,6 @@ const Cart = () => {
                 alt="product"
               />
             </div>
-
             <div className="cart-item-details">
               <div className="remove-btn-row">
                 <p className="product-name">Skihandschuhe</p>
@@ -47,24 +39,20 @@ const Cart = () => {
                   <img src={DeleteIcon} alt="delete icon" />
                 </button>
               </div>
-
               <div className="cart-row">
                 <p>Size: </p>
                 <p>M</p>
               </div>
-
               <div className="cart-row">
                 <p>Color: </p>
                 <p>Blue</p>
               </div>
-
               <div className="price-row">
-                <p className="product-price">210 €</p>
-                <QuantityInput />
+                <p className="product-price">17,50 €</p>
+                <QuantityInput amount={amountHandler} />
               </div>
             </div>
           </div>
-
           <div className="cart-item">
             <div className="cart-item-image">
               <img
@@ -73,7 +61,6 @@ const Cart = () => {
                 alt="product"
               />
             </div>
-
             <div className="cart-item-details">
               <div className="remove-btn-row">
                 <p className="product-name">Sportschuhe</p>
@@ -81,7 +68,6 @@ const Cart = () => {
                   <img src={DeleteIcon} alt="delete icon" />
                 </button>
               </div>
-
               <div className="cart-row">
                 <p>Size: </p>
                 <p>36</p>
@@ -91,43 +77,40 @@ const Cart = () => {
                 <p>Blue</p>
               </div>
               <div className="price-row">
-                <p className="product-price">355 €</p>
-                <QuantityInput />
+                <p className="product-price">89 €</p>
+                <QuantityInput amount={amountHandler} />
               </div>
             </div>
           </div>
         </div>
-
         <div className="order-summary">
           <h4>Order Summary</h4>
-
           <div className="summary-row">
             <p>Subtotal</p>
-            <p className="value">565 €</p>
+            <p className="value">124 €</p>
           </div>
-
           <div className="summary-row">
             <p>
-              Discount <span>(-20%)</span>
+              Discount <span>(-10%)</span>
             </p>
-            <p className="discount">-113 €</p>
+            <p className="discount">-12,40 €</p>
           </div>
-
           <div className="summary-row">
             <p>Shipping</p>
-            <p className="value">5 €</p>
+            <p className="value">0 €</p>
           </div>
-
           <div className="total-row">
             <p>Total</p>
-            <p className="value sum">457 €</p>
+            <p className="value sum">111,60 €</p>
           </div>
-
           <div className="promo-input">
-            <input type="text" placeholder="Add promo code" />
+            <input
+              type="text"
+              placeholder="Add promo code"
+              onChange={promoCodeHandler}
+            />
             <button>Apply</button>
           </div>
-
           <button className="checkout-btn">
             Go to checkout
             <svg
@@ -140,7 +123,7 @@ const Cart = () => {
               <path
                 className="arrow-path"
                 d="M4 12H20M20 12L16 8M20 12L16 16"
-                stroke="#eef6f3"
+                stroke="#EEF6F3"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -148,7 +131,6 @@ const Cart = () => {
             </svg>
           </button>
         </div>
-
         {/* {cart.length === 0 ? (
           <p>Your cart is empty</p>
         ) : (
@@ -171,5 +153,4 @@ const Cart = () => {
     </section>
   );
 };
-
 export default Cart;

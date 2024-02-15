@@ -21,14 +21,14 @@ const Navbar = () => {
       {user?.displayName ? (
         <button onClick={handleSignOut}>Logout</button>
       ) : (
-        <>
+        <div>
           <Link to="signin" className="navbar-link">
             Sign in
           </Link>
           <Link to="register" className="navbar-link">
             Register
           </Link>
-        </>
+        </div>
       )}
     </div>
   );
