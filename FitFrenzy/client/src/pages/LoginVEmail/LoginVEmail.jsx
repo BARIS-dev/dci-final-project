@@ -5,12 +5,10 @@ import users from '../../api/users.js';
 
 function LoginVEmail() {
   const [userList, setUserList] = useState([]);
-  // const [curruser, setCurruser] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginMessage, setLoginMessage] = useState('');
-  const { updateUser } = UserAuth();
+  const { updateUser, updateLoggedIn } = UserAuth();
 
   const navigate = useNavigate();
 
@@ -31,34 +29,20 @@ function LoginVEmail() {
     const userFromJSON = userList.find(user => user.email === email);
 
     if (userFromJSON && userFromJSON.password === password) {
-      // setIsLoggedIn(true);
-      // setCurruser(userFromJSON);
+      setLoginMessage('Erfolgreicher Login!');
       setEmail('');
       setPassword('');
-      setLoginMessage('Erfolgreicher Login!');
 
       setTimeout(() => {
         setLoginMessage('');
+        updateLoggedIn();
+        updateUser(userFromJSON);
         navigate('/account');
-      }, 2000);
-
-      updateUser(userFromJSON);
+      }, 2500);
     } else {
       setLoginMessage('Ungültige E-Mail oder Passwort');
     }
   };
-
-  // useEffect(() => {
-  //   if (curruser !== null) {
-  //     console.log('Logged in', curruser);
-  //   }
-  // }, [curruser]);
-
-  // useEffect(() => {
-  //   if (user !== null) {
-  //     console.log('Logged in', user);
-  //   }
-  // }, [user]);
 
   return (
     <div className="signin-content">
@@ -82,13 +66,19 @@ function LoginVEmail() {
         </button>
       </form>
 
-      <Link className="register-link" to={'/register'}>
-        Kein Account? Keine Sorge, registrieren Sie sich kostenlos.
-      </Link>
+      <div className="register-div">
+        <Link className="register-link" to={'/register'}>
+          Kein Account? <br />
+          Keine Sorge, register kostenlos!
+        </Link>
+      </div>
 
       <p
         className="login-message"
-        style={{ color: loginMessage.includes('oder') ? 'red' : 'green' }}
+        style={{
+          marginTop: 10,
+          color: loginMessage.includes('oder') ? 'red' : 'green',
+        }}
       >
         {loginMessage}
       </p>

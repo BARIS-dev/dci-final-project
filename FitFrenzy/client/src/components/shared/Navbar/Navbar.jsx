@@ -1,23 +1,23 @@
-import "animate.css";
-import { Link } from "react-router-dom";
-import { FaCartShopping, FaUser, FaBars, FaX, FaShop } from "react-icons/fa6";
-import { FaSearch, FaPercentage } from "react-icons/fa";
-import { BiSolidCategory } from "react-icons/bi";
-import { MdNewReleases } from "react-icons/md";
+import 'animate.css';
+import { Link } from 'react-router-dom';
+import { FaCartShopping, FaUser, FaBars, FaX, FaShop } from 'react-icons/fa6';
+import { FaSearch, FaPercentage } from 'react-icons/fa';
+import { BiSolidCategory } from 'react-icons/bi';
+import { MdNewReleases } from 'react-icons/md';
 import {
   SiNike,
   SiAdidas,
   SiPuma,
   SiReebok,
   SiUnderarmour,
-} from "react-icons/si";
+} from 'react-icons/si';
 
-import "./Navbar.css";
-import { useState } from "react";
-import Navbarchat from "../../chat/Navbarchat/NavbarChat.jsx";
+import './Navbar.css';
+import { useState } from 'react';
+import Navbarchat from '../../chat/Navbarchat/NavbarChat.jsx';
 
 const Navbar = () => {
-  const brands = ["Nike", "Adidas", "Puma", "Reebok", "Under Armour"];
+  const brands = ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour'];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const randomBrand = () => {
@@ -26,15 +26,15 @@ const Navbar = () => {
 
   const randomBrandIcon = () => {
     switch (randomBrand()) {
-      case "Nike":
+      case 'Nike':
         return <SiNike />;
-      case "Adidas":
+      case 'Adidas':
         return <SiAdidas />;
-      case "Puma":
+      case 'Puma':
         return <SiPuma />;
-      case "Reebok":
+      case 'Reebok':
         return <SiReebok />;
-      case "Under Armour":
+      case 'Under Armour':
         return <SiUnderarmour />;
       default:
         return <SiNike />;
@@ -53,8 +53,8 @@ const Navbar = () => {
               <a
                 className={
                   isMenuOpen
-                    ? "menu-bars-button hidden"
-                    : "menu-bars-button animate__animated animate__fadeInUp animate__faster"
+                    ? 'menu-bars-button hidden'
+                    : 'menu-bars-button animate__animated animate__fadeInUp animate__faster'
                 }
               >
                 <FaBars />
@@ -62,8 +62,8 @@ const Navbar = () => {
               <a
                 className={
                   isMenuOpen
-                    ? "menu-x-button animate__animated animate__fadeInDown animate__faster"
-                    : "menu-x-button hidden"
+                    ? 'menu-x-button animate__animated animate__fadeInDown animate__faster'
+                    : 'menu-x-button hidden'
                 }
               >
                 <FaX />
@@ -72,40 +72,40 @@ const Navbar = () => {
             <ul
               className={
                 isMenuOpen
-                  ? "nav-links mobile-nav animate__animated animate__fadeInDown animate__faster"
-                  : "hidden"
+                  ? 'nav-links mobile-nav animate__animated animate__fadeInDown animate__faster'
+                  : 'hidden'
               }
             >
               <Link
-                to={"/"}
+                to={'/'}
                 className="nav-item"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <FaShop /> Shop
               </Link>
               <Link
-                to={"/"}
+                to={'/'}
                 className="nav-item"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <FaPercentage /> <strong>SALE</strong>
               </Link>
               <Link
-                to={"/"}
+                to={'/'}
                 className="nav-item"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <BiSolidCategory /> Kategorien
               </Link>
               <Link
-                to={"/"}
+                to={'/'}
                 className="nav-item"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <MdNewReleases /> Neu hinzugefügt
               </Link>
               <Link
-                to={"/"}
+                to={'/'}
                 className="nav-item"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -119,7 +119,7 @@ const Navbar = () => {
               </div>
               <Navbarchat />
             </ul>
-            <Link className="logo" to={"/"}>
+            <Link className="logo" to={'/'}>
               FitFrenzy
             </Link>
           </div>
@@ -141,10 +141,10 @@ const Navbar = () => {
               </a>
             </div>
             <ul className="user-icons">
-              <Link className="nav-item" to={"/cart"}>
+              <Link className="nav-item" to={'/cart'}>
                 <FaCartShopping />
               </Link>
-              <Link className="nav-item" to={"/signin"}>
+              <Link className="nav-item" to={'/account'}>
                 <FaUser />
               </Link>
             </ul>

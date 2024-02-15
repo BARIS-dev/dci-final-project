@@ -1,24 +1,3 @@
 {
-  "users": [
-    {
-      "id": "ab8c",
-      "firstName": "deneme4",
-      "lastName": "deneme4",
-      "username": "deneme4",
-      "email": "deneme4@mail.com",
-      "password": "deneme4",
-      "isAdmin": "false",
-      "membership": "free"
-    },
-    {
-      "id": "104a",
-      "firstName": "deneme1",
-      "lastName": "deneme1",
-      "username": "deneme1",
-      "email": "deneme1@mail.com",
-      "password": "deneme1",
-      "isAdmin": "false",
-      "membership": "free"
-    }
-  ]
+  "users": []
 }
