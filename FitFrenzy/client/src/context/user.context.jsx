@@ -18,6 +18,11 @@ export const UserContextProvider = ({ children }) => {
     signInWithPopup(auth, provider);
   };
 
+  const updateUser = newUserData => {
+    console.log('New user data', newUserData);
+    setUser(newUserData);
+  };
+
   const logOut = () => {
     signOut(auth);
   };
@@ -33,7 +38,7 @@ export const UserContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ googleSignIn, logOut, user, setUser }}>
+    <UserContext.Provider value={{ googleSignIn, logOut, user, updateUser }}>
       {children}
     </UserContext.Provider>
   );

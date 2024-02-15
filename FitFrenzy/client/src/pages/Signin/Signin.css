@@ -53,3 +53,10 @@ input[type='password'] {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
+
+.register-link {
+  text-decoration: none;
+  color: #4c5baf;
+  font-weight: bold;
+  font-size: 8px;
+}

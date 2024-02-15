@@ -1,7 +1,9 @@
 import { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import users from '../../api/users.js';
+
 import './Register.css';
+import { Link } from 'react-router-dom';
 
 function RegisterPage() {
   const [firstName, setFirstName] = useState('');
@@ -16,7 +18,9 @@ function RegisterPage() {
 
   // const navigate = useNavigate();
 
-  const handleRegister = async () => {
+  const handleRegister = async e => {
+    e.preventDefault();
+
     try {
       // Yeni kullanıcı bilgileri
       const newUser = {
@@ -32,6 +36,7 @@ function RegisterPage() {
       // API isteği gönderme
       const response = await users.post('/users', newUser);
       console.log('Successfully registered', response.data);
+
       setIsSuccess(true);
       setErrorMessage('');
       // navigate('/signin');
@@ -39,6 +44,14 @@ function RegisterPage() {
       console.error('Something went wrong', error);
       setIsSuccess(false);
       setErrorMessage('Something went wrong.');
+    } finally {
+      setFirstName('');
+      setLastName('');
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setIsAdmin(false);
+      setMembership('free');
     }
   };
 
@@ -47,8 +60,8 @@ function RegisterPage() {
       <h2>Registrieren</h2>
       {isSuccess && (
         <div className="success-message">
-          Kayıt başarıyla gerçekleşti. Giriş yapmak için
-          <a href="/signin">buraya tıklayın</a>.
+          Die Registrierung war erfolgreich. Klicken Sie bitte{' '}
+          <Link to={'/signin'}>hier</Link>, um sich anzumelden.
         </div>
       )}
       {errorMessage && <div className="error-message">{errorMessage}</div>}

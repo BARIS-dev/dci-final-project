@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { userAuth } from '../../context/user.context.jsx';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserAuth } from '../../context/user.context.jsx';
 import users from '../../api/users.js';
 
 function LoginVEmail() {
   const [userList, setUserList] = useState([]);
-  const [curruser, setCurruser] = useState(null);
+  // const [curruser, setCurruser] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginMessage, setLoginMessage] = useState('');
-  // const { user, setUser } = userAuth();
+  const { updateUser } = UserAuth();
 
   const navigate = useNavigate();
-  // console.log('User', user);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,9 +31,8 @@ function LoginVEmail() {
     const userFromJSON = userList.find(user => user.email === email);
 
     if (userFromJSON && userFromJSON.password === password) {
-      // setUser(userFromJSON);
       // setIsLoggedIn(true);
-      setCurruser(userFromJSON);
+      // setCurruser(userFromJSON);
       setEmail('');
       setPassword('');
       setLoginMessage('Erfolgreicher Login!');
@@ -43,16 +41,18 @@ function LoginVEmail() {
         setLoginMessage('');
         navigate('/account');
       }, 2000);
+
+      updateUser(userFromJSON);
     } else {
       setLoginMessage('Ungültige E-Mail oder Passwort');
     }
   };
 
-  useEffect(() => {
-    if (curruser !== null) {
-      console.log('Logged in', curruser);
-    }
-  }, [curruser]);
+  // useEffect(() => {
+  //   if (curruser !== null) {
+  //     console.log('Logged in', curruser);
+  //   }
+  // }, [curruser]);
 
   // useEffect(() => {
   //   if (user !== null) {
@@ -81,6 +81,10 @@ function LoginVEmail() {
           Login
         </button>
       </form>
+
+      <Link className="register-link" to={'/register'}>
+        Kein Account? Keine Sorge, registrieren Sie sich kostenlos.
+      </Link>
 
       <p
         className="login-message"

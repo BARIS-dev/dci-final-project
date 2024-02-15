@@ -1,5 +1,5 @@
-import "./Account.css";
-import { UserAuth } from "../../context/user.context";
+import './Account.css';
+import { UserAuth } from '../../context/user.context';
 
 const Account = () => {
   const { logOut, user } = UserAuth();
@@ -16,7 +16,7 @@ const Account = () => {
     <div className="account-container">
       <h1 className="account-title">Account</h1>
       <div>
-        <p>Welcome, {user?.displayName}</p>
+        <p>Welcome, {user?.displayName || user?.firstName || 'Guest'}</p>
       </div>
       <button onClick={handleSignOut} className="logout-button">
         Logout
