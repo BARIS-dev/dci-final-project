@@ -35,20 +35,20 @@ export function RatingReviewsTab() {
     <div className="reviewsTab">
       <div className="reviews-bar">
         <div className="reviews-bar-left">
-          <h3>All Reviews</h3>
+          <h3>Alle Bewertungen</h3>
           <h3>({reviews.length})</h3>
         </div>
 
         <div className="reviews-bar-right">
           <button className="sorting-btn">
             <select>
-              <option value="most-recent">Most Recent</option>
-              <option value="highest-rating">Highest Rating</option>
-              <option value="lowest-rating">Lowest Rating</option>
+              <option value="most-recent">Neueste zuerst</option>
+              <option value="highest-rating">Höchste Bewertung</option>
+              <option value="lowest-rating">Niedrigste Bewertung</option>
             </select>
           </button>
 
-          <button className="write-review-btn">Write a Review</button>
+          <button className="write-review-btn">Rezension verfassen</button>
         </div>
       </div>
 
@@ -65,7 +65,7 @@ export function RatingReviewsTab() {
               </div>
 
               <p>{review.reviewText}</p>
-              <p>Posted on {formatDate(review.createdAt)}</p>
+              <p>Rezension vom {formatDate(review.createdAt)}</p>
             </div>
           );
         })}
@@ -73,10 +73,10 @@ export function RatingReviewsTab() {
 
       {reviews.length === 0 ? (
         <div className="no-reviews">
-          <p>No Reviews Yet</p>
+          <p>Noch keine Kundenbewertungen </p>
         </div>
       ) : (
-        <button className="load-btn">Load more Reviews</button>
+        <button className="load-btn">Weitere Bewertungen ansehen</button>
       )}
     </div>
   );

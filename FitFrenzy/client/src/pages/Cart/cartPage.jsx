@@ -47,15 +47,15 @@ function Cart() {
   return (
     <section className="cart-container">
       <div>
-        <p>Home &raquo; Cart</p>
+        <p>Startseite &raquo; Warenkorb</p>
       </div>
 
-      <h1>Your Cart</h1>
+      <h1>Ihr Warenkorb</h1>
 
       {cart.length === 0 ? (
         <h4>
-          Your cart is empty! Browse our collection and find the perfect
-          addition to your cart.
+          Ihr Warenkorb ist leer! Durchstöbern Sie unsere Kollektion und finden
+          Sie die perfekte Ergänzung für Ihren Einkaufswagen.
         </h4>
       ) : (
         <>
@@ -100,11 +100,11 @@ function Cart() {
                           </button>
                         </div>
                         <div className="cart-row">
-                          <p>Size: </p>
+                          <p>Größe: </p>
                           <p>{item.size}</p>
                         </div>
                         <div className="cart-row">
-                          <p>Color: </p>
+                          <p>Farbe: </p>
                           <p>{item.color}</p>
                         </div>
                         <div className="price-row">
@@ -129,49 +129,49 @@ function Cart() {
             </div>
 
             <div className="order-summary">
-              <h4>Order Summary</h4>
+              <h4>Bestellungsübersicht</h4>
               <div className="summary-row">
-                <p>Subtotal</p>
+                <p>Zwischensumme</p>
                 <p className="value">{subTotal.toFixed(2)} €</p>
               </div>
               <div className="summary-row">
-                <p>Discount {isDiscountApplied ? <span>(-10%)</span> : ""}</p>
+                <p>Rabatt {isDiscountApplied ? <span>(-10%)</span> : ""}</p>
 
                 <p className={isDiscountApplied ? "discount" : ""}>
                   {isDiscountApplied ? `-${discount.toFixed(2)} €` : "0 €"}
                 </p>
               </div>
               <div className="summary-row">
-                <p>Shipping</p>
+                <p>Versandkosten</p>
                 <p className="value">0 €</p>
               </div>
               <div className="total-row">
-                <p>Total</p>
+                <p>Gesamtsumme</p>
                 <p className="value sum">{total.toFixed(2)} €</p>
               </div>
               <div className="promo">
                 <div className="promo-input">
                   <input
                     type="search"
-                    placeholder="Add promo code"
+                    placeholder="Füge einen Gutscheincode hinzu"
                     onChange={promoCodeHandler}
                   />
                   <button onClick={() => checkPromoCode(promoCode)}>
-                    Apply
+                    Einlösen
                   </button>
                 </div>
 
                 <p className="promo-message">
                   {isPromoMessageShown && isDiscountApplied
-                    ? "10% discount applied"
+                    ? "10% Rabatt angewendet"
                     : isPromoMessageShown && !isDiscountApplied
-                    ? "Invalid code"
+                    ? "Ungültiger Code"
                     : ""}
                 </p>
               </div>
               <Link to="/checkout">
                 <button className="checkout-btn">
-                  Go to checkout
+                  Zur Kasse gehen
                   <svg
                     width="800px"
                     height="800px"
