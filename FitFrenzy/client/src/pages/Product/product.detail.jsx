@@ -22,6 +22,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
 
   const [chosenProduct, setChosenProduct] = useState({
+    id: "",
     name: "",
     price: 0,
     image: "",
@@ -44,6 +45,7 @@ const ProductDetail = () => {
 
         setChosenProduct({
           //set default values to the chosenProduct
+          id: response.data.answer.data._id,
           name: response.data.answer.data.name,
           price: response.data.answer.data.price,
           image: response.data.answer.data.image,
@@ -181,7 +183,7 @@ const ProductDetail = () => {
           </div>
 
           <div className="product-cta">
-            <QuantityInput amount={amountHandler} />
+            <QuantityInput quantityChangeHandler={amountHandler} />
 
             <button
               onClick={() => {

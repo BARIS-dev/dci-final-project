@@ -5,6 +5,7 @@ export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [isPromoApplied, setIsPromoApplied] = useState(false);
 
   const addToCart = (item) => {
     if (!cart) {
@@ -44,15 +45,65 @@ export const CartContextProvider = ({ children }) => {
     }
   };
 
+  const updateQuantity = (id, size, color, quantity) => {
+    const updatedCart = cart.map((cartItem) => {
+      if (
+        cartItem.id === id &&
+        cartItem.size === size &&
+        cartItem.color === color
+      ) {
+        return {
+          ...cartItem,
+          quantity: quantity,
+        };
+      }
+      return cartItem;
+    });
+
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setCart(updatedCart);
+  };
+
+  const calculateSubtotal = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  const applyPromoCode = (promoCode) => {
+    if (promoCode === "DCI-WD23") {
+      setIsPromoApplied(true);
+    } else {
+      setIsPromoApplied(false);
+    }
+  };
+
+  const calculateDiscount = (subtotal) => {
+    return isPromoApplied ? subtotal * 0.1 : 0;
+  };
+
+  const calculateTotal = () => {
+    return calculateSubtotal - calculateDiscount(calculateSubtotal);
+  };
+
   useEffect(() => {
     const cartFromLocalStorage = localStorage.getItem("cart");
     if (cartFromLocalStorage) {
-      setCart(cartFromLocalStorage);
+      setCart(JSON.parse(cartFromLocalStorage));
     }
   }, []);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        updateQuantity,
+        calculateSubtotal,
+        applyPromoCode,
+        calculateDiscount,
+        calculateTotal,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

@@ -2,24 +2,26 @@ import "./quantityInput.css";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-export const QuantityInput = ({ amount }) => {
-  const [quantity, setQuantity] = useState(1);
+export const QuantityInput = ({ quantityChangeHandler, initialQuantity }) => {
+  const [quantity, setQuantity] = useState(initialQuantity || 1);
 
   const handleDecrease = () => {
-    const updatedQuantity = quantity - 1;
-    setQuantity(updatedQuantity);
-    amount(updatedQuantity);
+    const changedInput = quantity - 1;
+    setQuantity(changedInput);
+    quantityChangeHandler(changedInput);
   };
 
   const handleIncrease = () => {
-    const updatedQuantity = quantity + 1;
+    const changedInput = quantity + 1;
 
-    setQuantity(updatedQuantity);
-    amount(updatedQuantity);
+    setQuantity(changedInput);
+    quantityChangeHandler(changedInput);
   };
 
   const quantityHandler = (event) => {
-    console.log(event.target.value);
+    const input = parseInt(event.target.value);
+    setQuantity(input);
+    quantityChangeHandler(input);
   };
 
   return (
@@ -42,5 +44,6 @@ export const QuantityInput = ({ amount }) => {
 };
 
 QuantityInput.propTypes = {
-  amount: PropTypes.func.isRequired,
+  quantityChangeHandler: PropTypes.func.isRequired,
+  initialQuantity: PropTypes.number,
 };
