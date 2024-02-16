@@ -125,6 +125,19 @@ header {
           display: flex;
         }
       }
+
+      .cart-icon {
+        position: relative;
+
+        .cart-item-count {
+          position: absolute;
+          top: -10px;
+          right: -10px;
+
+          border-radius: 50%;
+          font-size: 1rem;
+        }
+      }
     }
   }
 }
