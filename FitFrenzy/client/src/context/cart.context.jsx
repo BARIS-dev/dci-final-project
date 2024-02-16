@@ -5,7 +5,7 @@ export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [isPromoApplied, setIsPromoApplied] = useState(false);
+  const [isDiscountApplied, setIsDiscountApplied] = useState(false);
 
   const addToCart = (item) => {
     if (!cart) {
@@ -82,16 +82,16 @@ export const CartContextProvider = ({ children }) => {
     0
   );
 
-  const applyPromoCode = (promoCode) => {
+  const applyDiscount = (promoCode) => {
     if (promoCode === "DCI-WD23") {
-      setIsPromoApplied(true);
+      setIsDiscountApplied(true);
     } else {
-      setIsPromoApplied(false);
+      setIsDiscountApplied(false);
     }
   };
 
   const calculateDiscount = (subtotal) => {
-    return isPromoApplied ? subtotal * 0.1 : 0;
+    return isDiscountApplied ? subtotal * 0.1 : 0;
   };
 
   const calculateTotal = () => {
@@ -112,10 +112,10 @@ export const CartContextProvider = ({ children }) => {
         addToCart,
         updateQuantity,
         deleteItem,
-        isPromoApplied,
+        isDiscountApplied,
         calculateSubtotal,
-        applyPromoCode,
-        setIsPromoApplied,
+        applyDiscount,
+        setIsDiscountApplied,
         calculateDiscount,
         calculateTotal,
       }}

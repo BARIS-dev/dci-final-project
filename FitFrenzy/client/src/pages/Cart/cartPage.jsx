@@ -10,13 +10,14 @@ function Cart() {
     updateQuantity,
     deleteItem,
     calculateSubtotal,
-    applyPromoCode,
+    applyDiscount,
     isPromoApplied,
     calculateDiscount,
     calculateTotal,
   } = useContext(CartContext);
 
   const [promoCode, setPromoCode] = useState("");
+  //const [isPromoMessageShown, setIsPromoMessageShown] = useState(false);
 
   const amountHandler = (id, size, color, quantity) => {
     updateQuantity(id, size, color, quantity);
@@ -28,22 +29,15 @@ function Cart() {
 
   const total = calculateTotal();
 
-  const promoCodeHandler = (event) => {
+  /* const promoCodeHandler = (event) => {
     const code = event.target.value;
     setPromoCode(code);
 
-    console.log("code: ", code);
-
-    if (code === "") {
-      setPromoCode("");
-    }
   };
 
   const checkPromoCode = () => {
-    console.log(promoCode);
-    applyPromoCode(promoCode);
-    console.log(isPromoApplied);
-  };
+    applyDiscount(promoCode);
+  }; */
 
   return (
     <section className="cart-container">
@@ -153,15 +147,19 @@ function Cart() {
                   <input
                     type="search"
                     placeholder="Add promo code"
-                    onChange={promoCodeHandler}
+                    onChange={(event) => setPromoCode(event.target.value)}
                   />
-                  <button onClick={checkPromoCode}>Apply</button>
+                  <button onClick={() => applyDiscount(promoCode)}>
+                    Apply
+                  </button>
                 </div>
 
                 <p className="promo-message">
-                  {isPromoApplied
+                  {/* {isPromoApplied && isPromoMessageShown
                     ? "10% discount applied"
-                    : "Invalid promo code"}
+                    : !isPromoApplied && isPromoMessageShown
+                    ? "Invalid promo code"
+                    : ""} */}
                 </p>
               </div>
               <button className="checkout-btn">
