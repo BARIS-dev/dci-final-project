@@ -8,6 +8,7 @@ function Cart() {
   const {
     cart,
     updateQuantity,
+    deleteItem,
     calculateSubtotal,
     applyPromoCode,
     isPromoApplied,
@@ -28,11 +29,20 @@ function Cart() {
   const total = calculateTotal();
 
   const promoCodeHandler = (event) => {
-    setPromoCode(event.target.value);
+    const code = event.target.value;
+    setPromoCode(code);
+
+    console.log("code: ", code);
+
+    if (code === "") {
+      setPromoCode("");
+    }
   };
 
   const checkPromoCode = () => {
+    console.log(promoCode);
     applyPromoCode(promoCode);
+    console.log(isPromoApplied);
   };
 
   return (
@@ -68,6 +78,9 @@ function Cart() {
                           <button
                             title="Delete this product"
                             className="remove-btn"
+                            onClick={() =>
+                              deleteItem(item.id, item.size, item.color)
+                            }
                           >
                             <svg
                               fill="#d04e4e"
@@ -138,7 +151,7 @@ function Cart() {
               <div className="promo">
                 <div className="promo-input">
                   <input
-                    type="text"
+                    type="search"
                     placeholder="Add promo code"
                     onChange={promoCodeHandler}
                   />
@@ -146,9 +159,9 @@ function Cart() {
                 </div>
 
                 <p className="promo-message">
-                  {isPromoApplied && promoCode !== ""
-                    ? "10% discount applied!"
-                    : "Invalid promo code."}
+                  {isPromoApplied
+                    ? "10% discount applied"
+                    : "Invalid promo code"}
                 </p>
               </div>
               <button className="checkout-btn">

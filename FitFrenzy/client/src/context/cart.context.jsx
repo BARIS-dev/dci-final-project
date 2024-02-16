@@ -64,6 +64,19 @@ export const CartContextProvider = ({ children }) => {
     setCart(updatedCart);
   };
 
+  const deleteItem = (id, size, color) => {
+    const updatedCart = cart.filter((cartItem) => {
+      return !(
+        cartItem.id === id &&
+        cartItem.size === size &&
+        cartItem.color === color
+      );
+    });
+
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setCart(updatedCart);
+  };
+
   const calculateSubtotal = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -98,8 +111,11 @@ export const CartContextProvider = ({ children }) => {
         cart,
         addToCart,
         updateQuantity,
+        deleteItem,
+        isPromoApplied,
         calculateSubtotal,
         applyPromoCode,
+        setIsPromoApplied,
         calculateDiscount,
         calculateTotal,
       }}

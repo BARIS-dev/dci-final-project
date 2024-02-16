@@ -171,6 +171,8 @@
         }
 
         .promo-message {
+          margin-top: 0.25em;
+          font-size: 0.85em;
           color: var(--primary);
         }
       }
