@@ -83,7 +83,7 @@ export const CartContextProvider = ({ children }) => {
   );
 
   const applyDiscount = (promoCode) => {
-    if (promoCode === "DCI-WD23") {
+    if (promoCode.toUpperCase() === "DCI-WD23") {
       setIsDiscountApplied(true);
     } else {
       setIsDiscountApplied(false);

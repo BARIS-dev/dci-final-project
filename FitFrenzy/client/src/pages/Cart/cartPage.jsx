@@ -1,5 +1,6 @@
 import "./cart.css";
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { CartContext } from "../../context/cart.context.jsx";
 
 import { QuantityInput } from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
@@ -11,13 +12,13 @@ function Cart() {
     deleteItem,
     calculateSubtotal,
     applyDiscount,
-    isPromoApplied,
+    isDiscountApplied,
     calculateDiscount,
     calculateTotal,
   } = useContext(CartContext);
 
   const [promoCode, setPromoCode] = useState("");
-  //const [isPromoMessageShown, setIsPromoMessageShown] = useState(false);
+  const [isPromoMessageShown, setIsPromoMessageShown] = useState(false);
 
   const amountHandler = (id, size, color, quantity) => {
     updateQuantity(id, size, color, quantity);
@@ -29,15 +30,19 @@ function Cart() {
 
   const total = calculateTotal();
 
-  /* const promoCodeHandler = (event) => {
+  const promoCodeHandler = (event) => {
     const code = event.target.value;
     setPromoCode(code);
-
   };
 
-  const checkPromoCode = () => {
+  const checkPromoCode = (promoCode) => {
+    if (promoCode === "") {
+      setIsPromoMessageShown(false);
+    } else {
+      setIsPromoMessageShown(true);
+    }
     applyDiscount(promoCode);
-  }; */
+  };
 
   return (
     <section className="cart-container">
@@ -60,11 +65,13 @@ function Cart() {
                 return (
                   <>
                     <div className="cart-item" key={item.id}>
-                      <img
-                        className="product-image"
-                        src={item.image}
-                        alt="product"
-                      />
+                      <div className="cart-item-image">
+                        <img
+                          className="product-image"
+                          src={item.image}
+                          alt="product"
+                        />
+                      </div>
 
                       <div className="cart-item-details">
                         <div className="remove-btn-row">
@@ -128,10 +135,10 @@ function Cart() {
                 <p className="value">{subTotal.toFixed(2)} €</p>
               </div>
               <div className="summary-row">
-                <p>Discount {isPromoApplied ? <span>(-10%)</span> : ""}</p>
+                <p>Discount {isDiscountApplied ? <span>(-10%)</span> : ""}</p>
 
-                <p className={isPromoApplied ? "discount" : ""}>
-                  {isPromoApplied ? `-${discount.toFixed(2)} €` : "0 €"}
+                <p className={isDiscountApplied ? "discount" : ""}>
+                  {isDiscountApplied ? `-${discount.toFixed(2)} €` : "0 €"}
                 </p>
               </div>
               <div className="summary-row">
@@ -147,40 +154,42 @@ function Cart() {
                   <input
                     type="search"
                     placeholder="Add promo code"
-                    onChange={(event) => setPromoCode(event.target.value)}
+                    onChange={promoCodeHandler}
                   />
-                  <button onClick={() => applyDiscount(promoCode)}>
+                  <button onClick={() => checkPromoCode(promoCode)}>
                     Apply
                   </button>
                 </div>
 
                 <p className="promo-message">
-                  {/* {isPromoApplied && isPromoMessageShown
+                  {isPromoMessageShown && isDiscountApplied
                     ? "10% discount applied"
-                    : !isPromoApplied && isPromoMessageShown
-                    ? "Invalid promo code"
-                    : ""} */}
+                    : isPromoMessageShown && !isDiscountApplied
+                    ? "Invalid code"
+                    : ""}
                 </p>
               </div>
-              <button className="checkout-btn">
-                Go to checkout
-                <svg
-                  width="800px"
-                  height="800px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    className="arrow-path"
-                    d="M4 12H20M20 12L16 8M20 12L16 16"
-                    stroke="#EEF6F3"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+              <Link to="/checkout">
+                <button className="checkout-btn">
+                  Go to checkout
+                  <svg
+                    width="800px"
+                    height="800px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      className="arrow-path"
+                      d="M4 12H20M20 12L16 8M20 12L16 16"
+                      stroke="#EEF6F3"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </Link>
             </div>
           </div>
         </>
