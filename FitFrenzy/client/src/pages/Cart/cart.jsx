@@ -1,18 +1,18 @@
-import "./cart.css";
-import { useState, useEffect } from "react";
+import './cart.css';
+import { useState } from 'react';
 //import axios from "axios";
 
-import QuantityInput from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
-import DeleteIcon from "../../assets/svg/delete.svg";
+import QuantityInput from '../../components/productDetails/productQuantityInput/quantityInput.jsx';
+import DeleteIcon from '../../assets/svg/delete.svg';
 //import ArrowIcon from "../../assets/svg/arrow.svg";
 const Cart = () => {
   //const [cart, setCart] = useState({});
   const [updatedQuantity, setUpdatedQuantity] = useState();
-  const amountHandler = (amount) => {
+  const amountHandler = amount => {
     setUpdatedQuantity(amount);
     console.log(updatedQuantity);
   };
-  const promoCodeHandler = (event) => {
+  const promoCodeHandler = event => {
     console.log(event.target.value);
   };
 
