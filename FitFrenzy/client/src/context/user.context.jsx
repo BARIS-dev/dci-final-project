@@ -12,13 +12,24 @@ const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider);
   };
 
+  const updateUser = newUserData => {
+    console.log('New user data', newUserData);
+    setUser(newUserData);
+  };
+
+  const updateLoggedIn = () => {
+    setIsLoggedIn(true);
+  };
+
   const logOut = () => {
+    setIsLoggedIn(false);
     signOut(auth);
   };
 
@@ -33,7 +44,16 @@ export const UserContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ googleSignIn, logOut, user, setUser }}>
+    <UserContext.Provider
+      value={{
+        googleSignIn,
+        logOut,
+        user,
+        updateUser,
+        isLoggedIn,
+        updateLoggedIn,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

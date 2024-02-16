@@ -1,12 +1,15 @@
-import "./Account.css";
-import { UserAuth } from "../../context/user.context";
+import './Account.css';
+import { UserAuth } from '../../context/user.context';
+import { Link } from 'react-router-dom';
 
 const Account = () => {
-  const { logOut, user } = UserAuth();
+  const { logOut, user, updateUser, isLoggedIn } = UserAuth();
 
   const handleSignOut = async () => {
     try {
       await logOut();
+      updateUser({});
+      logOut();
     } catch (error) {
       console.log(error);
     }
@@ -14,13 +17,50 @@ const Account = () => {
 
   return (
     <div className="account-container">
+      <br />
       <h1 className="account-title">Account</h1>
+      <br />
       <div>
-        <p>Welcome, {user?.displayName}</p>
+        <p>Welcome, {user?.displayName || user?.firstName || 'Guest'}</p>
       </div>
-      <button onClick={handleSignOut} className="logout-button">
-        Logout
-      </button>
+      <br />
+      <br />
+
+      {isLoggedIn && (
+        <div className="user-info">
+          <label>
+            First Name:
+            <input type="text" value={user?.firstName} disabled />
+          </label>
+          <label>
+            Last Name:
+            <input type="text" value={user?.lastName} disabled />
+          </label>
+          <label>
+            Username:
+            <input type="text" value={user?.username} disabled />
+          </label>
+          <label>
+            Email:
+            <input type="email" value={user?.email} disabled />
+          </label>
+          <label>
+            Password:
+            <input type="password" value={user?.password} disabled />
+          </label>
+          <button onClick={handleSignOut} className="logout-button-account">
+            Logout
+          </button>
+        </div>
+      )}
+
+      {!isLoggedIn && (
+        <Link to={'/signin'} className="login-register-btn">
+          Login or Register
+        </Link>
+      )}
+      <br />
+      <br />
     </div>
   );
 };

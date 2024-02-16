@@ -1,34 +1,3 @@
 {
-  "users": [
-    {
-      "id": "3bea",
-      "firstName": "sdfsdafsdaf",
-      "lastName": "sdafdsaf",
-      "username": "sdfsdaf",
-      "email": "test111@gmail.com",
-      "password": "123456test",
-      "isAdmin": "false",
-      "membership": "free"
-    },
-    {
-      "id": "fe84",
-      "firstName": "Test",
-      "lastName": "User",
-      "username": "Testuser0123",
-      "email": "test1234@gmail.com",
-      "password": "123456test",
-      "isAdmin": "false",
-      "membership": "free"
-    },
-    {
-      "id": "cc3e",
-      "firstName": "ksdjklasdöjf",
-      "lastName": "kslajfdsaölkfjsadklö",
-      "username": "skdfjlsdkfjölas",
-      "email": "test123123@gmail.com",
-      "password": "123test",
-      "isAdmin": "false",
-      "membership": "free"
-    }
-  ]
+  "users": []
 }

@@ -1,4 +1,5 @@
 .signin-container {
+  background-color: #e0ebda;
   text-align: center;
   padding: 8px;
   margin: auto;
@@ -21,7 +22,10 @@
 }
 
 .signin-content {
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
+
+  background: linear-gradient(to right, #e8eceba2, #dee9e4a2);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 
   max-width: 245px;
   margin: auto;
@@ -42,6 +46,7 @@
 
 .login-btn:hover {
   opacity: 1;
+  background-color: #45a049;
 }
 
 input[type='text'],
@@ -52,4 +57,29 @@ input[type='password'] {
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
+}
+
+.register-link {
+  text-decoration: none;
+  color: #4c5baf;
+  font-weight: bold;
+  font-size: 8px;
+}
+
+.register-div {
+  margin-top: 10px;
+  font-weight: bold;
+  line-height: 10px;
+}
+
+.register-link {
+  color: #0e381b;
+  font-size: 10px;
+  text-decoration: none;
+}
+
+.register-link:hover {
+  color: #0b2714cb;
+  font-weight: bold;
+  line-height: 10px;
 }
