@@ -1,90 +1,113 @@
 import "./product.detail.css";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
+
 import axios from "axios";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
-import { TablistComponent } from "../../components/productDetails/tabList/tablistComponent.jsx";
-import QuantityInput from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
 
+import { CartContext } from "../../context/cart.context.jsx";
+
+import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
+import { QuantityInput } from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
+import { TabListComponent } from "../../components/productDetails/tabList/tabListComponent.jsx";
 
 const ProductDetail = () => {
-  const { id } = useParams(); //65c15356d08e1b4d4624a721
-  const [product, setProduct] = useState({});
+  const { id } = useParams();
+
+  const { addToCart, cart } = useContext(CartContext);
+
+  const [product, setProduct] = useState(null);
+
+  const [chosenProduct, setChosenProduct] = useState({
+    id: "",
+    name: "",
+    price: 0,
+    image: "",
+    size: "",
+    color: "",
+    quantity: 1,
+  });
+
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProductDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/product/${id}`);
-
         setProduct(response.data.answer.data);
 
-        //console.log(product);
+        setChosenProduct({
+          //set default values to the chosenProduct
+          id: response.data.answer.data._id,
+          name: response.data.answer.data.name,
+          price: response.data.answer.data.price,
+          image: response.data.answer.data.image,
+          quantity: 1,
+        });
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching product data", error);
       }
     };
-
-    fetchProduct();
+    fetchProductDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!product) return <h1>Loading...</h1>;
 
-  const setColor = (event) => {
-    setSelectedColor(event.target.style.backgroundColor);
-  };
-
   const amountHandler = (amount) => {
     setQuantity(amount);
+    setChosenProduct({
+      ...chosenProduct,
+      quantity: amount,
+    });
     console.log(quantity);
   };
 
-  const addToCart = async () => {
-    if (!selectedColor || !selectedSize) {
-      toast.error("Please select a color and a size");
-      return;
-    }
-
+  const favoriteHandler = () => {
+    setIsFavorite(!isFavorite); //temporary solution
     try {
-      console.log("id: " + id);
-
-      const response = await axios.post(
-        `http://localhost:8000/product/${id}/add`,
-        {
-          quantity: quantity,
-          color: selectedColor,
-          size: selectedSize,
-        }
-      );
-      console.log(response);
-
-      toast.success("Product added to cart");
-
-      /* console.log("selected Color: " + selectedColor);
-      console.log("selected quantity: " + quantity);
-      console.log("selected size: " + selectedSize); */
+      /* axios.post(`http://localhost:8000/product/${id}/toggle-like`); */
     } catch (error) {
       console.log(error);
     }
   };
 
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite); //temporary solution
-    try {
-      axios.post(`http://localhost:8000/product/${id}/toggle-like`);
-    } catch (error) {
-      console.log(error);
+  const addHandler = (product) => {
+    if (!product.size || !product.color) {
+      toast.error("Please select size and color");
+      return;
     }
+
+    addToCart(product);
+    console.log(product);
+    toast.success("Product added to cart");
+
+    setChosenProduct({
+      ...chosenProduct,
+      color: "",
+      size: "",
+    });
+    setSelectedColor("");
+    setSelectedSize("");
   };
 
   return (
     <section className="product-container">
+      <button
+        onClick={() => {
+          console.log(cart);
+        }}
+      >
+        Test log
+      </button>
+
       <div className="breadcrumb-trail">
         <p>
           Home &raquo; Shop &raquo;{" "}
@@ -121,7 +144,13 @@ const ProductDetail = () => {
                     style={{
                       backgroundColor: color,
                     }}
-                    onClick={setColor}
+                    onClick={() => {
+                      setSelectedColor(color);
+                      setChosenProduct({
+                        ...chosenProduct,
+                        color: color,
+                      });
+                    }}
                   >
                     {selectedColor === color ? (
                       <span className="tick-mark">&#10003;</span>
@@ -138,8 +167,13 @@ const ProductDetail = () => {
                 product.size.map((size, index) => (
                   <button
                     key={index}
+                    className={selectedSize === size ? "selected" : ""}
                     onClick={() => {
                       setSelectedSize(size);
+                      setChosenProduct({
+                        ...chosenProduct,
+                        size: size,
+                      });
                     }}
                   >
                     {size}
@@ -149,16 +183,21 @@ const ProductDetail = () => {
           </div>
 
           <div className="product-cta">
-            <QuantityInput amount={amountHandler} />
+            <QuantityInput quantityChangeHandler={amountHandler} />
 
-            <button onClick={addToCart} className="product-add-to-cart">
+            <button
+              onClick={() => {
+                addHandler(chosenProduct);
+              }}
+              className="product-add-to-cart"
+            >
               Add to Cart
             </button>
 
             <button
               title={isFavorite ? "Remove from favorites" : "Add to favorites"}
               className={`product-add-to-fav ${isFavorite ? "liked" : ""}`}
-              onClick={toggleFavorite}
+              onClick={favoriteHandler}
             >
               <span className="heart">&#10084;</span>
             </button>
@@ -179,7 +218,7 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <TablistComponent />
+      <TabListComponent />
     </section>
   );
 };
