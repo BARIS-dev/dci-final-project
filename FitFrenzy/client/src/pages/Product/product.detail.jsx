@@ -1,18 +1,18 @@
-import "./product.detail.css";
+import './product.detail.css';
 
-import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 
-import axios from "axios";
+import axios from 'axios';
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { CartContext } from "../../context/cart.context.jsx";
+import { CartContext } from '../../context/cart.context.jsx';
 
-import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
-import { QuantityInput } from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
-import { TabListComponent } from "../../components/productDetails/tabList/tabListComponent.jsx";
+import { Rating } from '../../components/productDetails/productRatingStars/ratingStars.jsx';
+import { QuantityInput } from '../../components/productDetails/productQuantityInput/quantityInput.jsx';
+import { TabListComponent } from '../../components/productDetails/tabList/tablistComponent.jsx';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -22,18 +22,18 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
 
   const [chosenProduct, setChosenProduct] = useState({
-    id: "",
-    name: "",
+    id: '',
+    name: '',
     price: 0,
-    image: "",
-    size: "",
-    color: "",
+    image: '',
+    size: '',
+    color: '',
     quantity: 1,
   });
 
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState("");
-  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
 
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -52,7 +52,7 @@ const ProductDetail = () => {
           quantity: 1,
         });
       } catch (error) {
-        console.error("Error fetching product data", error);
+        console.error('Error fetching product data', error);
       }
     };
     fetchProductDetails();
@@ -61,7 +61,7 @@ const ProductDetail = () => {
 
   if (!product) return <h1>Loading...</h1>;
 
-  const amountHandler = (amount) => {
+  const amountHandler = amount => {
     setQuantity(amount);
     setChosenProduct({
       ...chosenProduct,
@@ -79,23 +79,23 @@ const ProductDetail = () => {
     }
   };
 
-  const addHandler = (product) => {
+  const addHandler = product => {
     if (!product.size || !product.color) {
-      toast.error("Please select size and color");
+      toast.error('Please select size and color');
       return;
     }
 
     addToCart(product);
     console.log(product);
-    toast.success("Product added to cart");
+    toast.success('Product added to cart');
 
     setChosenProduct({
       ...chosenProduct,
-      color: "",
-      size: "",
+      color: '',
+      size: '',
     });
-    setSelectedColor("");
-    setSelectedSize("");
+    setSelectedColor('');
+    setSelectedSize('');
   };
 
   return (
@@ -110,7 +110,7 @@ const ProductDetail = () => {
 
       <div className="breadcrumb-trail">
         <p>
-          Home &raquo; Shop &raquo;{" "}
+          Home &raquo; Shop &raquo;{' '}
           {product.category &&
             product.category[0].toUpperCase() + product.category.slice(1)}
         </p>
@@ -167,7 +167,7 @@ const ProductDetail = () => {
                 product.size.map((size, index) => (
                   <button
                     key={index}
-                    className={selectedSize === size ? "selected" : ""}
+                    className={selectedSize === size ? 'selected' : ''}
                     onClick={() => {
                       setSelectedSize(size);
                       setChosenProduct({
@@ -195,8 +195,8 @@ const ProductDetail = () => {
             </button>
 
             <button
-              title={isFavorite ? "Remove from favorites" : "Add to favorites"}
-              className={`product-add-to-fav ${isFavorite ? "liked" : ""}`}
+              title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+              className={`product-add-to-fav ${isFavorite ? 'liked' : ''}`}
               onClick={favoriteHandler}
             >
               <span className="heart">&#10084;</span>
