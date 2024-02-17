@@ -1,5 +1,5 @@
 import "./cart.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../context/cart.context.jsx";
 
@@ -36,13 +36,27 @@ function Cart() {
   };
 
   const checkPromoCode = (promoCode) => {
-    if (promoCode === "") {
-      setIsPromoMessageShown(false);
-    } else {
-      setIsPromoMessageShown(true);
-    }
+    setIsPromoMessageShown(true);
     applyDiscount(promoCode);
   };
+
+  /*  const checkout = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/cart/checkout",
+        cart
+      );
+      console.log(response.data.answer);
+    } catch (error) {
+      console.log(error);
+    }
+  }; */
+
+  useEffect(() => {
+    if (!isDiscountApplied && promoCode === "") {
+      setIsPromoMessageShown(false);
+    }
+  }, [promoCode, isDiscountApplied]);
 
   return (
     <section className="cart-container">
@@ -170,7 +184,10 @@ function Cart() {
                 </p>
               </div>
               <Link to="/checkout">
-                <button className="checkout-btn">
+                <button
+                  className="checkout-btn"
+                  //onClick={checkout}
+                >
                   Zur Kasse gehen
                   <svg
                     width="800px"

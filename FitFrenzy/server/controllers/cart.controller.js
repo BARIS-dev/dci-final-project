@@ -213,7 +213,6 @@ export const deleteCart = catchAsync(async (req, res, next) => {
 
   //Logged in user
   if (username) {
-    console.log("this in block username");
     const usersCart = await cartModel.findOne({ username: username });
 
     if (!usersCart) {
@@ -232,7 +231,6 @@ export const deleteCart = catchAsync(async (req, res, next) => {
 
   //Not logged in user
   else if (guestCart) {
-    console.log("this in block guestCart");
     res.clearCookie("guestCart");
     res.status(200).json({
       answer: {
@@ -245,7 +243,7 @@ export const deleteCart = catchAsync(async (req, res, next) => {
   }
 });
 
-export const checkout = catchAsync(async (req, res, next) => {
+/* export const checkout = catchAsync(async (req, res, next) => {
   const username = req.user ? req.user.username : undefined;
   const guestCart = req.cookies.guestCart;
 
@@ -294,5 +292,42 @@ export const checkout = catchAsync(async (req, res, next) => {
     });
 
     return next(new AppError("User not authenticated", 404));
+  }
+}); */
+
+export const checkout = catchAsync(async (req, res, next) => {
+  //check if username is available/ user is logged in
+  const username = req.user ? req.user.username : undefined;
+  console.log("username", username);
+
+  //if yes => send the cart data to create a cart in the database with the username; response with cart data from the database
+  if (username) {
+    let userCart = await cartModel.findOne({ username });
+    //delete the old one in case there is
+    if (userCart) {
+      await cartModel.deleteOne({ username });
+    }
+
+    const currentUserCart = await cartModel.create({
+      username: username,
+      items: req.body.items,
+    });
+
+    res.status(200).json({
+      answer: {
+        code: 200,
+        message: "Warenkorb für Checkout bereit",
+        data: currentUserCart,
+      },
+    });
+  }
+  //if no => request user to login/register (redirect to login page)
+  else {
+    res.status(401).json({
+      answer: {
+        code: 401,
+        message: "Bitte einloggen oder registrieren",
+      },
+    });
   }
 });
