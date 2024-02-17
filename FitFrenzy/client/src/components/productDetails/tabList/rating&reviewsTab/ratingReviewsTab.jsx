@@ -15,7 +15,6 @@ export function RatingReviewsTab() {
         .then((response) => {
           setReviews(response.data.answer.data);
         });
-      //console.log(reviews);
     } catch (error) {
       console.log(error);
     }
@@ -31,6 +30,29 @@ export function RatingReviewsTab() {
     });
   };
 
+  const sortReviews = (event) => {
+    const sortOption = event.target.value;
+    console.log(sortOption);
+
+    if (sortOption === "default") {
+      const defaultSort = [...reviews].sort(
+        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+      );
+      setReviews(defaultSort);
+    } else if (sortOption === "most-recent") {
+      const sorted = [...reviews].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setReviews(sorted);
+    } else if (sortOption === "highest-rating") {
+      const sorted = [...reviews].sort((a, b) => b.ratingScore - a.ratingScore);
+      setReviews(sorted);
+    } else if (sortOption === "lowest-rating") {
+      const sorted = [...reviews].sort((a, b) => a.ratingScore - b.ratingScore);
+      setReviews(sorted);
+    }
+  };
+
   return (
     <div className="reviewsTab">
       <div className="reviews-bar">
@@ -41,7 +63,8 @@ export function RatingReviewsTab() {
 
         <div className="reviews-bar-right">
           <button className="sorting-btn">
-            <select>
+            <select onChange={sortReviews}>
+              <option value="default">Sortieren nach</option>
               <option value="most-recent">Neueste zuerst</option>
               <option value="highest-rating">Höchste Bewertung</option>
               <option value="lowest-rating">Niedrigste Bewertung</option>
@@ -76,7 +99,9 @@ export function RatingReviewsTab() {
           <p>Noch keine Kundenbewertungen </p>
         </div>
       ) : (
-        <button className="load-btn">Weitere Bewertungen ansehen</button>
+        <button disabled={true} className="load-btn">
+          Weitere Bewertungen ansehen
+        </button>
       )}
     </div>
   );

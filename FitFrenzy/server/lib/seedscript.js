@@ -84,7 +84,7 @@ async function seedReviews(reviewsToCreate) {
   try {
     const reviewerIds = await userModel.find().select("_id");
     const reviewerNames = await userModel.find().select("username");
-    console.log(reviewerNames); //??? why give me also id here
+
     const productIds = await productModel.find().select("_id");
 
     for (let i = 0; i < reviewsToCreate; i++) {
@@ -113,6 +113,6 @@ async function seedReviews(reviewsToCreate) {
   await productReviewModel.deleteMany({});
 } */
 
-await seedReviews(10);
+await seedReviews(3);
 
 //await seedProducts(1);
