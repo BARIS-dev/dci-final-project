@@ -1,28 +1,28 @@
-import './tablistComponent.css';
-import { useState, useRef } from 'react';
-import { FAQsTab } from './faqTab/faqTab.jsx';
-import { ProductDetailTab } from './productDetailTab/productDetailTab.jsx';
-import { RatingReviewsTab } from './rating&reviewsTab/ratingReviewsTab.jsx';
+import "./tablistComponent.css";
+import { useState, useRef } from "react";
+import { FAQsTab } from "./faqTab/faqTab.jsx";
+import { ProductDetailTab } from "./productDetailTab/productDetailTab.jsx";
+import { RatingReviewsTab } from "./rating&reviewsTab/ratingReviewsTab.jsx";
 
 export function TabListComponent() {
   const items = [
     {
-      title: 'Product Details',
+      title: "Details zum Produkt",
       content: <ProductDetailTab />,
     },
     {
-      title: 'Rating & Reviews',
+      title: "Bewertungen",
       content: <RatingReviewsTab />,
     },
     {
-      title: 'FAQs',
+      title: "FAQs",
       content: <FAQsTab />,
     },
   ];
   const [selectedTab, setSelectedTab] = useState(0);
   const tabRefs = useRef([]);
 
-  const tabChangeHandler = index => {
+  const tabChangeHandler = (index) => {
     setSelectedTab(index);
     tabRefs.current[index]?.focus();
   };
@@ -34,9 +34,9 @@ export function TabListComponent() {
           {items.map((item, index) => (
             <button
               key={index}
-              ref={i => (tabRefs.current[index] = i)}
+              ref={(i) => (tabRefs.current[index] = i)}
               onClick={() => tabChangeHandler(index)}
-              className={selectedTab === index ? 'selected' : ''}
+              className={selectedTab === index ? "selected" : ""}
             >
               {item.title}
             </button>
@@ -46,7 +46,7 @@ export function TabListComponent() {
         <div className="list-item-content">
           {items.map((item, index) => (
             <div
-              className={`${selectedTab === index ? '' : 'hidden'}`}
+              className={`${selectedTab === index ? "" : "hidden"}`}
               key={index}
             >
               {item.content}

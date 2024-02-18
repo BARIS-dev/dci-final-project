@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 config({ path: "../.env" });
-
-import { faker } from "@faker-js/faker";
+//import { v4 as uuidv4 } from "uuid";
+import { de, faker } from "@faker-js/faker";
 import mongoose from "mongoose";
 import userModel from "../models/user.model.js";
 import productModel from "../models/product.model.js";
@@ -80,20 +80,49 @@ async function seedProducts(productsToCreate) {
   }
 }
 
+async function seedASpecificProduct() {
+  try {
+    let product = {
+      name: "Wanderschuhe Damen Bergwandern MH500",
+      category: "Sportschuhe",
+      price: 74.99,
+      image:
+        "https://contents.mediadecathlon.com/p2579286/k$e2c209aa0399c1e0d6b4b0ba9c462fe8/sq/wanderschuhe-bergwandern-mh500-halbhoch-wasserdicht-damen-grun.jpg?f=3000x3000",
+      description:
+        "Wir haben diesen wasserdichten Schuh mit halbhohem Schaft entworfen, um dir auf deinen Bergwanderungen den nötigen Komfort und Schutz zu bieten.",
+      size: ["37", "38", "39", "40"],
+      color: ["green", "orange"],
+      countInStock: 50,
+      averageRating: 5,
+    };
+
+    await productModel.create(product);
+    console.log(product);
+
+    console.log("Product created");
+  } catch (error) {
+    console.log(error);
+  } finally {
+    mongoose.disconnect();
+    console.log("Disconnected from MongoDB");
+  }
+}
+
 async function seedReviews(reviewsToCreate) {
   try {
     const reviewerIds = await userModel.find().select("_id");
     const reviewerNames = await userModel.find().select("username");
-    console.log(reviewerNames); //??? why give me also id here
-    const productIds = await productModel.find().select("_id");
+
+    //const productIds = await productModel.find().select("_id");
 
     for (let i = 0; i < reviewsToCreate; i++) {
       let review = {
         reviewerId: reviewerIds[getRandomIndexOfArray(reviewerIds)],
         reviewerName:
           reviewerNames[getRandomIndexOfArray(reviewerNames)].username,
-        productId: productIds[getRandomIndexOfArray(productIds)],
-        ratingScore: faker.number.int({ min: 3, max: 5 }),
+        productId: "65d1c92b6b94859591fec05a",
+        //productIds[getRandomIndexOfArray(productIds)],
+        ratingScore: faker.number.int({ min: 4, max: 5 }),
         reviewText: faker.lorem.sentence(),
       };
 
@@ -111,8 +140,14 @@ async function seedReviews(reviewsToCreate) {
 
 /* async function deleteReviews() {
   await productReviewModel.deleteMany({});
-} */
+}
+deleteReviews(); */
 
-await seedReviews(10);
+//await seedReviews(2);
 
-//await seedProducts(1);
+/* async function deleteProducts() {
+  await productModel.deleteMany({});
+}
+deleteProducts(); */
+
+//await seedASpecificProduct();

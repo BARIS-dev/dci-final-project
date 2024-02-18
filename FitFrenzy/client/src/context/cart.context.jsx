@@ -22,7 +22,25 @@ export const CartContextProvider = ({ children }) => {
           cartItem.color === item.color
       )
     ) {
-      localStorage.setItem("cart", JSON.stringify(cart));
+      //update quantity of existing item in local storage
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(
+          cart.map((cartItem) => {
+            if (
+              cartItem.id === item.id &&
+              cartItem.size === item.size &&
+              cartItem.color === item.color
+            ) {
+              return {
+                ...cartItem,
+                quantity: cartItem.quantity + item.quantity,
+              };
+            }
+            return cartItem;
+          })
+        )
+      );
 
       setCart(
         cart.map((cartItem) => {
@@ -83,7 +101,7 @@ export const CartContextProvider = ({ children }) => {
   );
 
   const applyDiscount = (promoCode) => {
-    if (promoCode === "DCI-WD23") {
+    if (promoCode.toUpperCase() === "DCI-WD23") {
       setIsDiscountApplied(true);
     } else {
       setIsDiscountApplied(false);

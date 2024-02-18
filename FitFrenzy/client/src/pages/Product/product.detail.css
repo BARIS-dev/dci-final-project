@@ -119,7 +119,7 @@
           border: none;
           border-radius: 62px;
           padding: 0.5em 1em;
-          font-size: 1.25em;
+          font-size: 1em;
           width: 50%;
           background-color: var(--accent);
           color: var(--input-background);
