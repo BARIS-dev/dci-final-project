@@ -114,7 +114,7 @@ const ProductDetail = () => {
           {product.averageRating && (
             <div className="product-avg-rating">
               <Rating rating={product.averageRating} />
-              {product.averageRating}/5
+              {product.averageRating.toFixed(0)}/5
             </div>
           )}
 

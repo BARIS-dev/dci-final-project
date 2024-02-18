@@ -1,5 +1,6 @@
 .favorites {
   margin: 2em;
+  min-height: 60vh;
 
   a {
     text-decoration: none;
@@ -36,7 +37,7 @@
       }
 
       .favorite-item-right {
-        margin: 1em 0;
+        margin: 0.25em 0;
         display: flex;
         flex-direction: column;
         align-items: flex-start;

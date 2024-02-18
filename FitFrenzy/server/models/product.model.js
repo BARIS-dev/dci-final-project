@@ -11,7 +11,7 @@ const ProductSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ["clothing", "equipment", "accessories"],
+      enum: ["Sportbekleidung", "Sportschuhe", "Sportausrüstung"],
     },
     price: {
       type: Number,
@@ -29,7 +29,26 @@ const ProductSchema = new mongoose.Schema(
     },
     size: {
       type: [String],
-      enum: ["XS", "S", "M", "L", "XL", "XXL", "One size"],
+      enum: [
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL",
+        "Einheitsgröße",
+      ],
     },
     color: {
       type: [String],
@@ -48,7 +67,6 @@ const ProductSchema = new mongoose.Schema(
         "turquoise",
         "gold",
         "silver",
-        "multicolored",
       ],
     },
     countInStock: {
