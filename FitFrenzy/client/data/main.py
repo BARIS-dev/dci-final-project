@@ -1,4 +1,8 @@
-[
+import math
+import random
+import json
+
+data = [
   {
     "name": "QUECHUA",
     "category": "shoes",
@@ -318,3 +322,18 @@
     "image": "https://contents.mediadecathlon.com/p2483448/k$ad8075ed76501e6440b95515aea41ace/sq/proteinpulver-vegan-750-g-schokolade.jpg?format=auto&f=969x969"
   }
 ]
+
+
+colors = ["Red", "Blue", "Green", "Black", "White"]
+sizes = ["S", "M", "L", "XL"]
+
+for item in data:
+    if item["name"]:  # to avoid adding data to the empty item at the end
+        item["countInStock"] = random.randint(0, 100)
+        item["averageRating"] = round(random.uniform(0, 5), 2)
+        item["color"] = random.choice(colors)
+        item["size"] = random.choice(sizes)
+        item["price"] = math.floor(item["price"]) + .99
+        
+with open('modified_products.json', 'w') as f:
+    json.dump(data, f, indent=4)
