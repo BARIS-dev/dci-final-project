@@ -13,11 +13,13 @@ import { CartContext } from "../../context/cart.context.jsx";
 import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
 import { QuantityInput } from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
 import { TabListComponent } from "../../components/productDetails/tabList/tablistComponent.jsx";
+import { FavoritesContext } from "../../context/favorites.context.jsx";
 
 const ProductDetail = () => {
   const { id } = useParams();
 
   const { addToCart } = useContext(CartContext);
+  const { favorites, toggleFavorite } = useContext(FavoritesContext);
 
   const [product, setProduct] = useState(null);
 
@@ -34,8 +36,6 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
-
-  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -70,14 +70,8 @@ const ProductDetail = () => {
     console.log(quantity);
   };
 
-  const favoriteHandler = () => {
-    setIsFavorite(!isFavorite); //temporary solution
-    try {
+  /* try {
       /* axios.post(`http://localhost:8000/product/${id}/toggle-like`); */
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const addHandler = (product) => {
     if (!product.size || !product.color) {
@@ -97,6 +91,8 @@ const ProductDetail = () => {
     setSelectedColor("");
     setSelectedSize("");
   };
+
+  const isFavorite = favorites.some((item) => item.id === chosenProduct.id);
 
   return (
     <section className="product-container">
@@ -189,7 +185,7 @@ const ProductDetail = () => {
             <button
               title={isFavorite ? "Remove from favorites" : "Add to favorites"}
               className={`product-add-to-fav ${isFavorite ? "liked" : ""}`}
-              onClick={favoriteHandler}
+              onClick={() => toggleFavorite(chosenProduct)}
             >
               <span className="heart">&#10084;</span>
             </button>

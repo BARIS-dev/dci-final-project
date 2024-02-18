@@ -1,6 +1,13 @@
 import "animate.css";
 import { Link } from "react-router-dom";
-import { FaCartShopping, FaUser, FaBars, FaX, FaShop } from "react-icons/fa6";
+import {
+  FaCartShopping,
+  FaUser,
+  FaBars,
+  FaX,
+  FaShop,
+  FaHeart,
+} from "react-icons/fa6";
 import { FaSearch, FaPercentage } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
 import { MdNewReleases } from "react-icons/md";
@@ -143,7 +150,11 @@ const Navbar = () => {
                 <FaSearch />
               </a>
             </div>
+
             <ul className="user-icons">
+              <Link className="nav-item" to={"/favorites"}>
+                <FaHeart />
+              </Link>
               <Link className="nav-item cart-icon" to={"/cart"}>
                 <FaCartShopping />
                 {cart.length !== 0 ? (

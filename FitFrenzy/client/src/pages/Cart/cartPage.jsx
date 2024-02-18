@@ -64,12 +64,12 @@ function Cart() {
         <p>Startseite &raquo; Warenkorb</p>
       </div>
 
-      <h1>Ihr Warenkorb</h1>
+      <h2>Dein Warenkorb</h2>
 
       {cart.length === 0 ? (
         <h4>
-          Ihr Warenkorb ist leer! Durchstöbern Sie unsere Kollektion und finden
-          Sie die perfekte Ergänzung für Ihren Einkaufswagen.
+          Dein Warenkorb ist leer! Durchstöbere unsere Kollektion und finde die
+          perfekte Ergänzung für deinen Einkaufswagen.
         </h4>
       ) : (
         <>

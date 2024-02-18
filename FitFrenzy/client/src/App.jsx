@@ -15,6 +15,7 @@ import PaymentMethods from "./pages/PaymentMethods/PaymentMethods.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
 import RegisterPage from "./pages/Register/Register.jsx";
 import Navbar from "./components/shared/Navbar/Navbar.jsx";
+import Favorites from "./pages/Favorites/favorites.jsx";
 
 function App() {
   // test data from data folder
@@ -43,6 +44,7 @@ function App() {
           <Route path="/signed-out" element={<Signout />} />
           <Route path="/account" element={<Account />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/payment-methods" element={<PaymentMethods />} />

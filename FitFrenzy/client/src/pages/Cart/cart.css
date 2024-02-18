@@ -7,8 +7,9 @@ a {
   flex-direction: column;
   margin: 2em;
 
-  h1 {
+  h2 {
     margin: 1em 0;
+    text-align: left;
   }
 
   .cart-overview {
