@@ -17,6 +17,7 @@ import Navbarchat from './components/chat/Navbarchat/NavbarChat.jsx';
 import PaymentMethods from './pages/PaymentMethods/PaymentMethods.jsx';
 import Checkout from './pages/Checkout/Checkout.jsx';
 import RegisterPage from './pages/Register/Register.jsx';
+import ProductsList from './pages/ProductsList/ProductsList.jsx';
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
 
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/products-list" element={<ProductsList />} />
           
         </Routes>
         <Footer />
