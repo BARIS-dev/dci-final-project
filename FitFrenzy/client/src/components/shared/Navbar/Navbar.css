@@ -125,6 +125,21 @@ header {
           display: flex;
         }
       }
+
+      .cart-icon {
+        position: relative;
+
+        .cart-item-count {
+          position: absolute;
+          top: -13px;
+          right: -15px;
+          border-radius: 50%;
+          font-size: 1rem;
+          background-color: var(--background);
+          color: var(--accent);
+          padding: 0.1em 0.3em;
+        }
+      }
     }
   }
 }

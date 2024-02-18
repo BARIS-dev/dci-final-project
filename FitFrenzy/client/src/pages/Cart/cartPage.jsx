@@ -1,5 +1,6 @@
 import "./cart.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { CartContext } from "../../context/cart.context.jsx";
 
 import { QuantityInput } from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
@@ -11,13 +12,13 @@ function Cart() {
     deleteItem,
     calculateSubtotal,
     applyDiscount,
-    isPromoApplied,
+    isDiscountApplied,
     calculateDiscount,
     calculateTotal,
   } = useContext(CartContext);
 
   const [promoCode, setPromoCode] = useState("");
-  //const [isPromoMessageShown, setIsPromoMessageShown] = useState(false);
+  const [isPromoMessageShown, setIsPromoMessageShown] = useState(false);
 
   const amountHandler = (id, size, color, quantity) => {
     updateQuantity(id, size, color, quantity);
@@ -29,28 +30,46 @@ function Cart() {
 
   const total = calculateTotal();
 
-  /* const promoCodeHandler = (event) => {
+  const promoCodeHandler = (event) => {
     const code = event.target.value;
     setPromoCode(code);
-
   };
 
-  const checkPromoCode = () => {
+  const checkPromoCode = (promoCode) => {
+    setIsPromoMessageShown(true);
     applyDiscount(promoCode);
+  };
+
+  /*  const checkout = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/cart/checkout",
+        cart
+      );
+      console.log(response.data.answer);
+    } catch (error) {
+      console.log(error);
+    }
   }; */
+
+  useEffect(() => {
+    if (!isDiscountApplied && promoCode === "") {
+      setIsPromoMessageShown(false);
+    }
+  }, [promoCode, isDiscountApplied]);
 
   return (
     <section className="cart-container">
       <div>
-        <p>Home &raquo; Cart</p>
+        <p>Startseite &raquo; Warenkorb</p>
       </div>
 
-      <h1>Your Cart</h1>
+      <h2>Dein Warenkorb</h2>
 
       {cart.length === 0 ? (
         <h4>
-          Your cart is empty! Browse our collection and find the perfect
-          addition to your cart.
+          Dein Warenkorb ist leer! Durchstöbere unsere Kollektion und finde die
+          perfekte Ergänzung für deinen Einkaufswagen.
         </h4>
       ) : (
         <>
@@ -60,11 +79,13 @@ function Cart() {
                 return (
                   <>
                     <div className="cart-item" key={item.id}>
-                      <img
-                        className="product-image"
-                        src={item.image}
-                        alt="product"
-                      />
+                      <div className="cart-item-image">
+                        <img
+                          className="product-image"
+                          src={item.image}
+                          alt="product"
+                        />
+                      </div>
 
                       <div className="cart-item-details">
                         <div className="remove-btn-row">
@@ -93,11 +114,11 @@ function Cart() {
                           </button>
                         </div>
                         <div className="cart-row">
-                          <p>Size: </p>
+                          <p>Größe: </p>
                           <p>{item.size}</p>
                         </div>
                         <div className="cart-row">
-                          <p>Color: </p>
+                          <p>Farbe: </p>
                           <p>{item.color}</p>
                         </div>
                         <div className="price-row">
@@ -122,65 +143,70 @@ function Cart() {
             </div>
 
             <div className="order-summary">
-              <h4>Order Summary</h4>
+              <h4>Bestellungsübersicht</h4>
               <div className="summary-row">
-                <p>Subtotal</p>
+                <p>Zwischensumme</p>
                 <p className="value">{subTotal.toFixed(2)} €</p>
               </div>
               <div className="summary-row">
-                <p>Discount {isPromoApplied ? <span>(-10%)</span> : ""}</p>
+                <p>Rabatt {isDiscountApplied ? <span>(-10%)</span> : ""}</p>
 
-                <p className={isPromoApplied ? "discount" : ""}>
-                  {isPromoApplied ? `-${discount.toFixed(2)} €` : "0 €"}
+                <p className={isDiscountApplied ? "discount" : ""}>
+                  {isDiscountApplied ? `-${discount.toFixed(2)} €` : "0 €"}
                 </p>
               </div>
               <div className="summary-row">
-                <p>Shipping</p>
+                <p>Versandkosten</p>
                 <p className="value">0 €</p>
               </div>
               <div className="total-row">
-                <p>Total</p>
+                <p>Gesamtsumme</p>
                 <p className="value sum">{total.toFixed(2)} €</p>
               </div>
               <div className="promo">
                 <div className="promo-input">
                   <input
                     type="search"
-                    placeholder="Add promo code"
-                    onChange={(event) => setPromoCode(event.target.value)}
+                    placeholder="Füge einen Gutscheincode hinzu"
+                    onChange={promoCodeHandler}
                   />
-                  <button onClick={() => applyDiscount(promoCode)}>
-                    Apply
+                  <button onClick={() => checkPromoCode(promoCode)}>
+                    Einlösen
                   </button>
                 </div>
 
                 <p className="promo-message">
-                  {/* {isPromoApplied && isPromoMessageShown
-                    ? "10% discount applied"
-                    : !isPromoApplied && isPromoMessageShown
-                    ? "Invalid promo code"
-                    : ""} */}
+                  {isPromoMessageShown && isDiscountApplied
+                    ? "10% Rabatt angewendet"
+                    : isPromoMessageShown && !isDiscountApplied
+                    ? "Ungültiger Code"
+                    : ""}
                 </p>
               </div>
-              <button className="checkout-btn">
-                Go to checkout
-                <svg
-                  width="800px"
-                  height="800px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+              <Link to="/checkout">
+                <button
+                  className="checkout-btn"
+                  //onClick={checkout}
                 >
-                  <path
-                    className="arrow-path"
-                    d="M4 12H20M20 12L16 8M20 12L16 16"
-                    stroke="#EEF6F3"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
+                  Zur Kasse gehen
+                  <svg
+                    width="800px"
+                    height="800px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      className="arrow-path"
+                      d="M4 12H20M20 12L16 8M20 12L16 16"
+                      stroke="#EEF6F3"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </Link>
             </div>
           </div>
         </>

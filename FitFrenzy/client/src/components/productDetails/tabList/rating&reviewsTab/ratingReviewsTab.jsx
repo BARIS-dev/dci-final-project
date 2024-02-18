@@ -15,7 +15,6 @@ export function RatingReviewsTab() {
         .then((response) => {
           setReviews(response.data.answer.data);
         });
-      //console.log(reviews);
     } catch (error) {
       console.log(error);
     }
@@ -31,24 +30,48 @@ export function RatingReviewsTab() {
     });
   };
 
+  const sortReviews = (event) => {
+    const sortOption = event.target.value;
+    console.log(sortOption);
+
+    if (sortOption === "default") {
+      const defaultSort = [...reviews].sort(
+        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+      );
+      setReviews(defaultSort);
+    } else if (sortOption === "most-recent") {
+      const sorted = [...reviews].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setReviews(sorted);
+    } else if (sortOption === "highest-rating") {
+      const sorted = [...reviews].sort((a, b) => b.ratingScore - a.ratingScore);
+      setReviews(sorted);
+    } else if (sortOption === "lowest-rating") {
+      const sorted = [...reviews].sort((a, b) => a.ratingScore - b.ratingScore);
+      setReviews(sorted);
+    }
+  };
+
   return (
     <div className="reviewsTab">
       <div className="reviews-bar">
         <div className="reviews-bar-left">
-          <h3>All Reviews</h3>
+          <h3>Alle Bewertungen</h3>
           <h3>({reviews.length})</h3>
         </div>
 
         <div className="reviews-bar-right">
           <button className="sorting-btn">
-            <select>
-              <option value="most-recent">Most Recent</option>
-              <option value="highest-rating">Highest Rating</option>
-              <option value="lowest-rating">Lowest Rating</option>
+            <select onChange={sortReviews}>
+              <option value="default">Sortieren nach</option>
+              <option value="most-recent">Neueste zuerst</option>
+              <option value="highest-rating">Höchste Bewertung</option>
+              <option value="lowest-rating">Niedrigste Bewertung</option>
             </select>
           </button>
 
-          <button className="write-review-btn">Write a Review</button>
+          <button className="write-review-btn">Rezension verfassen</button>
         </div>
       </div>
 
@@ -65,7 +88,7 @@ export function RatingReviewsTab() {
               </div>
 
               <p>{review.reviewText}</p>
-              <p>Posted on {formatDate(review.createdAt)}</p>
+              <p>Rezension vom {formatDate(review.createdAt)}</p>
             </div>
           );
         })}
@@ -73,10 +96,12 @@ export function RatingReviewsTab() {
 
       {reviews.length === 0 ? (
         <div className="no-reviews">
-          <p>No Reviews Yet</p>
+          <p>Noch keine Kundenbewertungen </p>
         </div>
       ) : (
-        <button className="load-btn">Load more Reviews</button>
+        <button disabled={true} className="load-btn">
+          Weitere Bewertungen ansehen
+        </button>
       )}
     </div>
   );

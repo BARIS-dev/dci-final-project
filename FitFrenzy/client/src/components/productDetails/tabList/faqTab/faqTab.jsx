@@ -2,10 +2,11 @@ export function FAQsTab() {
   return (
     <div>
       <p>
-        Welcome to our FAQs section! We&apos;re currently working hard to
-        compile the most commonly asked questions to provide you with helpful
-        answers. Please check back soon for updates. In the meantime, if you
-        have any questions, feel free to reach out to our support team.
+        Willkommen in unserem FAQ-Bereich! Wir arbeiten derzeit daran, die
+        häufigsten Fragen zusammenzustellen, um Ihnen hilfreiche Antworten zu
+        geben. Bitte schauen Sie bald wieder vorbei, um Updates zu erhalten. In
+        der Zwischenzeit können Sie sich gerne an unser Support-Team wenden,
+        wenn Sie Fragen haben.
       </p>
     </div>
   );

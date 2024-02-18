@@ -14,4 +14,8 @@ cartRouter.get("/", viewCart);
 cartRouter.put("/update", updateCartPriceWhenQuantityChanges);
 cartRouter.put("/remove-item", removeItemFromCart);
 cartRouter.delete("/delete", deleteCart);
-cartRouter.post("/checkout", protect, checkout);
+cartRouter.post(
+  "/checkout",
+  //protect,
+  checkout
+);

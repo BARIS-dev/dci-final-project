@@ -1,41 +1,41 @@
-import './product.detail.css';
+import "./product.detail.css";
 
-import { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 
-import axios from 'axios';
+import axios from "axios";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import { CartContext } from '../../context/cart.context.jsx';
+import { CartContext } from "../../context/cart.context.jsx";
 
-import { Rating } from '../../components/productDetails/productRatingStars/ratingStars.jsx';
-import { QuantityInput } from '../../components/productDetails/productQuantityInput/quantityInput.jsx';
-import { TabListComponent } from '../../components/productDetails/tabList/tablistComponent.jsx';
+import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
+import { QuantityInput } from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
+import { TabListComponent } from "../../components/productDetails/tabList/tablistComponent.jsx";
+import { FavoritesContext } from "../../context/favorites.context.jsx";
 
 const ProductDetail = () => {
   const { id } = useParams();
 
-  const { addToCart, cart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
+  const { favorites, toggleFavorite } = useContext(FavoritesContext);
 
   const [product, setProduct] = useState(null);
 
   const [chosenProduct, setChosenProduct] = useState({
-    id: '',
-    name: '',
+    id: "",
+    name: "",
     price: 0,
-    image: '',
-    size: '',
-    color: '',
+    image: "",
+    size: "",
+    color: "",
     quantity: 1,
   });
 
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState('');
-  const [selectedSize, setSelectedSize] = useState('');
-
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -52,16 +52,16 @@ const ProductDetail = () => {
           quantity: 1,
         });
       } catch (error) {
-        console.error('Error fetching product data', error);
+        console.error("Error fetching product data", error);
       }
     };
     fetchProductDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!product) return <h1>Loading...</h1>;
+  if (!product) return <h1>Laden...</h1>;
 
-  const amountHandler = amount => {
+  const amountHandler = (amount) => {
     setQuantity(amount);
     setChosenProduct({
       ...chosenProduct,
@@ -70,47 +70,35 @@ const ProductDetail = () => {
     console.log(quantity);
   };
 
-  const favoriteHandler = () => {
-    setIsFavorite(!isFavorite); //temporary solution
-    try {
+  /* try {
       /* axios.post(`http://localhost:8000/product/${id}/toggle-like`); */
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const addHandler = product => {
+  const addHandler = (product) => {
     if (!product.size || !product.color) {
-      toast.error('Please select size and color');
+      toast.error("Bitte Größe und Farbe wählen");
       return;
     }
 
     addToCart(product);
     console.log(product);
-    toast.success('Product added to cart');
+    toast.success("Produkt zum Warenkorb hinzugefügt");
 
     setChosenProduct({
       ...chosenProduct,
-      color: '',
-      size: '',
+      color: "",
+      size: "",
     });
-    setSelectedColor('');
-    setSelectedSize('');
+    setSelectedColor("");
+    setSelectedSize("");
   };
+
+  const isFavorite = favorites.some((item) => item.id === chosenProduct.id);
 
   return (
     <section className="product-container">
-      <button
-        onClick={() => {
-          console.log(cart);
-        }}
-      >
-        Test log
-      </button>
-
       <div className="breadcrumb-trail">
         <p>
-          Home &raquo; Shop &raquo;{' '}
+          Startseite &raquo; Kategorien &raquo;{" "}
           {product.category &&
             product.category[0].toUpperCase() + product.category.slice(1)}
         </p>
@@ -126,7 +114,7 @@ const ProductDetail = () => {
           {product.averageRating && (
             <div className="product-avg-rating">
               <Rating rating={product.averageRating} />
-              {product.averageRating}/5
+              {product.averageRating.toFixed(0)}/5
             </div>
           )}
 
@@ -135,7 +123,7 @@ const ProductDetail = () => {
           <p className="product-description">{product.description}</p>
 
           <div className="product-colors">
-            <p>Select Colors</p>
+            <p>Farbe wählen</p>
             <div className="color-btn">
               {product.color &&
                 product.color.map((color, index) => (
@@ -161,13 +149,13 @@ const ProductDetail = () => {
           </div>
 
           <div className="product-sizes">
-            <p>Choose Size</p>
+            <p>Größe wählen</p>
             <div className="size-btn">
               {product.size &&
                 product.size.map((size, index) => (
                   <button
                     key={index}
-                    className={selectedSize === size ? 'selected' : ''}
+                    className={selectedSize === size ? "selected" : ""}
                     onClick={() => {
                       setSelectedSize(size);
                       setChosenProduct({
@@ -191,13 +179,13 @@ const ProductDetail = () => {
               }}
               className="product-add-to-cart"
             >
-              Add to Cart
+              Zum Warenkorb hinzufügen
             </button>
 
             <button
-              title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-              className={`product-add-to-fav ${isFavorite ? 'liked' : ''}`}
-              onClick={favoriteHandler}
+              title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+              className={`product-add-to-fav ${isFavorite ? "liked" : ""}`}
+              onClick={() => toggleFavorite(chosenProduct)}
             >
               <span className="heart">&#10084;</span>
             </button>

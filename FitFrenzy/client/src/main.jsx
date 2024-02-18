@@ -5,15 +5,18 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { UserContextProvider } from "./context/user.context.jsx";
 import { CartContextProvider } from "./context/cart.context.jsx";
+import { FavoritesContextProvider } from "./context/favorites.context.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <UserContextProvider>
-      <CartContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </CartContextProvider>
+      <FavoritesContextProvider>
+        <CartContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </CartContextProvider>
+      </FavoritesContextProvider>
     </UserContextProvider>
   </React.StrictMode>
 );
