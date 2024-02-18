@@ -34,8 +34,32 @@ const getRandomsInArrays = (array, min, max) => {
 };
 
 async function seedProducts(productsToCreate) {
-  const categories = ["clothing", "equipment", "accessories"];
-  const sizes = ["XS", "S", "M", "L", "XL", "XXL", "One size"];
+  const categories = [
+    "Sportbekleidung",
+    "Sportschuhe",
+    "Sportausrüstung",
+    "accessories",
+  ];
+  const sizes = [
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+    "45",
+    "46",
+    "47",
+    "XS",
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL",
+    "Einheitsgröße",
+  ];
   const colors = [
     "Black",
     "White",
@@ -65,7 +89,7 @@ async function seedProducts(productsToCreate) {
         size: getRandomsInArrays(sizes, 2, 4),
         color: getRandomsInArrays(colors, 1, 4),
         countInStock: faker.number.int({ min: 0, max: 200 }),
-        averageRating: 4.5,
+        averageRating: 4,
       };
 
       await productModel.create(product);
