@@ -20,7 +20,7 @@
 
 .account-container {
   width: 300px;
-  margin: auto;
+  margin: 40px auto;
   background-color: #f0f0f0;
   border-radius: 10px;
   padding: 20px;
@@ -86,4 +86,22 @@
 
 .login-register-btn:hover {
   background-color: #3c6cd5;
+}
+
+.my-orders-link {
+  text-decoration: none;
+  display: inline-block;
+  width: auto;
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #6493e9;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.my-orders-link:hover {
+  background-color: #4f7cc7;
 }

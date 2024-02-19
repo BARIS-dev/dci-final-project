@@ -1,9 +1,19 @@
 import { useContext } from 'react';
 import { CartContext } from '../../context/cart.context';
 import './MyOrders.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 function MyOrders() {
   const { cart, deleteItem } = useContext(CartContext);
+
+  const handleMessage = () => {
+    toast.success('Ihre Rückgabe wurde beantragt');
+  };
+
+  const handleDelete = item => {
+    deleteItem(item.id, item.size, item.color);
+    toast.success('Ihrer Bestellung wurde storniert');
+  };
 
   return (
     <div className="cart-items">
@@ -40,7 +50,7 @@ function MyOrders() {
                 </p>
                 <button
                   className="remove-btn"
-                  onClick={() => deleteItem(item.id, item.size, item.color)}
+                  onClick={() => handleDelete(item)}
                 >
                   Stornieren
                 </button>
@@ -82,7 +92,9 @@ function MyOrders() {
           <p>
             <small>Status: </small> versendet
           </p>
-          <button className="remove-btn-2">Rückgabe beantragen</button>
+          <button className="remove-btn-2" onClick={() => handleMessage()}>
+            Rückgabe beantragen
+          </button>
         </div>
       </div>
       <div className="cart-item">
@@ -117,7 +129,9 @@ function MyOrders() {
           <p>
             <small>Status: </small> versendet
           </p>
-          <button className="remove-btn-2">Rückgabe beantragen</button>
+          <button className="remove-btn-2" onClick={() => handleMessage()}>
+            Rückgabe beantragen
+          </button>
         </div>
       </div>
       <div className="cart-item">
@@ -152,7 +166,9 @@ function MyOrders() {
           <p>
             <small>Status: </small> versendet
           </p>
-          <button className="remove-btn-2">Rückgabe beantragen</button>
+          <button className="remove-btn-2" onClick={() => handleMessage()}>
+            Rückgabe beantragen
+          </button>
         </div>
       </div>
       <div className="cart-item">
@@ -187,9 +203,23 @@ function MyOrders() {
           <p>
             <small>Status: </small> versendet
           </p>
-          <button className="remove-btn-2">Rückgabe beantragen</button>
+          <button className="remove-btn-2" onClick={() => handleMessage()}>
+            Rückgabe beantragen
+          </button>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }
