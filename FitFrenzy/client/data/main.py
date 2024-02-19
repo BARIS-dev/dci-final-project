@@ -323,17 +323,22 @@ data = [
   }
 ]
 
-
+cat_ipsum = "Purr sleep on your face destroy the blinds. Jump around on couch, meow constantly until given food, and chase imaginary bugs, yet chase imaginary bugs. Hate dog hunt anything that moves. Play time sweet beast. Your pillow is now my pet bed get video posted to internet for chasing red dot. I love cuddles going to catch the red dot today going to catch the red dot today. Run in circles chew iPad power cord. Stare at ceiling chase mice sun bathe. Hate dog sun bathe stretch. Chew iPad power cord soft kitty warm kitty little ball of furr."
+cat_ipsum_words = cat_ipsum.split()
 colors = ["Red", "Blue", "Green", "Black", "White"]
 sizes = ["S", "M", "L", "XL"]
 
 for item in data:
-    if item["name"]:  # to avoid adding data to the empty item at the end
+    if item["name"]:
         item["countInStock"] = random.randint(0, 100)
-        item["averageRating"] = round(random.uniform(0, 5), 2)
-        item["color"] = random.choice(colors)
-        item["size"] = random.choice(sizes)
+        item["averageRating"] = round(random.uniform(3, 5))
+        item["colors"] = random.sample(colors, k=random.randint(1, len(colors)))  # multiple colors
+        item["sizes"] = random.sample(sizes, k=random.randint(1, len(sizes)))  # multiple sizes
         item["price"] = math.floor(item["price"]) + .99
+        description_length = random.randint(20, 50)
+        description_start = random.randint(0, len(cat_ipsum_words) - description_length)
+        item["description"] = " ".join(cat_ipsum_words[description_start:description_start + description_length])
+        item["numReviews"] = random.randint(0, 100)
         
 with open('modified_products.json', 'w') as f:
     json.dump(data, f, indent=4)
