@@ -33,6 +33,14 @@
   border-radius: 5px;
 }
 
+.login-form input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 .login-btn {
   background-color: #4caf50;
   color: white;
