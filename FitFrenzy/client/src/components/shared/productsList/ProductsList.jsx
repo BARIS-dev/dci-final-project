@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ProductItem from "../productItem/ProductItem";
 import "./ProductsList.css";
 
 const ProductsList = () => {
@@ -75,7 +74,6 @@ const ProductsList = () => {
           <ProductItem key={product._id} product={product} />
         ))}
       </div>
-      
     </div>
   );
 };
