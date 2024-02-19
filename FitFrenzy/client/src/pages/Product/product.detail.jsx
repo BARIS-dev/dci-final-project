@@ -125,8 +125,8 @@ const ProductDetail = () => {
           <div className="product-colors">
             <p>Farbe wählen</p>
             <div className="color-btn">
-              {product.color &&
-                product.color.map((color, index) => (
+              {product.colors &&
+                product.colors.map((color, index) => (
                   <button
                     key={index}
                     style={{
@@ -151,8 +151,8 @@ const ProductDetail = () => {
           <div className="product-sizes">
             <p>Größe wählen</p>
             <div className="size-btn">
-              {product.size &&
-                product.size.map((size, index) => (
+              {product.sizes &&
+                product.sizes.map((size, index) => (
                   <button
                     key={index}
                     className={selectedSize === size ? "selected" : ""}
