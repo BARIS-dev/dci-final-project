@@ -1,92 +1,91 @@
-import { BiCreditCard, BiSolidBank, BiSolidPlusSquare } from "react-icons/bi";
-
+import { useState, useEffect } from "react";
 import "./PaymentMethods.css";
-import { useState } from "react";
 
 const PaymentMethods = () => {
-  const bankAccounts = [];
-  const creditCards = [];
-  const [bankAccount, setBankAccount] = useState({});
-  const [creditCard, setCreditCard] = useState({});
+  const [open, setOpen] = useState(false);
+  const [ownerName, setOwnerName] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [iban, setIban] = useState("");
+  const [bic, setBic] = useState("");
+  const [paymentMethods, setPaymentMethods] = useState([]);
+
+  useEffect(() => {
+    const storedPaymentMethods =
+      JSON.parse(localStorage.getItem("paymentMethods")) || [];
+    setPaymentMethods(storedPaymentMethods);
+  }, []);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleAdd = () => {
+    const newPaymentMethod = { ownerName, bankName, iban, bic };
+    const updatedPaymentMethods = [...paymentMethods, newPaymentMethod];
+    localStorage.setItem(
+      "paymentMethods",
+      JSON.stringify(updatedPaymentMethods)
+    );
+    setPaymentMethods(updatedPaymentMethods);
+    setOpen(false);
+  };
 
   return (
-    <>
-      <h2>Meine Zahlungsarten</h2>
-      <div className="payments-container">
-        <div className="current-methods">
-          <div className="current-bank-accounts">
-            <ul>
-              {bankAccounts.map((payment, index) => (
-                <li key={index}>
-                  <p className="payment-info">
-                    <BiSolidBank /> {payment.bankName} mit den Endziffern
-                    <strong>{payment.endDigits}</strong>
-                  </p>
-                  <div className="payment-method-options">
-                    <a href="/">Bearbeiten</a>
-                    <a
-                      onClick={() => {
-                        bankAccounts.delete(this.payment);
-                      }}
-                    >
-                      Löschen
-                    </a>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="payment-divider"></div>
-          <div className="add-payment-method">
-            <p className="payment-info">
-              <BiSolidPlusSquare />
-              Neue Zahlungsart hinzufügen
-            </p>
-            <div className="payment-method-options">
-              <a href="/">
-                <BiSolidBank /> Bankverbindung hinzufügen
-              </a>
-              <div className="add-bank-account-window">
-                <h3>Bankverbindung hinzufügen</h3>
-                <input
-                  type="text"
-                  name="ownername"
-                  placeholder="Name des Kontoinhabers"
-                />
-                <input
-                  type="text"
-                  name="bankname"
-                  placeholder="Name der Bank"
-                />
-                <input type="text" name="iban" placeholder="IBAN" />
-                <input type="text" name="bic" placeholder="BIC" />
-                <button
-                  onClick={() => {
-                    payments.push({
-                      accountHolder:
-                        document.getElementByName("ownername").value,
-                      bankName: document.getElementByName("bankname").value,
-                      iban: document.getElementByName("iban").value,
-                      endDigits: document
-                        .getElementByName("iban")
-                        .value.slice(-4),
-                      bic: document.getElementByName("bic").value,
-                    });
-                  }}
-                >
-                  Speichern
-                </button>
-              </div>
-              <a href="/">
-                <BiCreditCard />
-                Kreditkarte hinzufügen
-              </a>
-            </div>
-          </div>
+    <div>
+      <button onClick={handleClickOpen}>Add Payment Method</button>
+      {open && (
+        <div>
+          <h2>Add Payment Method</h2>
+          <label>
+            Owner Name:
+            <input
+              type="text"
+              value={ownerName}
+              onChange={(e) => setOwnerName(e.target.value)}
+            />
+          </label>
+          <label>
+            Bank Name:
+            <input
+              type="text"
+              value={bankName}
+              onChange={(e) => setBankName(e.target.value)}
+            />
+          </label>
+          <label>
+            IBAN:
+            <input
+              type="text"
+              value={iban}
+              onChange={(e) => setIban(e.target.value)}
+            />
+          </label>
+          <label>
+            BIC:
+            <input
+              type="text"
+              value={bic}
+              onChange={(e) => setBic(e.target.value)}
+            />
+          </label>
+          <button onClick={handleClose}>Cancel</button>
+          <button onClick={handleAdd}>Add</button>
         </div>
-      </div>
-    </>
+      )}
+      {paymentMethods.map((method, index) => (
+        <div key={index}>
+          <h2>Payment Method {index + 1}</h2>
+          <p>Owner Name: {method.ownerName}</p>
+          <p>Bank Name: {method.bankName}</p>
+          <p>IBAN: {method.iban}</p>
+          <p>BIC: {method.bic}</p>
+        </div>
+      ))}
+    </div>
   );
 };
 
