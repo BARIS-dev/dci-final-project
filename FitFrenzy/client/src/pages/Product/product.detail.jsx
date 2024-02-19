@@ -1,93 +1,104 @@
 import "./product.detail.css";
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
+
 import axios from "axios";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
-import { TablistComponent } from "../../components/productDetails/tabList/tablistComponent.jsx";
-import QuantityInput from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
 
+import { CartContext } from "../../context/cart.context.jsx";
+
+import { Rating } from "../../components/productDetails/productRatingStars/ratingStars.jsx";
+import { QuantityInput } from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
+import { TabListComponent } from "../../components/productDetails/tabList/tablistComponent.jsx";
+import { FavoritesContext } from "../../context/favorites.context.jsx";
 
 const ProductDetail = () => {
-  const { id } = useParams(); //65c15356d08e1b4d4624a721
-  const [product, setProduct] = useState({});
+  const { id } = useParams();
+
+  const { addToCart } = useContext(CartContext);
+  const { favorites, toggleFavorite } = useContext(FavoritesContext);
+
+  const [product, setProduct] = useState(null);
+
+  const [chosenProduct, setChosenProduct] = useState({
+    id: "",
+    name: "",
+    price: 0,
+    image: "",
+    size: "",
+    color: "",
+    quantity: 1,
+  });
+
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProductDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/product/${id}`);
-
         setProduct(response.data.answer.data);
 
-        //console.log(product);
+        setChosenProduct({
+          //set default values to the chosenProduct
+          id: response.data.answer.data._id,
+          name: response.data.answer.data.name,
+          price: response.data.answer.data.price,
+          image: response.data.answer.data.image,
+          quantity: 1,
+        });
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching product data", error);
       }
     };
-
-    fetchProduct();
+    fetchProductDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!product) return <h1>Loading...</h1>;
-
-  const setColor = (event) => {
-    setSelectedColor(event.target.style.backgroundColor);
-  };
+  if (!product) return <h1>Laden...</h1>;
 
   const amountHandler = (amount) => {
     setQuantity(amount);
+    setChosenProduct({
+      ...chosenProduct,
+      quantity: amount,
+    });
     console.log(quantity);
   };
 
-  const addToCart = async () => {
-    if (!selectedColor || !selectedSize) {
-      toast.error("Please select a color and a size");
+  /* try {
+      /* axios.post(`http://localhost:8000/product/${id}/toggle-like`); */
+
+  const addHandler = (product) => {
+    if (!product.size || !product.color) {
+      toast.error("Bitte Größe und Farbe wählen");
       return;
     }
 
-    try {
-      console.log("id: " + id);
+    addToCart(product);
+    console.log(product);
+    toast.success("Produkt zum Warenkorb hinzugefügt");
 
-      const response = await axios.post(
-        `http://localhost:8000/product/${id}/add`,
-        {
-          quantity: quantity,
-          color: selectedColor,
-          size: selectedSize,
-        }
-      );
-      console.log(response);
-
-      toast.success("Product added to cart");
-
-      /* console.log("selected Color: " + selectedColor);
-      console.log("selected quantity: " + quantity);
-      console.log("selected size: " + selectedSize); */
-    } catch (error) {
-      console.log(error);
-    }
+    setChosenProduct({
+      ...chosenProduct,
+      color: "",
+      size: "",
+    });
+    setSelectedColor("");
+    setSelectedSize("");
   };
 
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite); //temporary solution
-    try {
-      axios.post(`http://localhost:8000/product/${id}/toggle-like`);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const isFavorite = favorites.some((item) => item.id === chosenProduct.id);
 
   return (
     <section className="product-container">
       <div className="breadcrumb-trail">
         <p>
-          Home &raquo; Shop &raquo;{" "}
+          Startseite &raquo; Kategorien &raquo;{" "}
           {product.category &&
             product.category[0].toUpperCase() + product.category.slice(1)}
         </p>
@@ -103,7 +114,7 @@ const ProductDetail = () => {
           {product.averageRating && (
             <div className="product-avg-rating">
               <Rating rating={product.averageRating} />
-              {product.averageRating}/5
+              {product.averageRating.toFixed(0)}/5
             </div>
           )}
 
@@ -112,16 +123,22 @@ const ProductDetail = () => {
           <p className="product-description">{product.description}</p>
 
           <div className="product-colors">
-            <p>Select Colors</p>
+            <p>Farbe wählen</p>
             <div className="color-btn">
-              {product.color &&
-                product.color.map((color, index) => (
+              {product.colors &&
+                product.colors.map((color, index) => (
                   <button
                     key={index}
                     style={{
                       backgroundColor: color,
                     }}
-                    onClick={setColor}
+                    onClick={() => {
+                      setSelectedColor(color);
+                      setChosenProduct({
+                        ...chosenProduct,
+                        color: color,
+                      });
+                    }}
                   >
                     {selectedColor === color ? (
                       <span className="tick-mark">&#10003;</span>
@@ -132,14 +149,19 @@ const ProductDetail = () => {
           </div>
 
           <div className="product-sizes">
-            <p>Choose Size</p>
+            <p>Größe wählen</p>
             <div className="size-btn">
-              {product.size &&
-                product.size.map((size, index) => (
+              {product.sizes &&
+                product.sizes.map((size, index) => (
                   <button
                     key={index}
+                    className={selectedSize === size ? "selected" : ""}
                     onClick={() => {
                       setSelectedSize(size);
+                      setChosenProduct({
+                        ...chosenProduct,
+                        size: size,
+                      });
                     }}
                   >
                     {size}
@@ -149,16 +171,21 @@ const ProductDetail = () => {
           </div>
 
           <div className="product-cta">
-            <QuantityInput amount={amountHandler} />
+            <QuantityInput quantityChangeHandler={amountHandler} />
 
-            <button onClick={addToCart} className="product-add-to-cart">
-              Add to Cart
+            <button
+              onClick={() => {
+                addHandler(chosenProduct);
+              }}
+              className="product-add-to-cart"
+            >
+              Zum Warenkorb hinzufügen
             </button>
 
             <button
               title={isFavorite ? "Remove from favorites" : "Add to favorites"}
               className={`product-add-to-fav ${isFavorite ? "liked" : ""}`}
-              onClick={toggleFavorite}
+              onClick={() => toggleFavorite(chosenProduct)}
             >
               <span className="heart">&#10084;</span>
             </button>
@@ -179,7 +206,7 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <TablistComponent />
+      <TabListComponent />
     </section>
   );
 };

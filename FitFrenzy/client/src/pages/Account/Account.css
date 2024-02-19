@@ -1,4 +1,4 @@
-.account-container {
+/* .account-container {
 
     width: 300px;
     margin: auto;
@@ -16,4 +16,74 @@
     border: 1px solid;
     padding: 2px 5px;
     margin-top: 10px;
+} */
+
+.account-container {
+  width: 300px;
+  margin: auto;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.account-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user-info label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: small;
+}
+
+.user-info input {
+  width: calc(100% - 12px);
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.user-info input[disabled] {
+  background-color: #eee;
+}
+
+.logout-button-account {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff6347;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button-account:hover {
+  background-color: #d54c38;
+}
+
+.login-register-btn {
+  text-decoration: none;
+  display: block;
+  width: 55%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4787ff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-register-btn:hover {
+  background-color: #3c6cd5;
 }

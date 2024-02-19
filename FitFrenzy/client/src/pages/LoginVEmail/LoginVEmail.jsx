@@ -1,19 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { userAuth } from '../../context/user.context.jsx';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserAuth } from '../../context/user.context.jsx';
 import users from '../../api/users.js';
 
 function LoginVEmail() {
   const [userList, setUserList] = useState([]);
-  const [curruser, setCurruser] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginMessage, setLoginMessage] = useState('');
-  // const { user, setUser } = userAuth();
+  const { updateUser, updateLoggedIn } = UserAuth();
 
   const navigate = useNavigate();
-  // console.log('User', user);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,33 +29,20 @@ function LoginVEmail() {
     const userFromJSON = userList.find(user => user.email === email);
 
     if (userFromJSON && userFromJSON.password === password) {
-      // setUser(userFromJSON);
-      // setIsLoggedIn(true);
-      setCurruser(userFromJSON);
+      setLoginMessage('Erfolgreicher Login!');
       setEmail('');
       setPassword('');
-      setLoginMessage('Erfolgreicher Login!');
 
       setTimeout(() => {
         setLoginMessage('');
+        updateLoggedIn();
+        updateUser(userFromJSON);
         navigate('/account');
-      }, 2000);
+      }, 2500);
     } else {
       setLoginMessage('Ungültige E-Mail oder Passwort');
     }
   };
-
-  useEffect(() => {
-    if (curruser !== null) {
-      console.log('Logged in', curruser);
-    }
-  }, [curruser]);
-
-  // useEffect(() => {
-  //   if (user !== null) {
-  //     console.log('Logged in', user);
-  //   }
-  // }, [user]);
 
   return (
     <div className="signin-content">
@@ -82,9 +66,19 @@ function LoginVEmail() {
         </button>
       </form>
 
+      <div className="register-div">
+        <Link className="register-link" to={'/register'}>
+          Kein Account? <br />
+          Keine Sorge, register kostenlos!
+        </Link>
+      </div>
+
       <p
         className="login-message"
-        style={{ color: loginMessage.includes('oder') ? 'red' : 'green' }}
+        style={{
+          marginTop: 10,
+          color: loginMessage.includes('oder') ? 'red' : 'green',
+        }}
       >
         {loginMessage}
       </p>

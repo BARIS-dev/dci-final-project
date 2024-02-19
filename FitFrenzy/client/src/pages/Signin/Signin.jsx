@@ -2,14 +2,17 @@
 import './Signin.css';
 import { GoogleButton } from 'react-google-button';
 import { UserAuth } from '../../context/user.context.jsx';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { useEffect } from 'react';
 import LoginVEmail from '../LoginVEmail/LoginVEmail.jsx';
 
 const Signin = () => {
-  const { googleSignIn, user } = UserAuth();
+  const {
+    googleSignIn,
+    // user
+  } = UserAuth();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleGoogleSignIn = async () => {
     try {
@@ -19,11 +22,11 @@ const Signin = () => {
     }
   };
 
-  useEffect(() => {
-    if (user != null) {
-      navigate('/account');
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (user != null) {
+  //     navigate('/account');
+  //   }
+  // }, [user, navigate]);
 
   return (
     <>

@@ -8,6 +8,10 @@
     font-size: 1.5em;
     cursor: pointer;
     width: 3em;
+
+    &:hover {
+      background-color: var(--secondary);
+    }
   }
 
   button:first-child {

@@ -2,10 +2,9 @@ export function ProductDetailTab() {
   return (
     <div>
       <p>
-        This space is where you&apos;ll find in-depth information about our
-        product.
+        Hier finden Sie in Kürze detaillierte Informationen zu unserem Produkt.
         <br />
-        More details coming soon...
+        Mehr Details folgen in Kürze......
       </p>
     </div>
   );

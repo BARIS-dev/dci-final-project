@@ -17,7 +17,6 @@
       button {
         border: none;
         outline: none;
-        padding: 0.5em 1em;
         background-color: var(--secondary);
         border-radius: 62px;
         margin-left: 1em;
@@ -27,12 +26,19 @@
           border: none;
           outline: none;
           background-color: transparent;
+          width: max-content;
         }
       }
 
       .write-review-btn {
         background-color: var(--accent);
-        color: var(--secondary);
+        color: var(--background);
+        padding: 0.7em 1em;
+
+        &:hover {
+          background-color: var(--secondary);
+          color: var(--text);
+        }
       }
     }
   }
@@ -69,7 +75,7 @@
 
         .tick-mark {
           color: white;
-          font-size: 0.825em;
+          font-size: 0.75em;
         }
       }
     }
@@ -78,11 +84,16 @@
   .load-btn {
     border: none;
     outline: none;
-    padding: 0.5em 0.75em;
-    background-color: var(--secondary);
-    color: var(--text);
+    padding: 0.5em 1em;
+    background-color: var(--accent);
+    color: var(--background);
     border-radius: 62px;
     margin: auto;
+    cursor: pointer;
+  }
+
+  button[disabled] {
+    cursor: not-allowed;
   }
 }
 

@@ -4,14 +4,14 @@ import { FAQsTab } from "./faqTab/faqTab.jsx";
 import { ProductDetailTab } from "./productDetailTab/productDetailTab.jsx";
 import { RatingReviewsTab } from "./rating&reviewsTab/ratingReviewsTab.jsx";
 
-export function TablistComponent() {
+export function TabListComponent() {
   const items = [
     {
-      title: "Product Details",
+      title: "Details zum Produkt",
       content: <ProductDetailTab />,
     },
     {
-      title: "Rating & Reviews",
+      title: "Bewertungen",
       content: <RatingReviewsTab />,
     },
     {
