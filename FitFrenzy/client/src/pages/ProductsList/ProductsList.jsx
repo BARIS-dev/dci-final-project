@@ -5,12 +5,14 @@ import Sidebar from "./Sidebar/Sidebar"
 
 
 function ProductsList() {
+   
     return (
     <> 
         <Sidebar /> 
+        <Articles /> 
 
         <Navigation />
-        <Articles /> 
+        
 
 
     </>
