@@ -12,6 +12,10 @@
     }
   }
 
+  .highlight-link {
+    text-decoration: underline;
+  }
+
   h2 {
     margin: 1em 0;
     text-align: left;
