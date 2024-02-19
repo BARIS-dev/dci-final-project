@@ -1,6 +1,8 @@
 import math
 import random
 import json
+import time
+from datetime import datetime
 
 data = [
   {
@@ -323,22 +325,48 @@ data = [
   }
 ]
 
+cupcake_ipsum = "Cupcake ipsum dolor sit amet jelly carrot cake gummies. Donut tootsie roll pudding chocolate bar jelly candy. Fruitcake chocolate bar chocolate cake sugar plum cupcake jelly-o soufflé tiramisu. Soufflé I love biscuit tart apple pie bear claw. I love jelly-o lollipop tart shortbread ice cream halvah ice cream. Toffee liquorice jelly-o lollipop pie donut topping. Liquorice jujubes tiramisu cotton candy sweet roll sesame snaps lollipop. Tiramisu jelly tootsie roll oat cake I love brownie jelly danish. Shortbread brownie jujubes pastry cotton candy brownie gingerbread. I love biscuit caramels dragée carrot cake jelly-o donut sweet. Marshmallow cotton candy shortbread marshmallow caramels gingerbread I love chocolate cake ice cream. Jelly beans shortbread fruitcake biscuit chocolate bar cheesecake I love chocolate cake. Brownie sugar plum chocolate I love I love macaroon donut pudding. Danish brownie jelly wafer pudding sweet muffin."
+
 cat_ipsum = "Purr sleep on your face destroy the blinds. Jump around on couch, meow constantly until given food, and chase imaginary bugs, yet chase imaginary bugs. Hate dog hunt anything that moves. Play time sweet beast. Your pillow is now my pet bed get video posted to internet for chasing red dot. I love cuddles going to catch the red dot today going to catch the red dot today. Run in circles chew iPad power cord. Stare at ceiling chase mice sun bathe. Hate dog sun bathe stretch. Chew iPad power cord soft kitty warm kitty little ball of furr."
+
+cupcake_ipsum_words = cupcake_ipsum.split()
 cat_ipsum_words = cat_ipsum.split()
+
+
 colors = ["Red", "Blue", "Green", "Black", "White"]
 sizes = ["S", "M", "L", "XL"]
+names = ["Alice", "Andreea", "Barış", "Bob", "Charlie", "Dave", "Eve", "Frank", "Grace", "Heidi", "Ivan", "Judy", "Kim", "Mallory", "Nia", "Oscar", "Ömer", "Pat", "Quincy", "Randy", "Sybil", "Trudy", "Victor", "Wendy"]
+start_date = datetime(2020, 1, 1)
+end_date = datetime.now()
+start_timestamp = time.mktime(start_date.timetuple())
+end_timestamp = time.mktime(end_date.timetuple())
 
 for item in data:
     if item["name"]:
         item["countInStock"] = random.randint(0, 100)
-        item["averageRating"] = round(random.uniform(3, 5))
         item["colors"] = random.sample(colors, k=random.randint(1, len(colors)))  # multiple colors
         item["sizes"] = random.sample(sizes, k=random.randint(1, len(sizes)))  # multiple sizes
         item["price"] = math.floor(item["price"]) + .99
         description_length = random.randint(20, 50)
         description_start = random.randint(0, len(cat_ipsum_words) - description_length)
         item["description"] = " ".join(cat_ipsum_words[description_start:description_start + description_length])
-        item["numReviews"] = random.randint(0, 100)
+        item["numReviews"] = random.randint(0, 20)
+        item["reviews"] = []
+        total_rating = 0
+        for _ in range(item["numReviews"]):
+            review_length = random.randint(20, 50)
+            review_start = random.randint(0, len(cupcake_ipsum_words) - review_length)
+            review_text = " ".join(cupcake_ipsum_words[review_start:review_start + review_length])
+            review_author = random.choice(names)
+            random_timestamp = random.randint(start_timestamp, end_timestamp)
+            review_date = datetime.fromtimestamp(random_timestamp)
+            review_rating = round(random.uniform(3, 5))
+            total_rating += review_rating
+            review = {"author": review_author, "text": review_text, "date": review_date.strftime("%Y-%m-%d"), "rating": review_rating}
+            item["reviews"].append(review)
+        item["averageRating"] = round(total_rating / item["numReviews"], 1) if item["numReviews"] else 0
         
 with open('modified_products.json', 'w') as f:
     json.dump(data, f, indent=4)
+
+print("Data has been written to modified_products.json")
