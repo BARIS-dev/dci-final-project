@@ -16,6 +16,7 @@ import Checkout from "./pages/Checkout/Checkout.jsx";
 import RegisterPage from "./pages/Register/Register.jsx";
 import Navbar from "./components/shared/Navbar/Navbar.jsx";
 import Favorites from "./pages/Favorites/favorites.jsx";
+import ProductsList from './pages/ProductsList/ProductsList.jsx';
 
 function App() {
   // test data from data folder
@@ -36,7 +37,6 @@ function App() {
     <>
       <UserContextProvider>
         <Navbar />
-        {/*         <Navbarchat /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<Signin />} />
@@ -53,6 +53,8 @@ function App() {
           </Route>
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/products-list" element={<ProductsList />} />
+          
         </Routes>
         <Footer />
       </UserContextProvider>
