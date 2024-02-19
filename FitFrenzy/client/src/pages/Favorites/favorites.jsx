@@ -1,11 +1,14 @@
 import "./favorites.css";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { FavoritesContext } from "../../context/favorites.context.jsx";
 
 function Favorites() {
   const { favorites, deleteFavorite } = useContext(FavoritesContext);
-  console.log(favorites);
+  //console.log(favorites);
+
   return (
     <section className="favorites">
       <div className="breadcrumb-trail">
@@ -33,6 +36,18 @@ function Favorites() {
           </div>
         ))}
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </section>
   );
 }

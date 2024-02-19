@@ -22,6 +22,7 @@ const ProductsList = () => {
         setColor(value);
     }
   };
+
   useEffect(() => {
     fetch(
       `http://localhost:8000/products/?category=${category}&size=${size}&color=${color}`
@@ -71,7 +72,7 @@ const ProductsList = () => {
       </form>
       <div className="product-list">
         {products.map((product) => (
-          <ProductItem key={product._id} product={product} />
+          //<ProductItem key={product._id} product={product} />
         ))}
       </div>
     </div>
