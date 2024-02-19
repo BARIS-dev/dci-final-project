@@ -28,6 +28,10 @@ const Account = () => {
 
       {isLoggedIn && (
         <div className="user-info">
+          <Link to={'/my-orders'} className="my-orders-link">
+            My Orders
+          </Link>
+
           <label>
             First Name:
             <input type="text" value={user?.firstName} disabled />
