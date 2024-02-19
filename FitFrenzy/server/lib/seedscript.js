@@ -137,16 +137,15 @@ async function seedReviews(reviewsToCreate) {
     const reviewerIds = await userModel.find().select("_id");
     const reviewerNames = await userModel.find().select("username");
 
-    //const productIds = await productModel.find().select("_id");
+    const productIds = await productModel.find().select("_id");
 
     for (let i = 0; i < reviewsToCreate; i++) {
       let review = {
         reviewerId: reviewerIds[getRandomIndexOfArray(reviewerIds)],
         reviewerName:
           reviewerNames[getRandomIndexOfArray(reviewerNames)].username,
-        productId: "65d1c92b6b94859591fec05a",
-        //productIds[getRandomIndexOfArray(productIds)],
-        ratingScore: faker.number.int({ min: 4, max: 5 }),
+        productId: productIds[getRandomIndexOfArray(productIds)],
+        ratingScore: faker.number.int({ min: 3, max: 5 }),
         reviewText: faker.lorem.sentence(),
       };
 

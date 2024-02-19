@@ -10,11 +10,12 @@ export function RatingReviewsTab() {
 
   useEffect(() => {
     try {
-      axios
-        .get(`http://localhost:8000/product/${id}/reviews`)
-        .then((response) => {
-          setReviews(response.data.answer.data);
-        });
+      const fetchReviews = async () => {
+        const response = await axios.get(`http://localhost:8000/product/${id}`);
+        setReviews(response.data.answer.data.reviews);
+        console.log(response.data.answer.data.reviews);
+      };
+      fetchReviews();
     } catch (error) {
       console.log(error);
     }
