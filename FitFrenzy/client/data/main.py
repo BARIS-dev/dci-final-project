@@ -344,15 +344,15 @@ end_timestamp = time.mktime(end_date.timetuple())
 for item in data:
     if item["name"]:
         item["countInStock"] = random.randint(0, 100)
-        item["averageRating"] = round(random.uniform(3, 5), 2)
         item["colors"] = random.sample(colors, k=random.randint(1, len(colors)))  # multiple colors
         item["sizes"] = random.sample(sizes, k=random.randint(1, len(sizes)))  # multiple sizes
         item["price"] = math.floor(item["price"]) + .99
         description_length = random.randint(20, 50)
         description_start = random.randint(0, len(cat_ipsum_words) - description_length)
         item["description"] = " ".join(cat_ipsum_words[description_start:description_start + description_length])
-        item["numReviews"] = random.randint(0, 100)
+        item["numReviews"] = random.randint(0, 20)
         item["reviews"] = []
+        total_rating = 0
         for _ in range(item["numReviews"]):
             review_length = random.randint(20, 50)
             review_start = random.randint(0, len(cupcake_ipsum_words) - review_length)
@@ -360,8 +360,11 @@ for item in data:
             review_author = random.choice(names)
             random_timestamp = random.randint(start_timestamp, end_timestamp)
             review_date = datetime.fromtimestamp(random_timestamp)
-            review = {"author": review_author, "text": review_text, "date": review_date.strftime("%Y-%m-%d")}
+            review_rating = round(random.uniform(3, 5))
+            total_rating += review_rating
+            review = {"author": review_author, "text": review_text, "date": review_date.strftime("%Y-%m-%d"), "rating": review_rating}
             item["reviews"].append(review)
+        item["averageRating"] = round(total_rating / item["numReviews"], 1) if item["numReviews"] else 0
         
 with open('modified_products.json', 'w') as f:
     json.dump(data, f, indent=4)
