@@ -65,4 +65,7 @@
       }
     }
   }
+  .Toastify__toast-container {
+    top: 8rem;
+  }
 }
