@@ -13,8 +13,8 @@ function Articles() {
       try {
         const response = await axios.get("http://localhost:8000/products");
        
-        setProducts(response.data); 
-        console.log(response.data);
+        setProducts(response.data.answer.data); 
+        console.log(products);
         
       } catch (error) {
         console.error('Error fetching products', error);
