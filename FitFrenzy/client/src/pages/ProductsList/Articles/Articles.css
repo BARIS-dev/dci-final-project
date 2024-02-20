@@ -10,12 +10,15 @@
     border: 2px solid #569f88;
     padding: 20px;
     cursor: pointer;
+    border-radius: 20px;
+
 }
 
 .card-img {
     width: 100%;
     max-width: 200px;
     margin-bottom: 1rem;
+    border-radius: 15px;
 }
 
 .card-title {

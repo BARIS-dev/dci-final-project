@@ -2,11 +2,13 @@
 import Category from "./Category/Category"
 import Price from "./Price/Price"
 import Colors from "./Colors/Colors"
+import Size from "./Size/Size";
+import PropTypes from 'prop-types';
 
 import "./Sidebar.css";
 
 
-function Sidebar() {
+function Sidebar({handleChange}) {
   return <>
   <section className="sidebar">
 
@@ -14,9 +16,10 @@ function Sidebar() {
         <h1>Filters</h1>
     </div>
 
-    <Category />
-    <Price />
-    <Colors />
+    <Category handleChange={handleChange}/>
+    <Price handleChange={handleChange}/>
+    <Colors handleChange={handleChange}/>
+    <Size handleChange={handleChange} />
 
   </section>
   
@@ -25,5 +28,9 @@ function Sidebar() {
     
   
 }
+
+Sidebar.propTypes = {
+  handleChange: PropTypes.func.isRequired
+};
 
 export default Sidebar;

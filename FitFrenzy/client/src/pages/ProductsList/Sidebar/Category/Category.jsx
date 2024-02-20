@@ -1,9 +1,63 @@
 import './Category.css';
+import Input from "../../../../components/compAndreea/Input"
+import PropTypes from 'prop-types';
 
-function Category  () {
+
+function Category ({handleChange}) {
   return (
     <div>
       <h2 className="sidebar-title">Category</h2>
+      <div>
+
+        <label  className="sidebar-label-container">
+          <input onChange={handleChange} type="radio" value="" name="category" />
+          <span className="checkmark"></span>All
+
+        </label>
+
+        <Input 
+        handleChange={handleChange}
+        value="clothing"
+        title="clothing"
+        name="category"  
+        />
+
+        <Input 
+        handleChange={handleChange}
+        value="equipment"
+        title="equipment"
+        name="category"  
+        />
+
+        <Input 
+        handleChange={handleChange}
+        value="accessories"
+        title="accessories"
+        name="category"  
+        />
+       
+      </div>
+    </div>
+  );
+}
+
+Category.propTypes = {
+  handleChange: PropTypes.func.isRequired
+};
+
+export default Category;
+
+
+
+
+
+
+
+/*function Category  () {
+  return (
+    <div>
+      <h2 className="sidebar-title">Category</h2>
+      
       <div>
         <label className="sidebar-label-container">
           <input type="radio" name="test" />
@@ -28,4 +82,4 @@ function Category  () {
   )
 }
 
-export default Category
+export default Category*/

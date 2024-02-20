@@ -15,9 +15,7 @@ const CheckoutPage = () => {
   } = useContext(CartContext);
 
   const subTotal = calculateSubtotal;
-
   const discount = calculateDiscount(subTotal);
-
   const total = calculateTotal();
 
   const [formData, setFormData] = useState({
@@ -27,9 +25,7 @@ const CheckoutPage = () => {
     paymentMethod: "Kreditkarte",
     promoCode: "",
   });
-
   const { progress, setProgress } = useState(0);
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevState) => ({
@@ -37,11 +33,9 @@ const CheckoutPage = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-
     setProgress(progress + 1);
   };
 
@@ -52,28 +46,27 @@ const CheckoutPage = () => {
   const addToFavorites = (articleId) => {
     console.log(`Artikel mit ID ${articleId} zu den Favoviten hinzufügen`);
   };
-
   return (
     <div>
       <div className="progress-bar">
         <div className="progress-step">
           <div className={`progress-circle ${progress >= 0 ? "active" : ""}`}>
             <span className="circle-number">1</span>
-            <span className="circle-check">✔</span>
+            <span className="circle-check">:heavy_check_mark:</span>
           </div>
           <div className="step-text">Lieferadresse</div>
         </div>
         <div className="progress-step">
           <div className={`progress-circle ${progress >= 1 ? "active" : ""}`}>
             <span className="circle-number">2</span>
-            <span className="circle-check">✔</span>
+            <span className="circle-check">:heavy_check_mark:</span>
           </div>
           <div className="step-text">Versandart</div>
         </div>
         <div className="progress-step">
           <div className={`progress-circle ${progress >= 2 ? "active" : ""}`}>
             <span className="circle-number">3</span>
-            <span className="circle-check">✔</span>
+            <span className="circle-check">:heavy_check_mark:</span>
           </div>
           <div className="step-text">Warenkorb bestätigen</div>
         </div>
@@ -101,7 +94,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
               required
             />
-
             <label htmlFor="telefon">Telefonnummer:</label>
             <input
               type="text"
@@ -111,7 +103,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
               required
             />
-
             <label htmlFor="land" style={{ marginTop: "10px" }}>
               Land/Region:
             </label>
@@ -123,7 +114,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
               required
             />
-
             <label htmlFor="adresse">Adresse:</label>
             <input
               type="text"
@@ -133,7 +123,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
               required
             />
-
             <label htmlFor="stadt">Stadt:</label>
             <input
               type="text"
@@ -143,7 +132,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
               required
             />
-
             <label htmlFor="postleitzahl">Postleizahl:</label>
             <input
               type="text"
@@ -168,7 +156,6 @@ const CheckoutPage = () => {
               <option value="standard">Standard</option>
               <option value="express">Express</option>
             </select>
-
             <div className="zahlungsart">
               <label>Zahlungsart:</label>
               {["kreditkarte", "paypal", "bank_überweisung", "google_pay"].map(
@@ -258,5 +245,4 @@ const CheckoutPage = () => {
     </div>
   );
 };
-
 export default CheckoutPage;
