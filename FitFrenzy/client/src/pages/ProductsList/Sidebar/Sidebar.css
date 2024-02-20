@@ -1,4 +1,4 @@
-.sidebar-title {
+/*.sidebar-title {
     font-size: 20px;
     font-weight: normal;
     margin-bottom: 20px;
@@ -63,7 +63,7 @@
     height: 7px;
     border-radius: 50%;
     background: white;
-}
+}*/
 
 
 
@@ -75,7 +75,7 @@
 
 
 
-/*.sidebar-title {
+.sidebar-title {
     font-size: 22px;
     font-weight: normal;
     margin-bottom: 20px;
@@ -92,6 +92,15 @@
     flex-direction: column;
     align-items: center;
     height: 100%;
+}
+
+.logo-container {
+    margin-bottom: 4rem;
+}
+
+.logo-container h1 {
+
+    margin-top: 1.3rem;
 }
 
 
@@ -130,6 +139,6 @@
 .logo-container h1 {
 
     margin-top: 1.3rem;
-}*/
+}
 
 

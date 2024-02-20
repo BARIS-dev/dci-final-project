@@ -1,5 +1,5 @@
 //import React from "react";
-import PropTypes from 'prop-types';
+/*import PropTypes from 'prop-types';
 
 
 
@@ -29,11 +29,11 @@ Prices.propTypes = {
 };
 
 
-export default Prices;
+export default Prices;*/
 
 
 
-/*import './Price.css';
+import './Price.css';
 import Input from "../../../../components/compAndreea/Input"
 import PropTypes from 'prop-types';
 
@@ -42,7 +42,7 @@ import PropTypes from 'prop-types';
 function Price({handleChange}) {
   return (
     <div className='price-container'>
-      <h2 className='sidebar-title price-title'>Price</h2>
+      <h2 className='sidebar-title price-title'>Preis</h2>
 
 
       <label className="sidebar-label-container">
@@ -95,7 +95,7 @@ Price.propTypes = {
   handleChange: PropTypes.func.isRequired
 };
 
-export default Price;*/
+export default Price;
 
 
 
