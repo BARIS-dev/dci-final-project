@@ -1,4 +1,133 @@
+//import React, { useState, useEffect } from "react";
 import { useState, useEffect } from "react";
+import axios from "axios";
+import { AiFillStar } from "react-icons/ai";
+import Colors from "../Sidebar/Colors/Colors";
+import Sizes from "../Sidebar/Size/Size";
+import Prices from "../Sidebar/Price/Price";
+import "./Articles.css";
+import { Link } from "react-router-dom";
+
+function Articles() {
+  const [products, setProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedColors, setSelectedColors] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [selectedPrice, setSelectedPrice] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/products");
+        setProducts(response.data.answer.data);
+      } catch (error) {
+        console.error("Error fetching products", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    filterProducts();
+  }, [products, searchQuery, selectedColors, selectedSizes, selectedPrice]);
+
+  const filterProducts = () => {
+    const filtered = products.filter((product) => {
+      const matchesSearch = product.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
+      const matchesColors =
+        selectedColors.length === 0 ||
+        selectedColors.some((color) => product.colors.includes(color));
+
+      const matchesSizes =
+        selectedSizes.length === 0 ||
+        selectedSizes.some((size) => product.sizes.includes(size));
+
+      const matchesPrice =
+        selectedPrice === "" || product.price <= selectedPrice;
+
+      return matchesSearch && matchesColors && matchesSizes && matchesPrice;
+    });
+
+    setFilteredProducts(filtered);
+  };
+
+  const handleColorChange = (selected) => {
+    setSelectedColors(selected);
+  };
+
+  const handleSizeChange = (selected) => {
+    setSelectedSizes(selected);
+  };
+
+  const handlePriceChange = (selected) => {
+    setSelectedPrice(selected);
+  };
+
+  return (
+    <div className="articles-container">
+      <div className="sidebar">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <Colors
+          colors={["Red", "Green", "Blue", "Black", "White"]}
+          selectedColors={selectedColors}
+          handleColorChange={handleColorChange}
+        />
+        <Sizes
+          sizes={["S", "M", "L", "XL"]}
+          selectedSizes={selectedSizes}
+          handleSizeChange={handleSizeChange}
+        />
+        <Prices
+          prices={[]}
+          selectedPrice={selectedPrice}
+          handlePriceChange={handlePriceChange}
+        />
+      </div>
+      <div className="articles">
+        <section className="card-container">
+          {filteredProducts.map((product) => (
+            <section key={product._id} className="card">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="card-img"
+              />
+              <div className="card-details">
+                <Link to={`/product/${product._id}`}>
+                  <h3 className="card-title">{product.name}</h3>
+                </Link>
+                <p className="card-price">Price: {product.price} €</p>
+                <section className="card-reviews">
+                  <AiFillStar className="ratings-star" />
+                  <span className="total-reviews">{product.averageRating}</span>
+                </section>
+              </div>
+            </section>
+          ))}
+        </section>
+        {filteredProducts.length === 0 && (
+          <div className="no-results">
+            No products match the selected filters.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default Articles;
+
+/*import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { AiFillStar } from "react-icons/ai";
@@ -47,7 +176,7 @@ function Articles() {
   );
 }
 
-export default Articles;
+export default Articles;*/
 
 /*function Articles() {
     const [products, setProducts] = useState([]);
@@ -1063,4 +1192,3 @@ export default Articles;
     </>
   );
 };*/
-

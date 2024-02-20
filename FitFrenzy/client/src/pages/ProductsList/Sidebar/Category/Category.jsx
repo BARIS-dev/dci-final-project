@@ -1,41 +1,40 @@
-import './Category.css';
-import Input from "../../../../components/compAndreea/Input"
+//import React from 'react';
+import Input from "../../../../components/compAndreea/Input";
 import PropTypes from 'prop-types';
+import './Category.css';
 
-
-function Category ({handleChange}) {
+function Category({ handleChange }) {
   return (
     <div>
       <h2 className="sidebar-title">Category</h2>
       <div>
 
-        <label  className="sidebar-label-container">
+        <label className="sidebar-label-container">
           <input onChange={handleChange} type="radio" value="" name="category" />
           <span className="checkmark"></span>All
-
         </label>
 
-        <Input 
-        handleChange={handleChange}
-        value="clothing"
-        title="clothing"
-        name="category"  
+        <Input
+          handleChange={handleChange}
+          value="clothing"
+          title="clothing"
+          name="category"
         />
 
-        <Input 
-        handleChange={handleChange}
-        value="equipment"
-        title="equipment"
-        name="category"  
+        <Input
+          handleChange={handleChange}
+          value="equipment"
+          title="equipment"
+          name="category"
         />
 
-        <Input 
-        handleChange={handleChange}
-        value="accessories"
-        title="accessories"
-        name="category"  
+        <Input
+          handleChange={handleChange}
+          value="accessories"
+          title="accessories"
+          name="category"
         />
-       
+
       </div>
     </div>
   );
@@ -46,6 +45,7 @@ Category.propTypes = {
 };
 
 export default Category;
+
 
 
 

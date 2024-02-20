@@ -1,4 +1,103 @@
 .sidebar-title {
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.sidebar-items {
+    margin-top: 20px;
+}
+
+.sidebar-label-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.sidebar-label-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #aab7b2;
+    border-radius: 50%;
+}
+
+.sidebar-label-container:hover input ~ .checkmark {
+    background-color: #2e564a;
+}
+
+.sidebar-label-container input:checked ~ .checkmark {
+    background-color: #2e564a;
+}
+
+
+.checkmark ::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.sidebar-label-container input:checked ~ .checkmark::after {
+    display: block;
+}
+
+
+.sidebar-label-container.checkmark::after {
+    top: 6.4px;
+    left: 6.4px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*.sidebar-title {
+    font-size: 22px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.sidebar {
+    width: 15%;
+    position: absolute;
+    height: 100%; 
+    top: 0;
+    left: 0;  
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+
+
+
+/*.sidebar-title {
     font-size: 22px;
     font-weight: normal;
     margin-bottom: 20px;
@@ -31,6 +130,6 @@
 .logo-container h1 {
 
     margin-top: 1.3rem;
-}
+}*/
 
 
