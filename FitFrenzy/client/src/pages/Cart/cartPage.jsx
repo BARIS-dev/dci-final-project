@@ -89,7 +89,9 @@ function Cart() {
 
                       <div className="cart-item-details">
                         <div className="remove-btn-row">
-                          <p className="product-name">{item.name}</p>
+                          <Link to={`/product/${item.id}`}>
+                            <p className="product-name">{item.name}</p>
+                          </Link>
                           <button
                             title="Delete this product"
                             className="remove-btn"

@@ -1,5 +1,11 @@
 a {
   text-decoration: none;
+  color: var(--text);
+
+  &:hover {
+    text-decoration: underline;
+    color: var(--primary);
+  }
 }
 
 .cart-container {
@@ -242,7 +248,7 @@ a {
       }
 
       .order-summary {
-        margin-top: 2em;
+        margin-top: 1.85em;
         width: 35%;
         height: fit-content;
 
