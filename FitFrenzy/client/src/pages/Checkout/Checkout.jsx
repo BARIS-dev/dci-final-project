@@ -252,7 +252,13 @@ const CheckoutPage = () => {
               <p>(inkl. Lieferung und MwSt.) </p>
             </div>
             <div className="button-container">
-              <button type="submit" className="submit-button">
+              <button
+                onClick={() => {
+                  window.location.href = "/payment-success";
+                }}
+                type="submit"
+                className="submit-button"
+              >
                 Bestätigen und bezahlen
               </button>
             </div>
