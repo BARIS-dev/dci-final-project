@@ -14,12 +14,13 @@ const Sales = () => {
         console.error("Error fetching products", error);
       }
     };
-
     fetchProducts();
   }, []);
 
   const discountedProducts = products.filter((product) => product.discount > 0);
-
+  const salePrice =
+    discountedProducts.price -
+    (discountedProducts.price * discountedProducts.discount) / 100;
   return (
     <>
       <div className="sales-container">
@@ -34,7 +35,7 @@ const Sales = () => {
                   alt={product.name}
                 />
                 <div className="discount">
-                  <p>{product.discount}</p>
+                  <p>{product.discount}%</p>
                 </div>
                 <div className="add-basket hidden">
                   <input type="number" id="piece" placeholder="1" min="1" />
@@ -46,12 +47,9 @@ const Sales = () => {
               <div className="card-title">
                 <a href="#">{product.name}</a>
               </div>
-              <div className="card-text">
-                <p>{product.description}</p>
-              </div>
               <div className="price">
-                <s>{product.originalPrice}</s>
-                <p>{product.salePrice}</p>
+                <s>{product.price}</s>
+                <p>{salePrice}</p>
               </div>
             </div>
           ))}
