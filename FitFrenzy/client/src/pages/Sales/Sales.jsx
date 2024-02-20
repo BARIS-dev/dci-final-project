@@ -18,9 +18,9 @@ const Sales = () => {
   }, []);
 
   const discountedProducts = products.filter((product) => product.discount > 0);
-  const salePrice =
-    discountedProducts.price -
-    (discountedProducts.price * discountedProducts.discount) / 100;
+  const salePrice = (price, discount) => {
+    return (price * (100 - discount)) / 100;
+  };
   return (
     <>
       <div className="sales-container">
