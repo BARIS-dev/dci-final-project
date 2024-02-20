@@ -101,7 +101,7 @@ const Navbar = () => {
                 <FaPercentage /> <strong>SALE</strong>
               </Link>
               <Link
-                to={"/"}
+                to={"/categories"}
                 className="nav-item"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -134,7 +134,9 @@ const Navbar = () => {
               <Link to={"/sales"} className="nav-item">
                 <strong>SALE %</strong>
               </Link>
-              <Link className="nav-item">Kategorien</Link>
+              <Link to={"/categories"} className="nav-item">
+                Kategorien
+              </Link>
               <Link to={"/products-list"} className="nav-item">
                 Marken
               </Link>
@@ -147,7 +149,6 @@ const Navbar = () => {
                 <FaSearch />
               </a>
             </div>
-
             <ul className="user-icons">
               <Link className="nav-item" to={"/favorites"}>
                 <FaHeart />
