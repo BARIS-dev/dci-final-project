@@ -12,7 +12,7 @@ footer {
   align-items: center;
   flex-direction: column;
 
-  position: absolute;
+  position: fixed;
   bottom: 0;
   .footer-divider {
     width: 80%;
