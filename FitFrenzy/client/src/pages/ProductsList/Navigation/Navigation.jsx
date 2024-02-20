@@ -1,4 +1,4 @@
-import { useState } from "react";
+/*import { useState } from "react";
 import "./Navigation.css";
 
 function Navigation() {
@@ -35,12 +35,12 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default Navigation;*/
 
 
-/*import "./Navigation.css"
+import "./Navigation.css"
 
-function Navigation() {
+/*function Navigation() {
   return <nav>
         <div className="nav-container">
         <input 

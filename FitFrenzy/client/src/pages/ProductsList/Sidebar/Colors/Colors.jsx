@@ -1,5 +1,5 @@
 
-import PropTypes from 'prop-types';
+/*import PropTypes from 'prop-types'
 //import Input from "../../../../components/compAndreea/Input"
 import './Colors.css'
 
@@ -28,12 +28,12 @@ Colors.propTypes = {
   handleColorChange: PropTypes.func.isRequired,
 };
 
-export default Colors;
+export default Colors;*/
 
 
 
 
-/*import './Colors.css'
+import './Colors.css'
 import Input from "../../../../components/compAndreea/Input"
 import PropTypes from 'prop-types';
 
@@ -102,7 +102,7 @@ function Colors ({handleChange}) {
     handleChange: PropTypes.func.isRequired
   };
 
-  export default Colors*/
+  export default Colors
   
   
 
