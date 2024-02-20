@@ -59,7 +59,7 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!product) return <h1>Laden...</h1>;
+  if (!product) return <p>Dieses Produkt ist nicht mehr verfügbar.</p>;
 
   const amountHandler = (amount) => {
     setQuantity(amount);
