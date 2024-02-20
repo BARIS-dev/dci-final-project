@@ -51,7 +51,6 @@ const Navbar = () => {
         return <SiNike />;
     }
   };
-
   return (
     <>
       <header>
