@@ -97,9 +97,9 @@ const PaymentMethods = () => {
           </h2>
           <p>Bankinhaber: {method.ownerName}</p>
           <p>Bankname: {method.bankName}</p>
-          <p>IBAN: ****-****-****-{method.iban.slice(-4)}</p>
-          <button onClick={() => handleClickOpen(index)}>Edit</button>
-          <button onClick={() => handleDelete(index)}>Delete</button>
+          <p>IBAN: **** **** **** **{method.iban.slice(-4)}</p>
+          <button onClick={() => handleClickOpen(index)}>Ändern</button>
+          <button onClick={() => handleDelete(index)}>Löschen</button>
         </div>
       ))}
 
