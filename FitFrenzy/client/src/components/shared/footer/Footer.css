@@ -11,6 +11,9 @@ footer {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  position: absolute;
+  bottom: 0;
   .footer-divider {
     width: 80%;
     height: 1px;
