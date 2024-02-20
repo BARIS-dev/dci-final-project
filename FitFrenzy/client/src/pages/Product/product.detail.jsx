@@ -1,7 +1,7 @@
 import "./product.detail.css";
 
 import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import axios from "axios";
 
@@ -96,7 +96,8 @@ const ProductDetail = () => {
     <section className="product-container">
       <div className="breadcrumb-trail">
         <p>
-          Startseite &raquo; Kategorien &raquo;{" "}
+          <Link to={"/"}>Startseite</Link> &raquo;{" "}
+          <Link to={"/categories"}>Kategorien</Link> &raquo;{" "}
           {product.category &&
             product.category[0].toUpperCase() + product.category.slice(1)}
         </p>
