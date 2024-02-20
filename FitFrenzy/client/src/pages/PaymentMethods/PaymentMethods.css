@@ -78,6 +78,52 @@ h2 {
   }
 }
 
+.warn {
+  padding: 1rem 2rem;
+  border: 2px solid #ff1212;
+  border-radius: 15px;
+  background-color: #ff00002d;
+  color: #ff2121;
+  font-size: 1.2rem;
+}
+
+.cancel-button {
+  background-color: var(--secondary);
+  color: black;
+  padding: 0.4rem 1rem;
+  border-radius: 5px;
+  margin: 1rem;
+  cursor: pointer;
+  &:hover {
+    background-color: #ff9090;
+  }
+}
+
+.submit-button {
+  background-color: var(--accent);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  margin: 1rem;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--primary);
+    scale: inherit;
+  }
+}
+.close-button {
+  position: absolute;
+  top: 5rem;
+  right: 2rem;
+  padding: 1rem;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 2rem;
+  &:hover {
+    color: #ff9090;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .modal {
     label {

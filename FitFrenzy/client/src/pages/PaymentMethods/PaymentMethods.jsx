@@ -1,5 +1,6 @@
 import { FaX } from "react-icons/fa6";
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import "./PaymentMethods.css";
 
 const Modal = ({ open, children, onClose }) => {
@@ -7,7 +8,9 @@ const Modal = ({ open, children, onClose }) => {
 
   return (
     <div className="modal">
-      <button onClick={onClose}>{FaX}</button>
+      <a className="close-button" onClick={onClose}>
+        {<FaX />}
+      </a>
       {children}
     </div>
   );
@@ -21,6 +24,8 @@ const PaymentMethods = () => {
   const [iban, setIban] = useState("");
   const [bic, setBic] = useState("");
   const [paymentMethods, setPaymentMethods] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessageIsOpen, setErrorMessageIsOpen] = useState(false);
 
   useEffect(() => {
     const storedPaymentMethods =
@@ -53,7 +58,8 @@ const PaymentMethods = () => {
 
   const handleAdd = () => {
     if (!ownerName || !bankName || !iban || !bic) {
-      alert("Please fill all fields");
+      setErrorMessage("Bitte fülle alle Felder aus");
+      setErrorMessageIsOpen(true);
       return;
     }
     const newPaymentMethod = { ownerName, bankName, iban, bic };
@@ -137,11 +143,24 @@ const PaymentMethods = () => {
             onChange={(e) => setBic(e.target.value)}
           />
         </label>
-        <button onClick={handleClose}>Abbrechen</button>
-        <button onClick={handleAdd}>Hinzufügen</button>
+        <p className={errorMessageIsOpen ? "warn" : ""}>{errorMessage}</p>
+        <div className="button-container">
+          <button className="cancel-button" onClick={handleClose}>
+            Abbrechen
+          </button>
+          <button className="submit-button" onClick={handleAdd}>
+            Hinzufügen
+          </button>
+        </div>
       </Modal>
     </div>
   );
 };
 
 export default PaymentMethods;
+
+Modal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
