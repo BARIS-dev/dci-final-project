@@ -67,10 +67,10 @@ function Cart() {
       <h2>Dein Warenkorb</h2>
 
       {cart.length === 0 ? (
-        <h4>
+        <p>
           Dein Warenkorb ist leer! Durchstöbere unsere Kollektion und finde die
           perfekte Ergänzung für deinen Einkaufswagen.
-        </h4>
+        </p>
       ) : (
         <>
           <div className="cart-overview">

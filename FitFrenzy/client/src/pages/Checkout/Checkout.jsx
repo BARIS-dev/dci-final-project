@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./Checkout.css";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
+import { CartContext } from "../../context/cart.context";
 
 const CheckoutPage = () => {
+  const {
+    cart,
+    deleteItem,
+    calculateSubtotal,
+    isDiscountApplied,
+    calculateDiscount,
+    calculateTotal,
+  } = useContext(CartContext);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,9 +39,9 @@ const CheckoutPage = () => {
     setProgress(progress + 1);
   };
 
-  const removeFromCart = (articleId) => {
+  /*  const removeFromCart = (articleId) => {
     console.log(`Artikel mit ID ${articleId} aus dem Warenkorb entfernen`);
-  };
+  }; */
 
   const addToFavorites = (articleId) => {
     console.log(`Artikel mit ID ${articleId} zu den Favoviten hinzufügen`);
@@ -191,60 +201,45 @@ const CheckoutPage = () => {
           <div className="warenkorb-bestätigen">
             <h2>Deine Bestellung</h2>
             <div className="cart-items">
-              <div className="cart-item">
-                <img
-                  src="https://contents.mediadecathlon.com/p2579715/k$afd512396f5014535cdb526d73d8ec1f/sq/skihandschuhe-kinder-warm-wasserdicht-100-blaugrau.jpg?f=3000x3000"
-                  alt="pic2"
-                />
-                <div className="description-product">
-                  <h3>Skihandschuhe</h3>
-                  <h3 style={{ marginBottom: "20px" }}>210 €</h3>
-                  <p>Gröse: M</p>
-                  <p>Farbe: Blue</p>
-                  <p>Artikelnummer: 012/451</p>
-                  <div className="icons-container">
-                    <MdDeleteForever /> |{" "}
-                    <FaRegHeart style={{ marginLeft: "2px" }} />
+              {cart.map((item) => (
+                <div key={item.id} className="cart-item">
+                  <img src={item.image} alt={item.name} />
+                  <div className="description-product">
+                    <h3>{item.name}</h3>
+                    <h3 style={{ marginBottom: "20px" }}>{item.price} €</h3>
+                    <p>Größe: {item.size}</p>
+                    <p>Farbe: {item.color}</p>
+                    <p>Artikelnummer: {item.id}</p>
+                    <div className="icons-container">
+                      <button
+                        onClick={() =>
+                          deleteItem(item.id, item.size, item.color)
+                        }
+                      >
+                        <MdDeleteForever />
+                      </button>
+                      <button onClick={() => addToFavorites(item.id)}>
+                        <FaRegHeart />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="cart-item">
-                <img
-                  src="https://contents.mediadecathlon.com/p2579459/k$f5e462b4b97018c147dbbb4e972ef318/sq/wanderschuhe-damen-halbhoch-wasserdicht-bergwandern-mh100-turkis.jpg?f=3000x3000"
-                  alt="pic"
-                />
-                <div className="description-product">
-                  <h3>Wanderschuhe</h3>
-                  <h3 style={{ marginBottom: "20px" }}>355 €</h3>
-                  <p>Gröse: 38</p>
-                  <p>Farbe: Green</p>
-                  <p>Artikelnummer: 012/803</p>
-                  <div className="icons-container">
-                    <MdDeleteForever /> |{" "}
-                    <FaRegHeart style={{ marginLeft: "2px" }} />
-                  </div>
-                </div>
-              </div>
-              <div className="actions">
-                <button
-                  onClick={() => removeFromCart(formData.articleId)}
-                ></button>
-                <button
-                  onClick={() => addToFavorites(formData.articleId)}
-                ></button>
-              </div>
+              ))}
             </div>
             <div className="review-order">
               <p style={{ marginBottom: "10px", borderRadius: "15px" }}>
-                Zwischnensumme (2 Artikel) : 565€
+                Zwischensumme ({cart.length} Artikel) : {calculateSubtotal} €
               </p>
-
               <p style={{ marginBottom: "25px", borderRadius: "15px" }}>
                 Lieferung: Frei
               </p>
-
               <h3 style={{ borderRadius: "25px", fontSize: "20px" }}>
-                Total: 565€
+                Rabatt:{" "}
+                {isDiscountApplied ? calculateDiscount(calculateSubtotal) : "0"}{" "}
+                €
+              </h3>
+              <h3 style={{ borderRadius: "25px", fontSize: "20px" }}>
+                Total: {calculateTotal()} €
               </h3>
               <p>(inkl. Lieferung und MwSt.) </p>
             </div>
