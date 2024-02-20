@@ -46,11 +46,16 @@
   padding: 10px 20px;
   transition: all 0.3s ease;
   margin-top: 20px;
+  background-color: #e8f3ef;
+  border-radius: 30px;
+  
 }
 
 .submit-button:hover {
   font-size: 20px;
+  color: white;
   padding: 12px 22px;
+  background-color: #569f88;
 }
 
 .liefer-adresse,
@@ -63,7 +68,7 @@
 .warenkorb-bestätigen {
   padding: 20px;
   border-radius: 0;
-  border: 10px solid #569f88;
+  border: 5px solid #569f88;
   height: 700px;
   overflow-y: auto;
 }

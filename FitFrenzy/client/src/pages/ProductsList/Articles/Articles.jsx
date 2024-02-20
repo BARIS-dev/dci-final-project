@@ -25,6 +25,7 @@ function Articles() {
 
   return (
     <section className="card-container">
+
       {Array.isArray(products) &&
         products.map((product) => (
           <section key={product._id} className="card">
@@ -41,6 +42,7 @@ function Articles() {
             </div>
           </section>
         ))}
+
     </section>
   );
 }
@@ -60,16 +62,13 @@ export default Articles;
           console.error("Die Api-Antwort ist kein Array:", response.data);
         }
         
-        
+     
       } catch (error) {
         console.error("Error fetching products", error);
       }
     };
     fetchProducts();
   }, []);
-
-
-
     return (
         <section className="card-container">
           {products.map(product => (
@@ -97,19 +96,6 @@ export default Articles;
     }
     
     export default Articles;/*
-
-
-
-
-   
-
-
-
-
-
-
-
-
 
 /*function Articles() {
   return (
@@ -1073,315 +1059,8 @@ export default Articles;
             </section>
           </div>
         </section>
-
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/p2528845/k$927e6f1741e716528b75cee31918923f/sq/skihandschuhe-herren-gore-tex-reusch-snow-spirit.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">REUSCH</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                40 €
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/m4450099/k$26bc8ff8177032331a095d5065a667d8/sq/reusch-handschuhe-multisport-glove-gore-tex-infinium.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">REUSCH</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                33 €
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/p1902371/k$642d82c2934c4da77c826ab2a971d8c0/sq/jagdhandschuhe-faustlinge-900-warm.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">SOLOGNAC</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                30 €
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/p2579055/k$cd6b61f0c2119aeddf83e56090318991/sq/skihandschuhe-kinder-warm-wasserdicht-900-schwarz.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">WEDZE</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                40 €
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/p2579333/k$212a9df773ff9a49d355ecd344368778/sq/skihandschuhe-erwachsene-freeride-900-braunschwarz.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">Skihandschuhe</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                60 €
-              </div>
-            </section>
-          </div>
-        </section>
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/p2490367/k$e474981cc944a1395f8ca86b4077a183/sq/reithandschuhe-classic-leder-damenherren-schwarz.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">Reithandschuh FOUGANZA</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                30 €
-              </div>
-            </section>
-          </div>
-        </section>
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/m11517931/k$2612c5295ef9de7ad36630818acb798d/sq/opti-men-180tabs-optimum-nutrition.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">OPTIMUM NUTRITION </h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                20 €
-              </div>
-            </section>
-          </div>
-        </section>
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/p2277809/k$e7abdbba7dcb16f69997d452e0ae71c1/sq/energy-gel-hydrogel-multipack-cola-x24.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">POWERBAR</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                45 €
-              </div>
-            </section>
-          </div>
-        </section>
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/p2367921/k$c3ceefdc246a9ed9ae1b5a7e122dc9f4/sq/proteinpulver-whey-isolate-schoko-900-g.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">DOMYO Proteinpulver</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                30 €
-              </div>
-            </section>
-          </div>
-        </section>
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/m14581009/k$e99ba0248f5c6aad6d19c1937a6ade93/sq/gold-standard-100-whey-protein-extreme-milk-chocolate-71-portionen-2270-gramm.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">OPTIMUM NUTRITION Protein Extreme Milk Chocolate</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                45 €
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/m11612817/k$274af6328412af270b006f945df1e836/sq/protein-shaker-800ml-auslaufsichere-trinkflasche-schwarz.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">FSA NUTRITION Protein Shaker 800ml</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                15 €
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/m10817520/k$198a1846c73b2651f7de968c88d6af12/sq/gainer-serious-mass-273kg-optimum-nutrition.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">OPTIMUM NUTRITION Gainer Serious Mass</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                45 €
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <section className="card">
-          <img
-            src="https://contents.mediadecathlon.com/p2483448/k$ad8075ed76501e6440b95515aea41ace/sq/proteinpulver-vegan-750-g-schokolade.jpg?format=auto&f=969x969"
-            alt="Shoes"
-            className="card-img"
-          />
-          <div className="card-details">
-            <h3 className="card.title">WEIDE Proteinpulver Vegan</h3>
-            <section className="card-reviews">
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <AiFillStar className="ratings-star" />
-              <span className="total-reviews">4</span>
-            </section>
-
-            <section className="card-price">
-              <div className="price">
-                28 €
-              </div>
-            </section>
-          </div>
-        </section>
-
       </section>
     </>
   );
 };*/
+

@@ -1,0 +1,62 @@
+/* Size.css */
+
+.sizes-container {
+    margin-top: 20px;
+  }
+  
+  .sizes-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .size-label-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+  
+  .size-label-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .size-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #aab7b2;
+    border-radius: 50%;
+  }
+  
+  .size-label-container:hover input ~ .size-checkmark {
+    background-color: #2e564a;
+  }
+  
+  .size-label-container input:checked ~ .size-checkmark {
+    background-color: #2e564a;
+  }
+  
+  .size-checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .size-label-container input:checked ~ .size-checkmark::after {
+    display: block;
+  }
+  
+  .size-checkmark::after {
+    top: 6.4px;
+    left: 6.4px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+  }
+  
