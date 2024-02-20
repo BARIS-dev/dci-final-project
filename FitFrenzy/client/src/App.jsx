@@ -19,6 +19,8 @@ import ProductsList from "./pages/ProductsList/ProductsList.jsx";
 import MyOrders from "./pages/MyOrders/MyOrders.jsx";
 import PaymentCheck from "./pages/Payment/PaymentCheck.jsx";
 import PaymentSuccess from "./pages/Payment/PaymentSuccess.jsx";
+import Sales from "./pages/Sales/Sales.jsx";
+import Categories from "./pages/Categories/Categories.jsx";
 
 function App() {
   // test data from data folder
@@ -49,13 +51,15 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/categories" element={<Categories />} />
           <Route path="/payment-check" element={<PaymentCheck />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/payment-methods" element={<PaymentMethods />} />
+          <Route path="/sales" element={<Sales />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />}>
             <Route path="product-create" element={<ProductCreate />} />
           </Route>
-          <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="*" element={<h2>Not Found</h2>} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/products-list" element={<ProductsList />} />
         </Routes>

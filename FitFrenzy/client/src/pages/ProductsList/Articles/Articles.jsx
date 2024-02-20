@@ -1,5 +1,5 @@
 //import React, { useState, useEffect } from "react";
-import { useState, useEffect } from "react";
+/*import { useState, useEffect } from "react";
 import axios from "axios";
 import { AiFillStar } from "react-icons/ai";
 import Colors from "../Sidebar/Colors/Colors";
@@ -125,9 +125,10 @@ function Articles() {
   );
 }
 
-export default Articles;
+export default Articles;*/
 
 /*import { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { AiFillStar } from "react-icons/ai";
@@ -149,7 +150,7 @@ function Articles() {
     };
 
     fetchProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   return (
@@ -176,7 +177,7 @@ function Articles() {
   );
 }
 
-export default Articles;*/
+export default Articles;
 
 /*function Articles() {
     const [products, setProducts] = useState([]);

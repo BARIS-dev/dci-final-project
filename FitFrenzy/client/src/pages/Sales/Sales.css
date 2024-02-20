@@ -5,4 +5,104 @@
     background: url("../../assets/img/sales-banner.png") no-repeat center
       center/cover;
   }
+  .card {
+    width: 230px;
+    height: 270px;
+    position: relative;
+  }
+  .card .card-image {
+    width: 100%;
+    height: 70%;
+    cursor: pointer;
+  }
+  .card .card-image .card-pic {
+    width: 100%;
+    height: 100%;
+    transition: 0.4s ease;
+  }
+  .card .card-image .card-pic-hover {
+    width: 100%;
+    height: 100%;
+  }
+  .card .card-image .discount {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .card .card-image .discount p {
+    width: -moz-max-content;
+    width: max-content;
+    height: -moz-max-content;
+    height: max-content;
+    padding: 3px;
+    background-color: red;
+    color: ghostwhite;
+  }
+  .card .card-image .add-basket {
+    width: 100%;
+    height: 30px;
+    border: 1px solid brown;
+    position: absolute;
+    top: 160px;
+    display: flex;
+    flex-direction: row;
+  }
+  .card .card-image .add-basket #piece {
+    width: 20%;
+    border: none;
+    text-align: center;
+    outline: none;
+    border: 1px solid red;
+  }
+  .card .card-image .add-basket #basket-btn {
+    flex: 1;
+    outline: none;
+    border: none;
+    background-color: red;
+    color: ghostwhite;
+    cursor: pointer;
+  }
+  .card .card-image .add-basket #basket-btn:hover {
+    background-color: darkred;
+  }
+  .card .card-image .hidden {
+    display: none;
+  }
+  .card .card-title {
+    width: 100%;
+    height: 30px;
+    background-color: gainsboro;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+  .card .card-title a {
+    text-decoration: none;
+    color: black;
+  }
+  .card .card-title a:hover {
+    text-decoration: underline;
+  }
+  .card .card-text {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .card .price {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+  }
+  .card .price s {
+    color: red;
+    font-size: 1.1rem;
+  }
 }
