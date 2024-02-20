@@ -3,8 +3,10 @@ import "./Checkout.css";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
 import { CartContext } from "../../context/cart.context";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
+  const navigate = useNavigate();
   const {
     cart,
     deleteItem,
@@ -254,9 +256,8 @@ const CheckoutPage = () => {
             <div className="button-container">
               <button
                 onClick={() => {
-                  window.location.href = "/payment-check";
+                  navigate("/payment-check");
                 }}
-                type="submit"
                 className="submit-button"
               >
                 Bestätigen und bezahlen

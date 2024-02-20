@@ -46,7 +46,7 @@ const PaymentSuccess = () => {
       </div>
       <div className="total-price">
         <h4>
-          Gesamtsumme: {total}€ <br />
+          Gesamtsumme: {total.toFixed(2)}€ <br />
           <small>inkl. MwSt.</small> <br />
         </h4>
       </div>

@@ -1,3 +1,54 @@
 {
-  "users": []
+  "users": [
+    {
+      "id": "d311",
+      "firstName": "jhsakfhsadlkj",
+      "lastName": "jhsddklfhsadljk",
+      "username": "jkshdfklsah",
+      "email": "testtest@gmail.com",
+      "password": "test123",
+      "isAdmin": "false",
+      "membership": "free"
+    },
+    {
+      "id": "bcec",
+      "firstName": "max",
+      "lastName": "mustermann",
+      "username": "maxiiii",
+      "email": "max@test.de",
+      "password": "max123",
+      "isAdmin": "false",
+      "membership": "free"
+    },
+    {
+      "id": "8446",
+      "firstName": "max",
+      "lastName": "mustermann",
+      "username": "maxiii",
+      "email": "max@test.de",
+      "password": "max123",
+      "isAdmin": "false",
+      "membership": "free"
+    },
+    {
+      "id": "1636",
+      "firstName": "asdfljkhsdafjklh",
+      "lastName": "ihfsdljkfhdslkjhf",
+      "username": "hhhsjdhsaj",
+      "email": "hallo@test.de",
+      "password": "hallo12",
+      "isAdmin": "false",
+      "membership": "free"
+    },
+    {
+      "id": "d931",
+      "firstName": "max",
+      "lastName": "mustermann",
+      "username": "max1234412",
+      "email": "maxi123@gmail.com",
+      "password": "maxi123",
+      "isAdmin": "false",
+      "membership": "free"
+    }
+  ]
 }

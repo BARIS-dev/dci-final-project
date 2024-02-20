@@ -10,7 +10,8 @@ import {
 } from "react-icons/fa6";
 import { FaSearch, FaPercentage } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
-import { MdNewReleases } from "react-icons/md";
+import { FiPackage } from "react-icons/fi";
+
 import {
   SiNike,
   SiAdidas,
@@ -158,6 +159,9 @@ const Navbar = () => {
                 {cart.length !== 0 ? (
                   <span className="cart-item-count">{cart.length}</span>
                 ) : null}
+              </Link>
+              <Link className="nav-item" to={"/my-orders"}>
+                <FiPackage />
               </Link>
               <Link className="nav-item" to={"/account"}>
                 <FaUser />
