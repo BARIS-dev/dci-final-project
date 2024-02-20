@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+/*import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navigation from './Navigation/Navigation';
 import Articles from './Articles/Articles';
@@ -73,7 +73,10 @@ ProductsList.propTypes = {
     handleFilterChange: PropTypes.func.isRequired
 };
 
-export default ProductsList;
+export default ProductsList;*/
+
+
+
 
 
 
@@ -185,14 +188,15 @@ function ProductsList() {
 
 
 
-export default ProductsList
+export default ProductsList*/
 
-/* var imp import  { useState, useEffect } from 'react';
-import Navigation from "./Navigation/Navigation";
+
+ import  { useState, useEffect } from 'react';
+
 import Articles from "./Articles/Articles"; 
 import Sidebar from "./Sidebar/Sidebar";
 
-//import Card from "./Card"; 
+
 
 function ProductsList() {
     const [filters, setFilters] = useState({
@@ -211,7 +215,7 @@ function ProductsList() {
     }, []);
 
     const applyFilters = () => {
-        // Apply filters to products
+        
         let filteredProducts = products;
 
         if (filters.category) {
@@ -242,7 +246,7 @@ function ProductsList() {
 
     return (
         <>
-            <Navigation />
+            
             <Articles products={applyFilters()} /> 
             <Sidebar handleFilterChange={handleFilterChange} /> 
             
@@ -250,7 +254,7 @@ function ProductsList() {
     );
 }
 
-export default ProductsList;*/
+export default ProductsList;
 
 
  /* imp import { useState, useEffect } from "react";

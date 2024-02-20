@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+/*import PropTypes from 'prop-types';
 
 function Sizes({ sizes, selectedSizes, handleSizeChange }) {
   return (
@@ -6,12 +6,12 @@ function Sizes({ sizes, selectedSizes, handleSizeChange }) {
       {sizes.map((size) => (
         <div key={size}>
           <input
-            type="checkbox"
-            id={size}
-            name={size}
-            checked={selectedSizes ? selectedSizes.includes(size) : false}
-            onChange={(e) => handleSizeChange(e.target.name)}
-          />
+      type="checkbox"
+      id={size}
+      name={size}
+      checked={selectedSizes ? selectedSizes.includes(size) : false}
+      onChange={(e) => handleSizeChange(e.target.name)}
+      />
           <label htmlFor={size}>{size}</label>
         </div>
       ))}
@@ -25,7 +25,7 @@ Sizes.propTypes = {
   handleSizeChange: PropTypes.func.isRequired,
 };
 
-export default Sizes;
+export default Sizes;*/
 
 
 
@@ -36,7 +36,7 @@ export default Sizes;
 
 
 //import React from 'react';
-/*import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Input from "../../../../components/compAndreea/Input";
 import "./Size.css"
 
@@ -82,4 +82,4 @@ Sizes.propTypes = {
   handleChange: PropTypes.func.isRequired
 };
 
-export default Sizes;*/
+export default Sizes;
