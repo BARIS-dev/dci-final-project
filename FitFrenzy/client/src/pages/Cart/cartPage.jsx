@@ -67,10 +67,10 @@ function Cart() {
       <h2>Dein Warenkorb</h2>
 
       {cart.length === 0 ? (
-        <h4>
+        <p>
           Dein Warenkorb ist leer! Durchstöbere unsere Kollektion und finde die
           perfekte Ergänzung für deinen Einkaufswagen.
-        </h4>
+        </p>
       ) : (
         <>
           <div className="cart-overview">
@@ -89,7 +89,9 @@ function Cart() {
 
                       <div className="cart-item-details">
                         <div className="remove-btn-row">
-                          <p className="product-name">{item.name}</p>
+                          <Link to={`/product/${item.id}`}>
+                            <p className="product-name">{item.name}</p>
+                          </Link>
                           <button
                             title="Delete this product"
                             className="remove-btn"

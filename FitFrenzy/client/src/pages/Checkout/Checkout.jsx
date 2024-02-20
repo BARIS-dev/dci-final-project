@@ -3,6 +3,7 @@ import "./Checkout.css";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
 import { CartContext } from "../../context/cart.context";
+
 const CheckoutPage = () => {
   const {
     cart,
@@ -12,9 +13,11 @@ const CheckoutPage = () => {
     calculateDiscount,
     calculateTotal,
   } = useContext(CartContext);
+
   const subTotal = calculateSubtotal;
   const discount = calculateDiscount(subTotal);
   const total = calculateTotal();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,9 +38,11 @@ const CheckoutPage = () => {
     console.log(formData);
     setProgress(progress + 1);
   };
+
   /*  const removeFromCart = (articleId) => {
     console.log(`Artikel mit ID ${articleId} aus dem Warenkorb entfernen`);
   }; */
+
   const addToFavorites = (articleId) => {
     console.log(`Artikel mit ID ${articleId} zu den Favoviten hinzufügen`);
   };

@@ -37,19 +37,19 @@ export function RatingReviewsTab() {
 
     if (sortOption === "default") {
       const defaultSort = [...reviews].sort(
-        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        (a, b) => new Date(a.date) - new Date(b.date)
       );
       setReviews(defaultSort);
     } else if (sortOption === "most-recent") {
       const sorted = [...reviews].sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        (a, b) => new Date(b.date) - new Date(a.date)
       );
       setReviews(sorted);
     } else if (sortOption === "highest-rating") {
-      const sorted = [...reviews].sort((a, b) => b.ratingScore - a.ratingScore);
+      const sorted = [...reviews].sort((a, b) => b.rating - a.rating);
       setReviews(sorted);
     } else if (sortOption === "lowest-rating") {
-      const sorted = [...reviews].sort((a, b) => a.ratingScore - b.ratingScore);
+      const sorted = [...reviews].sort((a, b) => a.rating - b.rating);
       setReviews(sorted);
     }
   };
@@ -80,16 +80,16 @@ export function RatingReviewsTab() {
         {reviews.map((review) => {
           return (
             <div className="review-card" key={review._id}>
-              <Rating rating={review.ratingScore} />
+              <Rating rating={review.rating} />
               <div className="reviewer">
-                <h4>{review.reviewerName}</h4>{" "}
+                <h4>{review.author}</h4>{" "}
                 <div className="verified-badge">
                   <span className="tick-mark">&#10003;</span>
                 </div>
               </div>
 
-              <p>{review.reviewText}</p>
-              <p>Rezension vom {formatDate(review.createdAt)}</p>
+              <p>{review.text}</p>
+              <p>Rezension vom {formatDate(review.date)}</p>
             </div>
           );
         })}

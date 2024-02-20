@@ -15,27 +15,39 @@ function Favorites() {
         <p>Startseite &raquo; Favoritenliste</p>
       </div>
       <h2>Deine Favoritenliste</h2>
-      <div className="favorites-container">
-        {favorites.map((favorite) => (
-          <div key={favorite.id} className="favorites-item">
-            <img src={favorite.image} alt={favorite.name} />
-            <div className="favorite-item-right">
-              <div className="favorite-item-info">
-                <Link to={`/product/${favorite.id}`}>
-                  <h5>{favorite.name}</h5>
-                </Link>
-                <p>{favorite.price} €</p>
+
+      {favorites.length === 0 ? (
+        <p>
+          Du hast noch keine Produkte in deiner Favoritenliste.
+          <Link to="/products-list" className="highlight-link">
+            {" "}
+            Hier geht&apos;s zu den Produkten.
+          </Link>
+        </p>
+      ) : (
+        <div className="favorites-container">
+          {favorites.map((favorite) => (
+            <div key={favorite.id} className="favorites-item">
+              <img src={favorite.image} alt={favorite.name} />
+              <div className="favorite-item-right">
+                <div className="favorite-item-info">
+                  <Link to={`/product/${favorite.id}`}>
+                    <h5>{favorite.name}</h5>
+                  </Link>
+                  <p>{favorite.price} €</p>
+                </div>
+                <button
+                  className="remove-btn"
+                  onClick={() => deleteFavorite(favorite.id)}
+                >
+                  Entfernen
+                </button>
               </div>
-              <button
-                className="remove-btn"
-                onClick={() => deleteFavorite(favorite.id)}
-              >
-                Entfernen
-              </button>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+
       <ToastContainer
         position="top-right"
         autoClose={3000}
