@@ -254,7 +254,7 @@ const CheckoutPage = () => {
             <div className="button-container">
               <button
                 onClick={() => {
-                  window.location.href = "/payment-success";
+                  window.location.href = "/payment-check";
                 }}
                 type="submit"
                 className="submit-button"

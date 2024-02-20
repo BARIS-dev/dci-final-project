@@ -3,7 +3,7 @@ import "./Sales.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Sales = ({ product }) => {
+const Sales = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchProducts = async () => {
