@@ -127,7 +127,13 @@ function Cart() {
                           <p>{item.color}</p>
                         </div>
                         <div className="price-row">
-                          <p className="product-price">{item.price} €</p>
+                          <p
+                            className={`product-price ${
+                              item.sale ? "sale-price" : ""
+                            }`}
+                          >
+                            {item.price} €
+                          </p>
                           <QuantityInput
                             quantityChangeHandler={(quantity) =>
                               amountHandler(

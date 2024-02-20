@@ -114,6 +114,10 @@ a {
               font-weight: bold;
             }
 
+            .sale-price {
+              color: red;
+            }
+
             .quantity-input {
               button {
                 border: none;
