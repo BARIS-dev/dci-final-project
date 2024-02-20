@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import "./Sales.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { AiFillStar } from "react-icons/ai";
 
 const Sales = () => {
   const [products, setProducts] = useState([]);
@@ -25,7 +27,40 @@ const Sales = () => {
     <>
       <div className="sales-container">
         <div className="sales-hero"></div>
-        <div className="sales-products-container">
+        <section className="card-container">
+          {Array.isArray(products) &&
+            discountedProducts.map((product) => (
+              <section key={product._id} className="card">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="card-img"
+                />
+                <div className="discount">
+                  <p>{product.discount}%</p>
+                </div>
+                <div className="card-details">
+                  <Link to={`/product/${product._id}`}>
+                    <h3 className="card-title">{product.name}</h3>
+                  </Link>
+                  <div className="price">
+                    <s>{product.price}</s>
+                    <p>
+                      {salePrice(product.price, product.discount).toFixed(2)}{" "}
+                    </p>
+                  </div>
+                  <section className="card-reviews">
+                    <AiFillStar className="ratings-star" />
+                    <span className="total-reviews">
+                      {product.averageRating}
+                    </span>
+                  </section>
+                </div>
+              </section>
+            ))}
+        </section>
+
+        {/* <div className="sales-products-container">
           {discountedProducts.map((product) => (
             <div className="card" key={product.id}>
               <div className="card-image">
@@ -37,12 +72,6 @@ const Sales = () => {
                 <div className="discount">
                   <p>{product.discount}%</p>
                 </div>
-                <div className="add-basket hidden">
-                  <input type="number" id="piece" placeholder="1" min="1" />
-                  <button id="basket-btn" type="submit">
-                    In den Warenkorb
-                  </button>
-                </div>
               </div>
               <div className="card-title">
                 <a href="#">{product.name}</a>
@@ -53,7 +82,7 @@ const Sales = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </>
   );
