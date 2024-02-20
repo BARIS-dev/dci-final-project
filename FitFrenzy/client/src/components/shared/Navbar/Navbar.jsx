@@ -91,10 +91,10 @@ const Navbar = () => {
                 className="nav-item"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <FaShop /> Shop
+                <FaShop /> Produkte
               </Link>
               <Link
-                to={"/"}
+                to={"/prodcuts-list"}
                 className="nav-item"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -106,13 +106,6 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 <BiSolidCategory /> Kategorien
-              </Link>
-              <Link
-                to={"/"}
-                className="nav-item"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <MdNewReleases /> Neu hinzugefügt
               </Link>
               <Link
                 to={"/"}
@@ -135,12 +128,16 @@ const Navbar = () => {
           </div>
           <div className="nav-center">
             <ul className="nav-links pc-nav">
-              <Link className="nav-item">
+              <Link to={"/products-list"} className="nav-item">
+                Produkte
+              </Link>
+              <Link to={"/sales"} className="nav-item">
                 <strong>SALE %</strong>
               </Link>
               <Link className="nav-item">Kategorien</Link>
-              <Link className="nav-item">Neu hinzugefügt</Link>
-              <Link className="nav-item">Marken</Link>
+              <Link to={"/products-list"} className="nav-item">
+                Marken
+              </Link>
             </ul>
           </div>
           <div className="nav-right">
