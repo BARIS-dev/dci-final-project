@@ -18,39 +18,43 @@ const Sales = () => {
     fetchProducts();
   }, []);
 
+  const discountedProducts = products.filter((product) => product.discount > 0);
+
   return (
     <>
       <div className="sales-container">
         <div className="sales-hero"></div>
         <div className="sales-products-container">
-          <div className="card">
-            <div className="card-image">
-              <img
-                className="card-pic"
-                src={products.image}
-                alt={products.name}
-              />
-              <div className="discount">
-                <p>{products.discount}</p>
+          {discountedProducts.map((product) => (
+            <div className="card" key={product.id}>
+              <div className="card-image">
+                <img
+                  className="card-pic"
+                  src={product.image}
+                  alt={product.name}
+                />
+                <div className="discount">
+                  <p>{product.discount}</p>
+                </div>
+                <div className="add-basket hidden">
+                  <input type="number" id="piece" placeholder="1" min="1" />
+                  <button id="basket-btn" type="submit">
+                    In den Warenkorb
+                  </button>
+                </div>
               </div>
-              <div className="add-basket hidden">
-                <input type="number" id="piece" placeholder="1" min="1" />
-                <button id="basket-btn" type="submit">
-                  In den Warenkorb
-                </button>
+              <div className="card-title">
+                <a href="#">{product.name}</a>
+              </div>
+              <div className="card-text">
+                <p>{product.description}</p>
+              </div>
+              <div className="price">
+                <s>{product.originalPrice}</s>
+                <p>{product.salePrice}</p>
               </div>
             </div>
-            <div className="card-title">
-              <a href="#">{products.name}</a>
-            </div>
-            <div className="card-text">
-              <p>{products.description}</p>
-            </div>
-            <div className="price">
-              <s>{products.originalPrice}</s>
-              <p>{products.salePrice}</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </>

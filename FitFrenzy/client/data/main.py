@@ -332,7 +332,7 @@ cat_ipsum = "Purr sleep on your face destroy the blinds. Jump around on couch, m
 cupcake_ipsum_words = cupcake_ipsum.split()
 cat_ipsum_words = cat_ipsum.split()
 
-
+discount_items = random.sample(data, 15)
 colors = ["Red", "Blue", "Green", "Black", "White"]
 sizes = ["S", "M", "L", "XL"]
 names = ["Alice", "Andreea", "Barış", "Bob", "Charlie", "Dave", "Eve", "Frank", "Grace", "Heidi", "Ivan", "Judy", "Kim", "Mallory", "Nia", "Oscar", "Ömer", "Pat", "Quincy", "Randy", "Sybil", "Trudy", "Victor", "Wendy"]
@@ -365,7 +365,10 @@ for item in data:
             review = {"author": review_author, "text": review_text, "date": review_date.strftime("%Y-%m-%d"), "rating": review_rating}
             item["reviews"].append(review)
         item["averageRating"] = round(total_rating / item["numReviews"], 1) if item["numReviews"] else 0
-        
+discount_items = random.sample(data, 15)
+for item in discount_items:
+    item["discount"] = random.randint(40, 70)
+
 with open('modified_products.json', 'w') as f:
     json.dump(data, f, indent=4)
 
