@@ -61,7 +61,10 @@ function Cart() {
   return (
     <section className="cart-container">
       <div>
-        <p>Startseite &raquo; Warenkorb</p>
+        <p>
+          <Link to={"/"}>Startseite</Link> &raquo;{" "}
+          <Link to={"/cart"}>Warenkorb</Link>
+        </p>
       </div>
 
       <h2>Dein Warenkorb</h2>
