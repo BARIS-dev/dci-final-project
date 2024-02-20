@@ -1,0 +1,11 @@
+.payment-check {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.payment-success {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
