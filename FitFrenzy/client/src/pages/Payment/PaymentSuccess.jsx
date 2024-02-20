@@ -1,30 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import "./Payment.css";
-import { QuantityInput } from "../../components/productDetails/productQuantityInput/quantityInput.jsx";
 import { CartContext } from "../../context/cart.context.jsx";
 
 const PaymentSuccess = () => {
-  const {
-    cart,
-    updateQuantity,
-    deleteItem,
-    calculateSubtotal,
-    applyDiscount,
-    isDiscountApplied,
-    calculateDiscount,
-    calculateTotal,
-  } = useContext(CartContext);
-
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    const storedItems = JSON.parse(localStorage.getItem("cart"));
-    if (storedItems) {
-      setItems(storedItems);
-    }
-  }, []);
-
-  const totalPrice = items.reduce((total, item) => total + item.price, 0);
+  const { cart, calculateDiscount, calculateTotal } = useContext(CartContext);
 
   return (
     <div className="payment-success">
@@ -65,7 +44,10 @@ const PaymentSuccess = () => {
         })}
       </div>
       <div className="total-price">
-        <h4>Gesamtsumme: {totalPrice}€</h4>
+        <h4>
+          Gesamtsumme: {calculateTotal}€ <br />({calculateDiscount}€ hast du bei
+          deinem Einkauf gespart.)
+        </h4>
         <small>inkl. MwSt.</small>
       </div>
       <a className="continue-shopping" href="/">
