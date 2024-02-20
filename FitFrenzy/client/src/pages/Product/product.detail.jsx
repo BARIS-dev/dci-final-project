@@ -42,7 +42,6 @@ const ProductDetail = () => {
       try {
         const response = await axios.get(`http://localhost:8000/product/${id}`);
         setProduct(response.data.answer.data);
-
         setChosenProduct({
           //set default values to the chosenProduct
           id: response.data.answer.data._id,
@@ -80,7 +79,6 @@ const ProductDetail = () => {
     }
 
     addToCart(product);
-    console.log(product);
     toast.success("Produkt zum Warenkorb hinzugefügt");
 
     setChosenProduct({
@@ -114,7 +112,9 @@ const ProductDetail = () => {
           {product.averageRating && (
             <div className="product-avg-rating">
               <Rating rating={product.averageRating} />
-              {product.averageRating.toFixed(0)}/5
+              {product.averageRating === 0
+                ? "Noch keine Bewertungen"
+                : product.averageRating.toFixed(0) + "/5"}
             </div>
           )}
 
