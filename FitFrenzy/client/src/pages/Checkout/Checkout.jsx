@@ -1,9 +1,20 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./Checkout.css";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
-
+import { CartContext } from "../../context/cart.context";
 const CheckoutPage = () => {
+  const {
+    cart,
+    deleteItem,
+    calculateSubtotal,
+    isDiscountApplied,
+    calculateDiscount,
+    calculateTotal,
+  } = useContext(CartContext);
+  const subTotal = calculateSubtotal;
+  const discount = calculateDiscount(subTotal);
+  const total = calculateTotal();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -11,9 +22,7 @@ const CheckoutPage = () => {
     paymentMethod: "Kreditkarte",
     promoCode: "",
   });
-
   const { progress, setProgress } = useState(0);
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevState) => ({
@@ -21,43 +30,38 @@ const CheckoutPage = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-
     setProgress(progress + 1);
   };
-
-  const removeFromCart = (articleId) => {
+  /*  const removeFromCart = (articleId) => {
     console.log(`Artikel mit ID ${articleId} aus dem Warenkorb entfernen`);
-  };
-
+  }; */
   const addToFavorites = (articleId) => {
     console.log(`Artikel mit ID ${articleId} zu den Favoviten hinzufügen`);
   };
-
   return (
     <div>
       <div className="progress-bar">
         <div className="progress-step">
           <div className={`progress-circle ${progress >= 0 ? "active" : ""}`}>
             <span className="circle-number">1</span>
-            <span className="circle-check">✔</span>
+            <span className="circle-check">:heavy_check_mark:</span>
           </div>
           <div className="step-text">Lieferadresse</div>
         </div>
         <div className="progress-step">
           <div className={`progress-circle ${progress >= 1 ? "active" : ""}`}>
             <span className="circle-number">2</span>
-            <span className="circle-check">✔</span>
+            <span className="circle-check">:heavy_check_mark:</span>
           </div>
           <div className="step-text">Versandart</div>
         </div>
         <div className="progress-step">
           <div className={`progress-circle ${progress >= 2 ? "active" : ""}`}>
             <span className="circle-number">3</span>
-            <span className="circle-check">✔</span>
+            <span className="circle-check">:heavy_check_mark:</span>
           </div>
           <div className="step-text">Warenkorb bestätigen</div>
         </div>
@@ -85,7 +89,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
               required
             />
-
             <label htmlFor="telefon">Telefonnummer:</label>
             <input
               type="text"
@@ -95,7 +98,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
               required
             />
-
             <label htmlFor="land" style={{ marginTop: "10px" }}>
               Land/Region:
             </label>
@@ -107,7 +109,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
               required
             />
-
             <label htmlFor="adresse">Adresse:</label>
             <input
               type="text"
@@ -117,7 +118,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
               required
             />
-
             <label htmlFor="stadt">Stadt:</label>
             <input
               type="text"
@@ -127,7 +127,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
               required
             />
-
             <label htmlFor="postleitzahl">Postleizahl:</label>
             <input
               type="text"
@@ -152,7 +151,6 @@ const CheckoutPage = () => {
               <option value="standard">Standard</option>
               <option value="express">Express</option>
             </select>
-
             <div className="zahlungsart">
               <label>Zahlungsart:</label>
               {["kreditkarte", "paypal", "bank_überweisung", "google_pay"].map(
@@ -191,60 +189,43 @@ const CheckoutPage = () => {
           <div className="warenkorb-bestätigen">
             <h2>Deine Bestellung</h2>
             <div className="cart-items">
-              <div className="cart-item">
-                <img
-                  src="https://contents.mediadecathlon.com/p2579715/k$afd512396f5014535cdb526d73d8ec1f/sq/skihandschuhe-kinder-warm-wasserdicht-100-blaugrau.jpg?f=3000x3000"
-                  alt="pic2"
-                />
-                <div className="description-product">
-                  <h3>Skihandschuhe</h3>
-                  <h3 style={{ marginBottom: "20px" }}>210 €</h3>
-                  <p>Gröse: M</p>
-                  <p>Farbe: Blue</p>
-                  <p>Artikelnummer: 012/451</p>
-                  <div className="icons-container">
-                    <MdDeleteForever /> |{" "}
-                    <FaRegHeart style={{ marginLeft: "2px" }} />
+              {cart.map((item) => (
+                <div key={item.id} className="cart-item">
+                  <img src={item.image} alt={item.name} />
+                  <div className="description-product">
+                    <h3>{item.name}</h3>
+                    <h3 style={{ marginBottom: "20px" }}>{item.price} €</h3>
+                    <p>Größe: {item.size}</p>
+                    <p>Farbe: {item.color}</p>
+                    <p>Artikelnummer: {item.id}</p>
+                    <div className="icons-container">
+                      <button
+                        onClick={() =>
+                          deleteItem(item.id, item.size, item.color)
+                        }
+                      >
+                        <MdDeleteForever />
+                      </button>
+                      <button onClick={() => addToFavorites(item.id)}>
+                        <FaRegHeart />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="cart-item">
-                <img
-                  src="https://contents.mediadecathlon.com/p2579459/k$f5e462b4b97018c147dbbb4e972ef318/sq/wanderschuhe-damen-halbhoch-wasserdicht-bergwandern-mh100-turkis.jpg?f=3000x3000"
-                  alt="pic"
-                />
-                <div className="description-product">
-                  <h3>Wanderschuhe</h3>
-                  <h3 style={{ marginBottom: "20px" }}>355 €</h3>
-                  <p>Gröse: 38</p>
-                  <p>Farbe: Green</p>
-                  <p>Artikelnummer: 012/803</p>
-                  <div className="icons-container">
-                    <MdDeleteForever /> |{" "}
-                    <FaRegHeart style={{ marginLeft: "2px" }} />
-                  </div>
-                </div>
-              </div>
-              <div className="actions">
-                <button
-                  onClick={() => removeFromCart(formData.articleId)}
-                ></button>
-                <button
-                  onClick={() => addToFavorites(formData.articleId)}
-                ></button>
-              </div>
+              ))}
             </div>
             <div className="review-order">
               <p style={{ marginBottom: "10px", borderRadius: "15px" }}>
-                Zwischnensumme (2 Artikel) : 565€
+                Zwischensumme ({cart.length} Artikel) : {subTotal.toFixed(2)} €
               </p>
-
               <p style={{ marginBottom: "25px", borderRadius: "15px" }}>
                 Lieferung: Frei
               </p>
-
               <h3 style={{ borderRadius: "25px", fontSize: "20px" }}>
-                Total: 565€
+                Rabatt: {isDiscountApplied ? discount.toFixed(2) : "0"} €
+              </h3>
+              <h3 style={{ borderRadius: "25px", fontSize: "20px" }}>
+                Total: {total.toFixed(2)} €
               </h3>
               <p>(inkl. Lieferung und MwSt.) </p>
             </div>
@@ -259,5 +240,4 @@ const CheckoutPage = () => {
     </div>
   );
 };
-
 export default CheckoutPage;
