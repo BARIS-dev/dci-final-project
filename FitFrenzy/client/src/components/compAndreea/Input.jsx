@@ -9,7 +9,7 @@ function Input ({ handleChange, value, title, name, color}) {
         {title}
     </label>
   );
-};
+}
 
 
 Input.propTypes = {

@@ -1,4 +1,39 @@
+
+import PropTypes from 'prop-types';
+//import Input from "../../../../components/compAndreea/Input"
 import './Colors.css'
+
+function Colors({ colors, selectedColors, handleColorChange }) {
+  return (
+    <div>
+      <h3>Colors</h3>
+      {colors.map((color) => (
+        <label key={color}>
+          <input
+            type="checkbox"
+            value={color}
+            checked={selectedColors && selectedColors.includes(color)} 
+            onChange={() => handleColorChange(color)}
+          />
+          {color}
+        </label>
+      ))}
+    </div>
+  );
+}
+
+Colors.propTypes = {
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedColors: PropTypes.arrayOf(PropTypes.string), 
+  handleColorChange: PropTypes.func.isRequired,
+};
+
+export default Colors;
+
+
+
+
+/*import './Colors.css'
 import Input from "../../../../components/compAndreea/Input"
 import PropTypes from 'prop-types';
 
@@ -67,7 +102,7 @@ function Colors ({handleChange}) {
     handleChange: PropTypes.func.isRequired
   };
 
-  export default Colors
+  export default Colors*/
   
   
 

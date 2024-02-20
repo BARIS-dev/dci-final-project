@@ -1,3 +1,87 @@
+import  { useState, useEffect } from 'react';
+import axios from 'axios';
+import Navigation from './Navigation/Navigation';
+import Articles from './Articles/Articles';
+import Sidebar from './Sidebar/Sidebar';
+import PropTypes from 'prop-types';
+
+function ProductsList() {
+    const [products, setProducts] = useState([]);
+    const [filters, setFilters] = useState({
+        category: null,
+        price: null,
+        colors: [],
+        sizes: []
+    });
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get("http://localhost:8000/products");
+                setProducts(response.data.answer.data);
+            } catch (error) {
+                console.error("Error fetching products", error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+   
+    const applyFilters = () => {
+       
+        let filteredProducts = products;
+
+        if (filters.category) {
+            filteredProducts = filteredProducts.filter(product => product.category === filters.category);
+        }
+
+        if (filters.price) {
+            
+            filteredProducts = filteredProducts.filter(product => product.price <= filters.price);
+        }
+
+        if (filters.colors.length > 0) {
+            filteredProducts = filteredProducts.filter(product => filters.colors.includes(product.color));
+        }
+
+        if (filters.sizes.length > 0) {
+            filteredProducts = filteredProducts.filter(product => filters.sizes.some(size => product.sizes.includes(size)));
+        }
+
+        return filteredProducts;
+    };
+
+    
+    const handleFilterChange = (filterType, value) => {
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [filterType]: value
+        }));
+    };
+
+    return (
+        <>
+            <Navigation />
+            <Articles products={applyFilters()} /> 
+            <Sidebar handleFilterChange={handleFilterChange} /> 
+        </>
+    );
+}
+
+ProductsList.propTypes = {
+    handleFilterChange: PropTypes.func.isRequired
+};
+
+export default ProductsList;
+
+
+
+
+
+
+
+
 //import React from 'react'
 /*import Navigation from "./Navigation/Navigation"
 import Articles from "./Articles/Articles"
@@ -169,7 +253,7 @@ function ProductsList() {
 export default ProductsList;*/
 
 
- import { useState, useEffect } from "react";
+ /* imp import { useState, useEffect } from "react";
 import axios from "axios";
 import { AiFillStar } from "react-icons/ai";
 //import PropTypes from "prop-types";
@@ -265,7 +349,7 @@ function ProductsList() {
   );
 }
 
-export default ProductsList;
+export default ProductsList;*/
 
 
 

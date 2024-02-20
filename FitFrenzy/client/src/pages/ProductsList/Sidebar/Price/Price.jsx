@@ -1,4 +1,39 @@
-import './Price.css';
+//import React from "react";
+import PropTypes from 'prop-types';
+
+
+
+function Prices({ prices, selectedPrice, handlePriceChange }) {
+  return (
+    <div>
+      <h3>Price</h3>
+      {prices.map((price) => (
+        <label key={price}>
+          <input
+            type="radio"
+            value={price}
+            checked={selectedPrice === price}
+            onChange={handlePriceChange}
+          />
+          {price}
+        </label>
+      ))}
+    </div>
+  );
+}
+
+Prices.propTypes = {
+  prices: PropTypes.arrayOf(PropTypes.number).isRequired,
+  selectedPrice: PropTypes.number.isRequired,
+  handlePriceChange: PropTypes.func.isRequired,
+};
+
+
+export default Prices;
+
+
+
+/*import './Price.css';
 import Input from "../../../../components/compAndreea/Input"
 import PropTypes from 'prop-types';
 
@@ -60,7 +95,7 @@ Price.propTypes = {
   handleChange: PropTypes.func.isRequired
 };
 
-export default Price;
+export default Price;*/
 
 
 
