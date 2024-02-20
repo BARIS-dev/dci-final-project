@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import "./Payment.css";
 import { CartContext } from "../../context/cart.context.jsx";
 
 const PaymentSuccess = () => {
   const { cart, calculateDiscount, calculateTotal } = useContext(CartContext);
+  const total = calculateTotal();
 
   return (
     <div className="payment-success">
@@ -45,10 +46,9 @@ const PaymentSuccess = () => {
       </div>
       <div className="total-price">
         <h4>
-          Gesamtsumme: {calculateTotal}€ <br />({calculateDiscount}€ hast du bei
-          deinem Einkauf gespart.)
+          Gesamtsumme: {total}€ <br />
+          <small>inkl. MwSt.</small> <br />
         </h4>
-        <small>inkl. MwSt.</small>
       </div>
       <a className="continue-shopping" href="/">
         Weiter shoppen!
