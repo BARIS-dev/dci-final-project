@@ -6,6 +6,7 @@ import Colors from "../Sidebar/Colors/Colors";
 import Sizes from "../Sidebar/Size/Size";
 import Prices from "../Sidebar/Price/Price";
 import "./Articles.css";
+import { Link } from "react-router-dom";
 
 function Articles() {
   const [products, setProducts] = useState([]);
@@ -34,8 +35,9 @@ function Articles() {
 
   const filterProducts = () => {
     const filtered = products.filter((product) => {
-      const matchesSearch =
-        product.name.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesSearch = product.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
 
       const matchesColors =
         selectedColors.length === 0 ||
@@ -101,20 +103,22 @@ function Articles() {
                 className="card-img"
               />
               <div className="card-details">
-                <h3 className="card-title">{product.name}</h3>
+                <Link to={`/product/${product._id}`}>
+                  <h3 className="card-title">{product.name}</h3>
+                </Link>
                 <p className="card-price">Price: {product.price} €</p>
                 <section className="card-reviews">
                   <AiFillStar className="ratings-star" />
-                  <span className="total-reviews">
-                    {product.averageRating}
-                  </span>
+                  <span className="total-reviews">{product.averageRating}</span>
                 </section>
               </div>
             </section>
           ))}
         </section>
         {filteredProducts.length === 0 && (
-          <div className="no-results">No products match the selected filters.</div>
+          <div className="no-results">
+            No products match the selected filters.
+          </div>
         )}
       </div>
     </div>
@@ -123,13 +127,8 @@ function Articles() {
 
 export default Articles;*/
 
+/*import { useState, useEffect } from "react";
 
-
-
-
-
-
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { AiFillStar } from "react-icons/ai";
@@ -179,11 +178,6 @@ function Articles() {
 }
 
 export default Articles;
-
-
-
-
-
 
 /*function Articles() {
     const [products, setProducts] = useState([]);
@@ -1199,4 +1193,3 @@ export default Articles;
     </>
   );
 };*/
-

@@ -101,6 +101,7 @@ header {
         border: none;
         outline: none;
         background-color: transparent;
+        width: fit-content;
       }
       a {
         padding: 0.5rem 1rem;
