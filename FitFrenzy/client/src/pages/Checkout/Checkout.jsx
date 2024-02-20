@@ -14,6 +14,12 @@ const CheckoutPage = () => {
     calculateTotal,
   } = useContext(CartContext);
 
+  const subTotal = calculateSubtotal;
+
+  const discount = calculateDiscount(subTotal);
+
+  const total = calculateTotal();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -228,18 +234,16 @@ const CheckoutPage = () => {
             </div>
             <div className="review-order">
               <p style={{ marginBottom: "10px", borderRadius: "15px" }}>
-                Zwischensumme ({cart.length} Artikel) : {calculateSubtotal} €
+                Zwischensumme ({cart.length} Artikel) : {subTotal.toFixed(2)} €
               </p>
               <p style={{ marginBottom: "25px", borderRadius: "15px" }}>
                 Lieferung: Frei
               </p>
               <h3 style={{ borderRadius: "25px", fontSize: "20px" }}>
-                Rabatt:{" "}
-                {isDiscountApplied ? calculateDiscount(calculateSubtotal) : "0"}{" "}
-                €
+                Rabatt: {isDiscountApplied ? discount.toFixed(2) : "0"} €
               </h3>
               <h3 style={{ borderRadius: "25px", fontSize: "20px" }}>
-                Total: {calculateTotal()} €
+                Total: {total.toFixed(2)} €
               </h3>
               <p>(inkl. Lieferung und MwSt.) </p>
             </div>
