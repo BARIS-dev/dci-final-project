@@ -6,6 +6,7 @@ export const CartContext = createContext();
 export const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [isDiscountApplied, setIsDiscountApplied] = useState(false);
+  const [isWrappingPaperApplied, setIsWrappingPaperApplied] = useState(false);
 
   const addToCart = (item) => {
     if (!cart) {
@@ -112,8 +113,16 @@ export const CartContextProvider = ({ children }) => {
     return isDiscountApplied ? subtotal * 0.1 : 0;
   };
 
+  const calculateWrappingPaperCost = () => {
+    return isWrappingPaperApplied ? 2 : 0;
+  };
+
   const calculateTotal = () => {
-    return calculateSubtotal - calculateDiscount(calculateSubtotal);
+    return (
+      calculateSubtotal -
+      calculateDiscount(calculateSubtotal) +
+      calculateWrappingPaperCost(calculateSubtotal)
+    );
   };
 
   useEffect(() => {
@@ -135,6 +144,8 @@ export const CartContextProvider = ({ children }) => {
         applyDiscount,
         setIsDiscountApplied,
         calculateDiscount,
+        setIsWrappingPaperApplied,
+        calculateWrappingPaperCost,
         calculateTotal,
       }}
     >

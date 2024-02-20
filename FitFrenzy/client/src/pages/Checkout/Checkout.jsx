@@ -11,6 +11,8 @@ const CheckoutPage = () => {
     calculateSubtotal,
     isDiscountApplied,
     calculateDiscount,
+    setIsWrappingPaperApplied,
+
     calculateTotal,
   } = useContext(CartContext);
 
@@ -46,6 +48,15 @@ const CheckoutPage = () => {
   const addToFavorites = (articleId) => {
     console.log(`Artikel mit ID ${articleId} zu den Favoviten hinzufügen`);
   };
+
+  const selectWrappingPaper = (e) => {
+    if (e.target.value === "yes") {
+      setIsWrappingPaperApplied(true);
+    } else {
+      setIsWrappingPaperApplied(false);
+    }
+  };
+
   return (
     <div>
       <div className="progress-bar">
@@ -180,14 +191,14 @@ const CheckoutPage = () => {
                 )
               )}
               <div className="gutscheincode">
-                <label htmlFor="gutscheincode">Gutscheincode:</label>
-                <input
-                  type="text"
-                  id="gutscheincode"
-                  name="gutscheincode"
-                  value={formData.gutscheincode}
-                  onChange={handleChange}
-                />
+                <label htmlFor="gutscheincode">Geschenkpapier:</label>
+                <select onChange={selectWrappingPaper}>
+                  <option value="0">
+                    Möchtest du dein Produkt als Geschenk verpacken?
+                  </option>
+                  <option value="yes">Ja (+2,00 €)</option>
+                  <option value="no">Nein</option>
+                </select>
               </div>
             </div>
           </div>
@@ -223,12 +234,18 @@ const CheckoutPage = () => {
               <p style={{ marginBottom: "10px", borderRadius: "15px" }}>
                 Zwischensumme ({cart.length} Artikel) : {subTotal.toFixed(2)} €
               </p>
-              <p style={{ marginBottom: "25px", borderRadius: "15px" }}>
-                Lieferung: Frei
+              <p style={{ marginBottom: "10px", borderRadius: "15px" }}>
+                Versandkosten: 0 €
               </p>
-              <h3 style={{ borderRadius: "25px", fontSize: "20px" }}>
+              <p
+                style={{
+                  marginBottom: "10px",
+                  borderRadius: "25px",
+                  fontSize: "20px",
+                }}
+              >
                 Rabatt: {isDiscountApplied ? discount.toFixed(2) : "0"} €
-              </h3>
+              </p>
               <h3 style={{ borderRadius: "25px", fontSize: "20px" }}>
                 Total: {total.toFixed(2)} €
               </h3>
