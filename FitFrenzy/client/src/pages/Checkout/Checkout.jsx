@@ -22,6 +22,8 @@ const CheckoutPage = () => {
   const discount = calculateDiscount(subTotal);
   const total = calculateTotal();
 
+  const [wrappingPaperCostShown, setWrappingPaperCostShown] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -54,8 +56,10 @@ const CheckoutPage = () => {
   const selectWrappingPaper = (e) => {
     if (e.target.value === "yes") {
       setIsWrappingPaperApplied(true);
+      setWrappingPaperCostShown(true);
     } else {
       setIsWrappingPaperApplied(false);
+      setWrappingPaperCostShown(false);
     }
   };
 
@@ -251,6 +255,17 @@ const CheckoutPage = () => {
               >
                 Rabatt: {isDiscountApplied ? discount.toFixed(2) : "0"} €
               </p>
+              {wrappingPaperCostShown ? (
+                <p
+                  style={{
+                    marginBottom: "10px",
+
+                    fontSize: "20px",
+                  }}
+                >
+                  Geschenkpapier: 2,00 €
+                </p>
+              ) : null}
               <h3 style={{ borderRadius: "25px", fontSize: "20px" }}>
                 Total: {total.toFixed(2)} €
               </h3>

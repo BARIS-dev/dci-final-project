@@ -53,6 +53,11 @@ function Articles() {
     };
     fetchProducts();
   }, []);
+
+  const salePrice = (price, discount) => {
+    return (price * (100 - discount)) / 100;
+  };
+
   return (
     <section className="section-container">
       <div className="card-container">
@@ -68,7 +73,18 @@ function Articles() {
                 <Link to={`/product/${product._id}`}>
                   <h3 className="card-title">{product.name}</h3>
                 </Link>
-                <p className="card-price">Price: ${product.price}</p>
+                <p
+                  className={`card-price ${
+                    product.discount ? "cross-out" : ""
+                  } `}
+                >
+                  Price: ${product.price}
+                </p>
+                {product.discount > 0 ? (
+                  <p className="sale-price">
+                    {salePrice(product.price, product.discount).toFixed(2)} €
+                  </p>
+                ) : null}
                 <section className="card-reviews">
                   <AiFillStar className="ratings-star" />
                   <span className="total-reviews">{product.averageRating}</span>

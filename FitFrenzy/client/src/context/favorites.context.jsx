@@ -13,6 +13,7 @@ export const FavoritesContextProvider = ({ children }) => {
       name: item.name,
       image: item.image,
       price: item.price,
+      sale: item.sale,
     };
 
     if (!favorites) {

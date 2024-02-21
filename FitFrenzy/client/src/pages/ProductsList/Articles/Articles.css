@@ -24,6 +24,12 @@
   border-radius: 15px;
 }
 
+.card-details {
+  .sale-price {
+    color: red;
+  }
+}
+
 .card-title {
   margin-bottom: 1rem;
 }
@@ -45,6 +51,10 @@
 .card-price {
   display: flex;
   justify-content: space-around;
+}
+
+.cross-out {
+  text-decoration: line-through;
 }
 
 .pagination {
