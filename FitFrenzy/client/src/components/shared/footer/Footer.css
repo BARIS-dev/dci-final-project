@@ -12,21 +12,24 @@ footer {
   align-items: center;
   flex-direction: column;
   .floating-chat-button {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
+    position: fixed;
+    bottom: 7rem;
+    right: 4rem;
     background-color: var(--secondary);
     color: var(--accent);
     padding: 1.4rem;
     border-radius: 50%;
     display: flex;
     cursor: pointer;
+    border: 1px solid var(--accent);
+
+    z-index: 100;
   }
   .chat-div {
     display: hidden;
-    position: absolute;
-    bottom: 1rem;
-    right: 7rem;
+    position: fixed;
+    bottom: 6rem;
+    right: 8rem;
     z-index: 100;
   }
   .footer-divider {
