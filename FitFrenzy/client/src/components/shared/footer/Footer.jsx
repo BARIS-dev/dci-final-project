@@ -8,6 +8,7 @@ import {
   FaXTwitter,
   FaFacebook,
   FaYoutube,
+  FaRegMessage,
 } from "react-icons/fa6";
 import Navbarchat from "../../chat/Navbarchat/NavbarChat.jsx";
 
@@ -35,8 +36,15 @@ function Footer() {
           <FaCcMastercard />
         </div>
       </div>
-      <a className="floating-chat-button">Chat</a>
-      <div className="chat-div">
+      <a
+        onClick={() => {
+          document.querySelector(".chat-div").classList.toggle("hidden");
+        }}
+        className="floating-chat-button"
+      >
+        <FaRegMessage />
+      </a>
+      <div className="chat-div hidden">
         <Navbarchat />
       </div>
     </footer>
