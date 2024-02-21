@@ -72,8 +72,24 @@ a {
             align-items: center;
             margin-bottom: 0.5em;
 
+            .name-block {
+              display: flex;
+              align-items: center;
+              gap: 0.5em;
+            }
+
             .product-name {
               font-size: 1.15em;
+            }
+            .sale-text {
+              align-self: center;
+              margin-left: 0.25em;
+              background: tomato;
+              padding: 0.35em;
+              font-size: 0.75em;
+              border-radius: 0.5em;
+              color: white;
+              font-weight: normal;
             }
 
             .remove-btn {
@@ -112,6 +128,10 @@ a {
             .product-price {
               font-size: 1.15em;
               font-weight: bold;
+            }
+
+            .sale-price {
+              color: red;
             }
 
             .quantity-input {

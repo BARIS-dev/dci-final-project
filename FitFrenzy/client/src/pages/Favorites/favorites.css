@@ -51,6 +51,24 @@
           h5 {
             margin-bottom: 1em;
           }
+
+          .price-row {
+            display: flex;
+            gap: 0.5em;
+            align-items: center;
+            .sale-price {
+              color: red;
+            }
+
+            .sale-text {
+              margin-left: 0.25em;
+              background: tomato;
+              padding: 0.25em;
+              font-size: 0.85em;
+              border-radius: 0.5em;
+              color: white;
+            }
+          }
         }
 
         .remove-btn {

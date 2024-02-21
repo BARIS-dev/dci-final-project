@@ -92,9 +92,12 @@ function Cart() {
 
                       <div className="cart-item-details">
                         <div className="remove-btn-row">
-                          <Link to={`/product/${item.id}`}>
-                            <p className="product-name">{item.name}</p>
-                          </Link>
+                          <div className="name-block">
+                            <Link to={`/product/${item.id}`}>
+                              <p className="product-name">{item.name} </p>
+                            </Link>
+                            {item.sale ? <p className="sale-text">SALE</p> : ""}
+                          </div>
                           <button
                             title="Delete this product"
                             className="remove-btn"
@@ -127,7 +130,13 @@ function Cart() {
                           <p>{item.color}</p>
                         </div>
                         <div className="price-row">
-                          <p className="product-price">{item.price} €</p>
+                          <p
+                            className={`product-price ${
+                              item.sale ? "sale-price" : ""
+                            }`}
+                          >
+                            {item.price} €{" "}
+                          </p>
                           <QuantityInput
                             quantityChangeHandler={(quantity) =>
                               amountHandler(

@@ -38,9 +38,36 @@
         gap: 0.5em;
       }
 
-      .product-price {
-        font-size: 1.5em;
-        font-weight: bold;
+      .price-line {
+        display: flex;
+        align-items: first baseline;
+        gap: 1em;
+
+        .sale-price {
+          color: red;
+          font-weight: bold;
+          font-size: 1.5em;
+        }
+
+        .product-price {
+          font-size: 1.5em;
+          font-weight: bold;
+        }
+
+        .cross-out {
+          text-decoration: line-through;
+          font-weight: normal;
+          font-size: 1.25em;
+        }
+
+        .discount {
+          background-color: var(--accent);
+          color: var(--input-background);
+          border-radius: 1em;
+          padding: 0.25em;
+          align-self: center;
+          font-size: 0.85em;
+        }
       }
 
       .product-description {

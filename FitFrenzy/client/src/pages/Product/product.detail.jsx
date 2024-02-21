@@ -31,11 +31,16 @@ const ProductDetail = () => {
     size: "",
     color: "",
     quantity: 1,
+    sale: false,
   });
 
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
+
+  const salePrice = (price, discount) => {
+    return ((price * (100 - discount)) / 100).toFixed(2);
+  };
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -46,9 +51,16 @@ const ProductDetail = () => {
           //set default values to the chosenProduct
           id: response.data.answer.data._id,
           name: response.data.answer.data.name,
-          price: response.data.answer.data.price,
+          price:
+            response.data.answer.data.discount > 0
+              ? salePrice(
+                  response.data.answer.data.price,
+                  response.data.answer.data.discount
+                )
+              : response.data.answer.data.price,
           image: response.data.answer.data.image,
           quantity: 1,
+          sale: response.data.answer.data.discount > 0 ? true : false,
         });
       } catch (error) {
         console.error("Error fetching product data", error);
@@ -119,7 +131,29 @@ const ProductDetail = () => {
             </div>
           )}
 
-          <p className="product-price">{product.price} €</p>
+          <div className="price-line">
+            {product.discount > 0 ? (
+              <p>
+                {product.discount > 0 ? (
+                  <p className="sale-price">
+                    {salePrice(product.price, product.discount)} €
+                  </p>
+                ) : null}
+              </p>
+            ) : null}
+            <p
+              className={`product-price ${
+                product.discount ? "cross-out" : ""
+              } `}
+            >
+              {product.price} €
+            </p>
+            {product.discount > 0 ? (
+              <div className="discount">
+                <p>{product.discount}%</p>
+              </div>
+            ) : null}
+          </div>
 
           <p className="product-description">{product.description}</p>
 

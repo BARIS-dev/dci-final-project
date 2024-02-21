@@ -34,7 +34,16 @@ function Favorites() {
                   <Link to={`/product/${favorite.id}`}>
                     <h5>{favorite.name}</h5>
                   </Link>
-                  <p>{favorite.price} €</p>
+                  <div className="price-row">
+                    <p className={favorite.sale ? "sale-price" : ""}>
+                      {favorite.price} €{" "}
+                    </p>
+                    {favorite.sale ? (
+                      <span className="sale-text">SALE</span>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
                 <button
                   className="remove-btn"
