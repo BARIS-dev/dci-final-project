@@ -2,7 +2,6 @@
   max-width: 100%;
   padding: 20px;
   border-radius: 5px;
-  background-color: #e8f3ef;
 }
 
 .checkout-form label {
@@ -48,7 +47,6 @@
   margin-top: 20px;
   background-color: #e8f3ef;
   border-radius: 30px;
-  
 }
 
 .submit-button:hover {
@@ -66,12 +64,22 @@
 }
 
 .warenkorb-bestätigen {
-  padding: 20px;
- 
-  border-radius: 0;
-  border: 5px solid #569f88;
-  height: 700px;
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--secondary);
+  border: 2px solid var(--accent);
   overflow-y: auto;
+  overflow-x: hidden;
+
+  img {
+    border-radius: 15px;
+    background-color: white;
+    border: 2px solid var(--accent);
+  }
 }
 
 .actions button {
@@ -109,11 +117,11 @@
 
 .circle-check {
   display: none;
-  color: #569f88;
+  color: var(--accent);
 }
 
 .progress-circle.active {
-  background-color: #569f88;
+  background-color: var(--accent);
 }
 
 .progress-circle.active .circle-check {
@@ -157,6 +165,18 @@
   margin-top: 10px;
   display: flex;
   align-items: center;
+
+  button {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+
+    font-size: 1.3rem;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -175,13 +195,7 @@
   .checkout-form textarea {
     grid-column: span 2;
   }
-  .warenkorb-bestätigen {
-    border-radius: 20px;
-  }
 }
 
 @media screen and (max-width: 767px) {
-  .warenkorb-bestätigen {
-    border-radius: 0;
-  }
 }

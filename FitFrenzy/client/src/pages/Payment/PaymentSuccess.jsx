@@ -3,7 +3,7 @@ import "./Payment.css";
 import { CartContext } from "../../context/cart.context.jsx";
 
 const PaymentSuccess = () => {
-  const { cart, calculateDiscount, calculateTotal } = useContext(CartContext);
+  const { cart, calculateTotal } = useContext(CartContext);
   const total = calculateTotal();
 
   return (

@@ -150,7 +150,7 @@
         .liked {
           background-color: transparent;
           color: var(--accent);
-
+          border: 1px solid var(--accent);
           .heart {
             font-size: 2.5em;
           }

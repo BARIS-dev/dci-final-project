@@ -1,6 +1,7 @@
 import { FaX } from "react-icons/fa6";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import "./PaymentMethods.css";
 
 const Modal = ({ open, children, onClose }) => {
@@ -88,10 +89,12 @@ const PaymentMethods = () => {
     setPaymentMethods(updatedPaymentMethods);
   };
 
+  const navigate = useNavigate();
+
   return (
     <div>
       {paymentMethods.map((method, index) => (
-        <div key={index}>
+        <div className="bank-account-card" key={index}>
           <h2>
             Bankkonto {index + 1} mit den Endziffern: {method.iban.slice(-4)}
           </h2>
@@ -100,10 +103,15 @@ const PaymentMethods = () => {
           <p>IBAN: **** **** **** **{method.iban.slice(-4)}</p>
           <button onClick={() => handleClickOpen(index)}>Ändern</button>
           <button onClick={() => handleDelete(index)}>Löschen</button>
+          <button onClick={() => navigate("/checkout")}>Auswählen</button>
         </div>
       ))}
-
-      <button onClick={handleClickOpen}>Neue Zahlungsmethode hinzufügen</button>
+      <div className="add-back-btn-container">
+        <button onClick={handleClickOpen}>Neu hinzufügen</button>
+        <button onClick={() => navigate("/checkout")}>
+          Zurück zum Checkout
+        </button>
+      </div>
 
       <Modal open={open} onClose={handleClose}>
         <h2>Zahlungsmethode hinzufügen</h2>

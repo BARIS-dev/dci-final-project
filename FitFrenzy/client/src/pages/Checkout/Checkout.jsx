@@ -3,7 +3,7 @@ import "./Checkout.css";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
 import { CartContext } from "../../context/cart.context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
@@ -171,6 +171,9 @@ const CheckoutPage = () => {
             </select>
             <div className="zahlungsart">
               <label>Zahlungsart:</label>
+              <Link to={"/payment-methods"}>
+                <button> Neue Bankverbindung hinzufügen </button>
+              </Link>
               {["kreditkarte", "paypal", "bank_überweisung", "google_pay"].map(
                 (method) => (
                   <div

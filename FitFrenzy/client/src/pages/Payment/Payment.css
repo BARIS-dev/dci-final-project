@@ -2,10 +2,27 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
+  height: 80vh;
 }
 
 .payment-success {
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
+
+  a {
+    color: var(--secondary);
+    background-color: var(--accent);
+    padding: 1rem 2rem;
+    margin: 2rem auto;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: var(--secondary);
+      color: var(--accent);
+    }
+  }
 }

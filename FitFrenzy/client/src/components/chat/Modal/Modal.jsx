@@ -10,7 +10,7 @@ const Modal = ({ open, onClose }) => {
       <div className="chat-container">
         <div className="chat-header">
           <div className="chat-header-left">
-            <h2>Hallo!</h2>
+            <span className="chat-greet">Hallo</span>
             <p>
               Kundensupport: <span className="on-off-span">online</span>
             </p>

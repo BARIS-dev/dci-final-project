@@ -9,6 +9,7 @@ import {
   FaFacebook,
   FaYoutube,
 } from "react-icons/fa6";
+import Navbarchat from "../../chat/Navbarchat/NavbarChat.jsx";
 
 import "./Footer.css";
 
@@ -33,6 +34,10 @@ function Footer() {
           <FaCcVisa />
           <FaCcMastercard />
         </div>
+      </div>
+      <a className="floating-chat-button">Chat</a>
+      <div className="chat-div">
+        <Navbarchat />
       </div>
     </footer>
   );

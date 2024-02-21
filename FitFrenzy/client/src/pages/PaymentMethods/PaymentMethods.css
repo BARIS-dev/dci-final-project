@@ -1,8 +1,15 @@
 h2 {
   text-align: center;
-  margin: 2rem 0;
+  margin: 0;
 }
-
+.bank-account-card {
+  background-color: var(--secondary);
+  padding: 1rem;
+  max-width: 500px;
+  margin: 1rem auto;
+  border-radius: 15px;
+  border: 2px solid var(--accent);
+}
 .payments-container {
   background-color: rgb(231, 231, 231);
   width: 99%;
@@ -96,6 +103,33 @@ h2 {
   cursor: pointer;
   &:hover {
     background-color: #ff9090;
+  }
+}
+button {
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: var(--accent);
+  color: var(--background);
+  padding: 0.3rem 0.5rem;
+  border-radius: 25px;
+  border: none;
+  margin: 0.1rem;
+  &:hover {
+    background-color: var(--primary);
+  }
+}
+
+.add-back-btn-container {
+  margin: 1rem auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    background-color: var(--primary);
+    margin: 1rem auto;
+    padding: 0.2rem 0.4rem;
   }
 }
 

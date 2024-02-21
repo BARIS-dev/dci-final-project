@@ -11,6 +11,10 @@ footer {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  .chat-div {
+    display: hidden;
+  }
   .footer-divider {
     width: 80%;
     height: 1px;
